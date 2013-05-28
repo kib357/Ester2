@@ -1,0 +1,241 @@
+﻿using System;
+using System.IO;
+using System.Net;
+using System.Runtime.Serialization.Json;
+using System.Text;
+using System.Threading.Tasks;
+using System.Web;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
+using Ester.Model;
+using Ester.Model.Enums;
+using Ester.Model.Interfaces;
+using Ester.Model.Services;
+using Microsoft.Practices.Prism.Commands;
+using Microsoft.Practices.Prism.Events;
+using Microsoft.Practices.Prism.ViewModel;
+using Microsoft.Practices.ServiceLocation;
+using Microsoft.Practices.Unity;
+using Nini.Config;
+
+namespace Ester.Modules.Login.ViewModel
+{
+    public delegate void SuccessLoginEventHandler();
+    public delegate void FailedLoginEventHandler();
+
+    public class LoginViewModel : NotificationObject
+    {
+        #region Fields
+
+        private readonly IEventAggregator _eventAggregator;
+        private readonly IDataTransport _dataTransport;
+        private readonly IServerInfo _serverInfo;
+        private readonly ISessionInfo _sessionInfo;
+        
+        private string _status;
+        private string _userName;
+        private string _language;
+        private bool _isViewEnabled = true;
+        private Visibility _loaderVisible = Visibility.Collapsed;
+
+        #endregion
+
+        #region Properties and Events
+
+        public event SuccessLoginEventHandler SuccessLogin;
+        public event FailedLoginEventHandler FailedLogin;
+
+        public DelegateCommand<object> LoginCommand { get; private set; }
+        public DelegateCommand<object> LoginAdUserCommand { get; private set; }
+
+        public string Status
+        {
+            get { return _status; }
+            set
+            {
+                if (_status != value)
+                {
+                    _status = value;
+                    RaisePropertyChanged("Status");
+                }
+            }
+        }
+
+        public string UserName
+        {
+            get { return _userName; }
+            set
+            {
+                if (_userName != value)
+                {
+                    _userName = value;
+                    RaisePropertyChanged("UserName");
+                }
+            }
+        }
+
+        public string Language
+        {
+            get { return _language; }
+            set
+            {
+                if (_language != value)
+                {
+                    _language = value;
+                    RaisePropertyChanged("Language");
+                }
+            }
+        }
+
+        public bool IsViewEnabled
+        {
+            get { return _isViewEnabled; }
+            set
+            {
+                if (_isViewEnabled != value)
+                {
+                    _isViewEnabled = value;
+                    RaisePropertyChanged("IsViewEnabled");
+                }
+            }
+        }
+        
+        public Visibility LoaderVisible
+        {
+            get { return _loaderVisible; }
+            set
+            {
+                if (_loaderVisible != value)
+                {
+                    _loaderVisible = value;
+                    RaisePropertyChanged("LoaderVisible");
+                }
+            }
+        }
+
+        public string CurrentUser
+        {
+            get
+            {
+                var windowsIdentity = System.Security.Principal.WindowsIdentity.GetCurrent();
+                if (windowsIdentity != null)
+                    return "войти как " + windowsIdentity.Name;
+                return "";
+            }
+        }
+        
+        #endregion
+
+        public LoginViewModel(IEventAggregator eventAggregator, IDataTransport dataTransport, IServerInfo serverInfo, ISessionInfo sessionInfo)
+        { 
+            _sessionInfo = sessionInfo;
+            _eventAggregator = eventAggregator;
+            _dataTransport = dataTransport;
+            _serverInfo = serverInfo;
+
+            LoginCommand = new DelegateCommand<object>(Login);
+            LoginAdUserCommand = new DelegateCommand<object>(LoginAdUser);
+
+            Language = InputLanguageManager.Current.CurrentInputLanguage.TwoLetterISOLanguageName.ToUpper();
+            InputLanguageManager.Current.InputLanguageChanged += InputLanguageChanged;
+        }
+
+        private void InputLanguageChanged(object sender, InputLanguageEventArgs e)
+        {
+            Language = e.NewLanguage.TwoLetterISOLanguageName.ToUpper();
+        }                
+
+        private void Login(object obj)
+        {
+            var pBox = (PasswordBox) obj;
+            string password = pBox.Password;
+            if (string.IsNullOrWhiteSpace(password) || string.IsNullOrWhiteSpace(UserName))
+            {
+                if (FailedLogin != null)
+                    FailedLogin();
+                return;
+            }
+
+            LoaderVisible = Visibility.Visible;
+            IsViewEnabled = false;
+            
+            ServicePointManager.ServerCertificateValidationCallback = (a, b, c, d) => true;
+
+            string requestString = string.Format(
+                "/{0}?user={1}&pass={2}",
+                _serverInfo.CommonLoginQuery,
+                HttpUtility.UrlEncode(Encoding.UTF8.GetBytes(UserName)),
+                HttpUtility.UrlEncode(Encoding.UTF8.GetBytes(password)));
+
+            LoginRequest(requestString);
+
+            IsViewEnabled = true;
+            LoaderVisible = Visibility.Collapsed;
+        }
+
+        private void LoginRequest(string requestString)
+        {
+            Status = string.Empty;
+
+            try
+            {
+                //apiKey = "bda11d91-7ade-4da1-855d-24adfe39d174";        
+                
+<<<<<<< HEAD
+                var apiKey =  _dataTransport.GetRequest<string>(requestString, false, 3000);
+=======
+                var apiKey = await _dataTransport.GetRequestAsync<string>(requestString, false, 30000);
+>>>>>>> Schedule
+
+                if (apiKey != string.Empty)
+                {
+                    if (apiKey == "0")
+                    {
+                        if (FailedLogin != null)
+                            FailedLogin();
+                        _sessionInfo.AuthState = AuthStates.NonAuthentiticated;
+                    }
+                    Guid key;
+                    if (Guid.TryParse(apiKey, out key))
+                    {
+                        if (SuccessLogin != null)
+                            SuccessLogin();
+
+                        _sessionInfo.ApiKey = key;
+                        _sessionInfo.AuthState = AuthStates.Authentiticated;
+                    }
+                }
+                else
+                {
+                    _sessionInfo.AuthState = AuthStates.NonAuthentiticated;
+                    Status = "Произошла ошибка на сервере. Попробуйте позднее или обратитесь к администратору.";
+                }
+            }
+            catch (BadRequestException)
+            {
+                Status = "Не верный логин или пароль";
+            }
+            catch (Exception)
+            {
+                Status = "Не удалось установить связь с сервером. Попробуйте позднее или обратитесь к администратору.";
+                _sessionInfo.AuthState = AuthStates.NonAuthentiticated;
+            }
+        }
+
+        private void LoginAdUser(object obj)
+        {
+            ServicePointManager.ServerCertificateValidationCallback = (a, b, c, d) => true;
+            string requestString = "/" + _serverInfo.CommonLoginQuery + "/" + "AdAuth";
+
+            LoaderVisible = Visibility.Visible;
+            IsViewEnabled = false;
+
+            LoginRequest(requestString);
+
+            IsViewEnabled = true;
+            LoaderVisible = Visibility.Collapsed;
+        }
+
+    }
+}

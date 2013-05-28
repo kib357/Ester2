@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="windows-1251" ?>
+<ErrorSensors>
+  <ErrorSensor Address="600.BV1" Description="Панике!!!!" ErrorValue="0" Priority="1" />
+  <ErrorSensor Address="1700.AV103" Description="Очень жарко в холле" MaxValue="30" Priority="1" />
+  <ErrorSensor Address="1700.AV108" Description="Очень жарко в кабинете 110" MaxValue="30" Priority="1" />
+</ErrorSensors>

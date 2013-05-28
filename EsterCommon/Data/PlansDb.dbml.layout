@@ -1,0 +1,207 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 16.875, 14.75" name="PlansDb">
+  <DataContextMoniker Name="/PlansDc" />
+  <nestedChildShapes>
+    <classShape Id="e0c781c8-9d0f-4eb5-a615-da0126523950" absoluteBounds="0.75, 7.75, 2, 1.3862939453124996">
+      <DataClassMoniker Name="/PlansDc/Dictionary" />
+      <nestedChildShapes>
+        <elementListCompartment Id="c7afbc81-efa2-4416-bf1b-cd9ad341ca1b" absoluteBounds="0.765, 8.21, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="a61b2922-da60-44b6-80c5-e7b670c78293" absoluteBounds="11, 3.5, 2, 1.7708968098958329">
+      <DataClassMoniker Name="/PlansDc/History" />
+      <nestedChildShapes>
+        <elementListCompartment Id="b46a2571-c401-49cf-af1c-d66e85fe0179" absoluteBounds="11.015, 3.96, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="179fdf4b-c2ed-44fc-915c-7a042197df8e" absoluteBounds="3.5, 7.5, 2, 2.5401025390624987">
+      <DataClassMoniker Name="/PlansDc/Log" />
+      <nestedChildShapes>
+        <elementListCompartment Id="f2efa139-4467-490b-ad63-80d4711d48a6" absoluteBounds="3.515, 7.9600000000000009, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="6717e305-1cb1-4c69-b212-0d1cd2db49fd" absoluteBounds="11.875, 6.125, 2, 1.7708968098958327">
+      <DataClassMoniker Name="/PlansDc/Schedule" />
+      <nestedChildShapes>
+        <elementListCompartment Id="f13d5edc-8cb8-461b-a33c-ad434969cdf4" absoluteBounds="11.89, 6.585, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="8dccfe83-4894-4b56-8684-32c08a1259d0" absoluteBounds="14.625, 6.125, 2, 1.7708968098958327">
+      <DataClassMoniker Name="/PlansDc/SchedulesContent" />
+      <nestedChildShapes>
+        <elementListCompartment Id="92edc91a-097a-4b20-a1c9-f0d4ff87ae81" absoluteBounds="14.64, 6.585, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="f2f50bc0-09a0-464a-b239-989ea1655a4c" absoluteBounds="14.625, 9.375, 2, 1.1939925130208344">
+      <DataClassMoniker Name="/PlansDc/SchedulesControlledProperty" />
+      <nestedChildShapes>
+        <elementListCompartment Id="901eb30b-683e-44ed-85b2-4ec8849e64bb" absoluteBounds="14.64, 9.835, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="b79988a2-a976-4580-b045-5d2cc91e9bd0" absoluteBounds="11.875, 11.25, 2, 1.1939925130208344">
+      <DataClassMoniker Name="/PlansDc/Unit" />
+      <nestedChildShapes>
+        <elementListCompartment Id="d8b20172-7540-42db-8f21-be7bad056c26" absoluteBounds="11.89, 11.71, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(13.875 : 7.01044840494792); (14.625 : 7.01044840494792)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/PlansDc/Schedule/Schedule_SchedulesContent" />
+      <nodes>
+        <classShapeMoniker Id="6717e305-1cb1-4c69-b212-0d1cd2db49fd" />
+        <classShapeMoniker Id="8dccfe83-4894-4b56-8684-32c08a1259d0" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(13.875 : 7.89453358158053); (14.2513632283153 : 8.27089680989583); (15.625 : 8.27089680989583); (15.625 : 9.375)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/PlansDc/Schedule/Schedule_SchedulesControlledProperty" />
+      <nodes>
+        <classShapeMoniker Id="6717e305-1cb1-4c69-b212-0d1cd2db49fd" />
+        <classShapeMoniker Id="f2f50bc0-09a0-464a-b239-989ea1655a4c" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="29c78895-af1d-4268-b9f2-b9a20e428e18" absoluteBounds="6.25, 7, 2, 1.7708968098958327">
+      <DataClassMoniker Name="/PlansDc/User" />
+      <nestedChildShapes>
+        <elementListCompartment Id="7316ea64-6ac8-4098-a10a-632a06964cd7" absoluteBounds="6.265, 7.46, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="55f2c6ac-6e3c-4797-8c17-19d6b146ed78" absoluteBounds="6.25, 5.125, 2, 1.1939925130208344">
+      <DataClassMoniker Name="/PlansDc/UserRole" />
+      <nestedChildShapes>
+        <elementListCompartment Id="19b50013-4038-4784-b5bd-043336702f41" absoluteBounds="6.265, 5.585, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="89361b7f-e53a-4460-bf7c-b7830a8ad9c2" absoluteBounds="9, 6.125, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/PlansDc/UserPlanObjectType" />
+      <nestedChildShapes>
+        <elementListCompartment Id="aa4a650d-e3dd-4fa9-88be-0ee8c64a9149" absoluteBounds="9.015, 6.585, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(7.25 : 6.31899251302083); (7.25 : 7)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/PlansDc/UserRole/UserRole_User" />
+      <nodes>
+        <classShapeMoniker Id="55f2c6ac-6e3c-4797-8c17-19d6b146ed78" />
+        <classShapeMoniker Id="29c78895-af1d-4268-b9f2-b9a20e428e18" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(8.25 : 5.6249995); (9.96875 : 5.6249995); (9.96875 : 6.125)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/PlansDc/UserRole/UserRole_UserPlanObjectType" />
+      <nodes>
+        <classShapeMoniker Id="55f2c6ac-6e3c-4797-8c17-19d6b146ed78" />
+        <classShapeMoniker Id="89361b7f-e53a-4460-bf7c-b7830a8ad9c2" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(8.25 : 7.35179768880208); (8.44791666666667 : 7.35179768880208 : JumpStart); (8.61458333333333 : 7.35179768880208 : JumpEnd); (9 : 7.35179768880208)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/PlansDc/User/User_UserPlanObjectType" />
+      <nodes>
+        <classShapeMoniker Id="29c78895-af1d-4268-b9f2-b9a20e428e18" />
+        <classShapeMoniker Id="89361b7f-e53a-4460-bf7c-b7830a8ad9c2" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="dadf61fc-c61c-4d1f-8b4a-de20033c4ee2" absoluteBounds="2.875, 5.625, 2, 1.1939925130208333">
+      <DataClassMoniker Name="/PlansDc/PropertyAlarmLevel" />
+      <nestedChildShapes>
+        <elementListCompartment Id="c5a6f2aa-335d-465a-a4e0-d0b69194964a" absoluteBounds="2.8899999999999997, 6.085, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="d9b66fb9-a86d-4250-b5f4-8bce7d5b4b04" absoluteBounds="3.625, 10.625, 2, 1.7708968098958331">
+      <DataClassMoniker Name="/PlansDc/PropertyAlarm" />
+      <nestedChildShapes>
+        <elementListCompartment Id="2fdfe28a-2b82-4ab8-936f-f5d6ddedd683" absoluteBounds="3.64, 11.085, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(4.875 : 6.22199625651042); (5.578125 : 6.22199625651042); (5.578125 : 10.625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/PlansDc/PropertyAlarmLevel/PropertyAlarmLevel_PropertyAlarm" />
+      <nodes>
+        <classShapeMoniker Id="dadf61fc-c61c-4d1f-8b4a-de20033c4ee2" />
+        <classShapeMoniker Id="d9b66fb9-a86d-4250-b5f4-8bce7d5b4b04" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="5526da55-5e43-4a42-9d76-19cd072bab7d" absoluteBounds="6.75, 10.75, 2, 1.9631982421875">
+      <DataClassMoniker Name="/PlansDc/PlanObjectType" />
+      <nestedChildShapes>
+        <elementListCompartment Id="af8c2a67-1e80-460e-b99b-e1c216f795d6" absoluteBounds="6.765, 11.21, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(8.53125 : 10.75); (8.53125 : 6.65949625651042); (9 : 6.65949625651042)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/PlansDc/PlanObjectType/PlanObjectType_UserPlanObjectType" />
+      <nodes>
+        <classShapeMoniker Id="5526da55-5e43-4a42-9d76-19cd072bab7d" />
+        <classShapeMoniker Id="89361b7f-e53a-4460-bf7c-b7830a8ad9c2" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="2c384703-ca47-4d88-bb18-3eea20d08692" absoluteBounds="9.5, 8.5, 2, 1.3862939453125">
+      <DataClassMoniker Name="/PlansDc/PropertyType" />
+      <nestedChildShapes>
+        <elementListCompartment Id="9a82693b-538f-45b7-9fb5-46aa46fe14f6" absoluteBounds="9.515, 8.96, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(8.6718775 : 10.75); (8.6718775 : 9.35984537760417); (9.5 : 9.35984537760417)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/PlansDc/PlanObjectType/PlanObjectType_PropertyType" />
+      <nodes>
+        <classShapeMoniker Id="5526da55-5e43-4a42-9d76-19cd072bab7d" />
+        <classShapeMoniker Id="2c384703-ca47-4d88-bb18-3eea20d08692" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="d2ea4252-0050-49ee-8df8-f5052c428cbb" absoluteBounds="12, 8.875, 2, 1.9631982421875">
+      <DataClassMoniker Name="/PlansDc/Property" />
+      <nestedChildShapes>
+        <elementListCompartment Id="a16a7cc5-c8c5-408c-b023-f390e1a7cb76" absoluteBounds="12.015, 9.335, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(14 : 9.97199625651042); (14.625 : 9.97199625651042)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/PlansDc/Property/Property_SchedulesControlledProperty" />
+      <nodes>
+        <classShapeMoniker Id="d2ea4252-0050-49ee-8df8-f5052c428cbb" />
+        <classShapeMoniker Id="f2f50bc0-09a0-464a-b239-989ea1655a4c" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(12 : 10.3325487695313); (8.75521083333333 : 10.3325487695312 : JumpStart); (8.44791666666667 : 10.3325487695313 : JumpEnd); (5.6015625 : 10.3325487695313); (5.6015625 : 10.625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/PlansDc/Property/Property_PropertyAlarm" />
+      <nodes>
+        <classShapeMoniker Id="d2ea4252-0050-49ee-8df8-f5052c428cbb" />
+        <classShapeMoniker Id="d9b66fb9-a86d-4250-b5f4-8bce7d5b4b04" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(11.5 : 9.38064697265625); (12 : 9.38064697265625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/PlansDc/PropertyType/PropertyType_Property" />
+      <nodes>
+        <classShapeMoniker Id="2c384703-ca47-4d88-bb18-3eea20d08692" />
+        <classShapeMoniker Id="d2ea4252-0050-49ee-8df8-f5052c428cbb" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(13.46875 : 11.25); (13.46875 : 10.8381982421875)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/PlansDc/Unit/Unit_Property" />
+      <nodes>
+        <classShapeMoniker Id="b79988a2-a976-4580-b045-5d2cc91e9bd0" />
+        <classShapeMoniker Id="d2ea4252-0050-49ee-8df8-f5052c428cbb" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="823c96b1-d23b-4ffa-80ae-6b8a06c4ee7c" absoluteBounds="9.25, 10.875, 2, 3.1170068359375">
+      <DataClassMoniker Name="/PlansDc/PlanObject" />
+      <nestedChildShapes>
+        <elementListCompartment Id="87fbc571-fd93-4dc8-800b-d969853a9cd7" absoluteBounds="9.265, 11.335, 1.9700000000000002, 2.5570068359375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(11.25 : 13.2492496744792); (13.96875 : 13.2492496744792); (13.96875 : 10.8381982421875)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/PlansDc/PlanObject/PlanObject_Property" />
+      <nodes>
+        <classShapeMoniker Id="823c96b1-d23b-4ffa-80ae-6b8a06c4ee7c" />
+        <classShapeMoniker Id="d2ea4252-0050-49ee-8df8-f5052c428cbb" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(9.95923076923077 : 13.9920068359375); (9.95923076923077 : 14.2420068359375); (10.5546153846154 : 14.2420068359375); (10.5546153846154 : 13.9920068359375)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/PlansDc/PlanObject/PlanObject_PlanObject" />
+      <nodes>
+        <classShapeMoniker Id="823c96b1-d23b-4ffa-80ae-6b8a06c4ee7c" />
+        <classShapeMoniker Id="823c96b1-d23b-4ffa-80ae-6b8a06c4ee7c" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(8.75 : 11.7940991210937); (9.25 : 11.7940991210937)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/PlansDc/PlanObjectType/PlanObjectType_PlanObject" />
+      <nodes>
+        <classShapeMoniker Id="5526da55-5e43-4a42-9d76-19cd072bab7d" />
+        <classShapeMoniker Id="823c96b1-d23b-4ffa-80ae-6b8a06c4ee7c" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

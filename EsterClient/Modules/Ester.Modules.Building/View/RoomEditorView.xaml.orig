@@ -1,0 +1,159 @@
+﻿<UserControl x:Class="Ester.Modules.Building.View.RoomEditorView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:System="clr-namespace:System;assembly=mscorlib"
+             xmlns:Enums="clr-namespace:Ester.Model.Enums;assembly=Ester.Model"
+             xmlns:local="clr-namespace:Ester.Modules.Context.View;assembly=Ester.Modules.Context"
+             xmlns:ViewModel="clr-namespace:Ester.Modules.Building.ViewModel"
+             xmlns:Converters="clr-namespace:Ester.Model.Converters;assembly=Ester.Model"
+             xmlns:View="clr-namespace:Ester.Modules.Building.View" mc:Ignorable="d">
+	<UserControl.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source="/Ester.Model;component/Styles/Button.xaml"/>
+				<ResourceDictionary Source="/Ester.Model;component/Styles/ToggleButton.xaml"/>
+				<ResourceDictionary Source="/Ester.Model;component/Styles/PushButton.xaml"/>
+			</ResourceDictionary.MergedDictionaries>
+			<ObjectDataProvider MethodName="GetValues"
+                        ObjectType="{x:Type System:Enum}"
+                        x:Key="AccessModeValues">
+				<ObjectDataProvider.MethodParameters>
+					<x:Type TypeName="Enums:AccessModes" />
+				</ObjectDataProvider.MethodParameters>
+			</ObjectDataProvider>
+			<local:EnumDescriptionConverter x:Key="EnumDescriptionConverter" />
+			<ViewModel:NullableToVisibilityConverter x:Key="NullToVisibilityConverter" />
+			<ViewModel:VentilationLevelConverter x:Key="Ventilationconverter" />
+			<ViewModel:ACLevelConverter x:Key="ACConverter" />
+			<ViewModel:LightLevelConverter x:Key="LightLevelConverter" />
+			<ViewModel:TemperatureConverter x:Key="TemperatureConverter" />
+			<Converters:DoubleToBrushConverter x:Key="TempSetConverter" MinimumValue="15" MaximumValue="28" />
+		</ResourceDictionary>
+	</UserControl.Resources>
+	<ContentControl Width="400" VerticalAlignment="Stretch">
+		<Grid Margin="12,40,12,0">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="*"/>
+				<RowDefinition Height="42"/>
+			</Grid.RowDefinitions>
+			<StackPanel Orientation="Vertical" Grid.Row="0">
+				<StackPanel Orientation="Vertical" Visibility="{Binding Path=SelectedRoom.Title, Converter={StaticResource NullToVisibilityConverter}}">
+					<TextBlock Foreground="#888888" Text="Название"/>
+					<TextBox x:Name="Title" Text="{Binding Path=SelectedRoom.Title, Mode=TwoWay}" TextWrapping="Wrap" AcceptsReturn="True" MaxHeight="88" />
+				</StackPanel>
+
+				<StackPanel Visibility="{Binding Path=SelectedRoom.Description, Converter={StaticResource NullToVisibilityConverter}}" Margin="0,20,0,0">
+					<TextBlock Foreground="#888888" Text="Описание"/>
+					<TextBox x:Name="Description" Margin="0 0 0 5" Text="{Binding Path=SelectedRoom.Description, Mode=TwoWay}"
+					 TextWrapping="Wrap" AcceptsReturn="True" MaxHeight="88"/>
+				</StackPanel>
+				
+				<StackPanel  Margin="0,20,0,0">
+					<TextBlock Foreground="#888888" Text="Режим доступа" Margin="0,6,0,4"/>
+					<ComboBox x:Name="AccessModeComboBox" ItemsSource="{Binding Source={StaticResource AccessModeValues}}" SelectedItem="{Binding Path=SelectedRoom.AccessMode}">
+						<ComboBox.ItemTemplate>
+							<DataTemplate>
+								<TextBlock Text="{Binding Converter={StaticResource EnumDescriptionConverter}}" />
+							</DataTemplate>
+						</ComboBox.ItemTemplate>
+					</ComboBox>
+				</StackPanel>
+
+				<StackPanel Name="TemperaturePanel" Margin="0,20,0,0" Visibility="{Binding Path=SelectedRoom.Temperature, Converter={StaticResource NullToVisibilityConverter}}">
+					<TextBlock Foreground="#888888" Text="Текущая температура" />
+					<TextBlock Name="TemperatureTextBlock" Text="{Binding Path=SelectedRoom.Temperature, Mode=OneWay, StringFormat={}{0:0.0}}" FontSize="42" 
+                       Foreground="#787878" LineHeight="42" LineStackingStrategy="BlockLineHeight" Margin="0,5" />
+				</StackPanel>
+
+				<StackPanel Name="SettedTempLevelPanel" Orientation="Vertical" Margin="0,20,0,0"
+					Visibility="{Binding Path=SelectedRoom.SettedTemperatureAddress, Converter={StaticResource NullToVisibilityConverter}}"
+				>
+					<TextBlock Foreground="#888888" Text="Отопление" />
+						<Slider Minimum="15" Maximum="30" 
+							Value="{Binding Path=SelectedRoom.SettedTemperature, Mode=TwoWay}" Name="TempSetSlider" TickFrequency="0.5" IsSnapToTickEnabled="True"
+						 />
+						<TextBlock FontSize="36"  LineHeight="40" LineStackingStrategy="BlockLineHeight" Name="SettedTempTextBlock" TextAlignment="Center" 
+							Text="{Binding Path=SelectedRoom.SettedTemperature, Mode=OneWay, Converter={StaticResource TemperatureConverter}}" 
+							Foreground="{Binding Path=SelectedRoom.SettedTemperature, Converter={StaticResource TempSetConverter}}"
+						/>
+						<TextBlock>Расписание</TextBlock>
+						<ComboBox ItemsSource="{Binding HeatSchedules}" SelectedItem="{Binding Path=SelectedRoom.SettedTemperatureSchedule, Mode=TwoWay}" />
+						
+						<ToggleButton Style="{DynamicResource ResourceKey=HandToggleButtonStyle}" IsChecked="{Binding Path=SelectedRoom.SettedTemperatureBacstatAllowed}" IsThreeState="True"
+							Visibility="{Binding Path=SelectedRoom.SettedTemperatureBacstatAllowedAddress, Converter={StaticResource NullToVisibilityConverter}}"
+						/>
+				</StackPanel>
+
+				
+				<StackPanel Name="VentLevelPanel" Margin="0,20,0,0" 
+					Visibility="{Binding Path=SelectedRoom.VentilationLevelAddress, Converter={StaticResource NullToVisibilityConverter}}"
+				>
+					<TextBlock Foreground="#888888" Text="Вентиляция" />
+					<Slider Value="{Binding Path=SelectedRoom.VentilationLevel}" Minimum="-3" Maximum="3" TickFrequency="1" IsSnapToTickEnabled="True" />
+					<TextBlock Width="100" FontSize="36" LineHeight="40" LineStackingStrategy="BlockLineHeight" HorizontalAlignment="Right"
+                                Name="SettedVentTextBlock" TextAlignment="Center" Text="{Binding Path=SelectedRoom.VentilationLevel, Mode=TwoWay, NotifyOnTargetUpdated=True, Converter={StaticResource Ventilationconverter}}"/>
+					<ToggleButton Style="{DynamicResource ResourceKey=HandToggleButtonStyle}" IsChecked="{Binding Path=SelectedRoom.VentilationBacstatAllowed}" IsThreeState="True"
+						Visibility="{Binding Path=SelectedRoom.VentilationBacstatAllowedAddress, Converter={StaticResource NullToVisibilityConverter}}"
+					/>
+					<TextBlock Text="Расписание"/>
+					<ComboBox ItemsSource="{Binding VentilationSchedules}" SelectedItem="{Binding Path=SelectedRoom.VentilationLevelSchedule, Mode=TwoWay}" />
+				</StackPanel>
+
+				<StackPanel Name="ACLevelPanel" Orientation="Vertical" Margin="0,20,0,0"
+					Visibility="{Binding Path=SelectedRoom.ACLevelAddress, Converter={StaticResource NullToVisibilityConverter}}"
+				>
+					<TextBlock Foreground="#888888" Text="Кондиционирование"/>
+						<Slider Minimum="0" Maximum="4" TickFrequency="1" IsSnapToTickEnabled="True" 
+							Value="{Binding Path=SelectedRoom.ACLevel, Mode=TwoWay}"
+						/>
+						<TextBlock Width="100" FontSize="36" LineHeight="40" LineStackingStrategy="BlockLineHeight" 
+							Name="SettedACTextBlock" TextAlignment="Center" Text="{Binding Path=SelectedRoom.ACLevel, Mode=OneWay, NotifyOnTargetUpdated=True, Converter={StaticResource ACConverter}}"/>
+						<ToggleButton Style="{DynamicResource ResourceKey=HandToggleButtonStyle}" IsChecked="{Binding Path=SelectedRoom.ACBacstatAllowed}" IsThreeState="True"
+							Visibility="{Binding Path=SelectedRoom.ACBacstatAllowedAddress, Converter={StaticResource NullToVisibilityConverter}}"
+						/>
+				</StackPanel>
+
+				<StackPanel Name="LightsPanel" Margin="0,20,0,0">
+					<TextBlock>Освещение</TextBlock>
+					<ToggleButton Content="LightSwitch" IsChecked="{Binding Path=SelectedRoom.LightEnabled}" IsThreeState="True" 
+						Visibility="{Binding Path=SelectedRoom.LightEnabledAddress, Converter={StaticResource NullToVisibilityConverter}}"
+					/>
+					<TextBlock Text="{Binding Path=SelectRoom.LightLevel, Converter={StaticResource LightLevelConverter}}" 
+						Visibility="{Binding Path=SelectedRoom.LightLevelAddress, Converter={StaticResource NullToVisibilityConverter}}"
+					/>
+					<TextBlock>Уставка по освещению</TextBlock>
+					<Slider Minimum="0" Maximum="100" TickFrequency="1" IsSnapToTickEnabled="True" 
+						Visibility="{Binding Path=SelectedRoom.SettedLightLevelAddress, Converter={StaticResource NullToVisibilityConverter}}"
+						Value="{Binding Path=SelectedRoom.SettedLightLevel, Mode=TwoWay}"
+					/>
+					<TextBlock Visibility="{Binding Path=SelectedRoom.SettedLightLevelAddress, Converter={StaticResource NullToVisibilityConverter}}"
+						Text="{Binding Path=SelectedRoom.SettedLightLevel, Mode=OneWay, Converter={StaticResource LightLevelConverter}}"
+					/>
+					<TextBlock Text="Расписание"/>
+					<ComboBox ItemsSource="{Binding LightSchedules}" SelectedItem="{Binding Path=SelectedRoom.SettedLightLevelSchedule, Mode=TwoWay}" />
+
+					<ToggleButton Visibility="{Binding Path=SelectedRoom.SettedLightLevelBacstatAllowedAddress, Converter={StaticResource NullToVisibilityConverter}}" IsThreeState="True"
+						IsChecked="{Binding Path=SelectedRoom.SettedLightLevelBacstatAllowed}"	Content="Ручками"
+					/>
+				</StackPanel>
+<<<<<<< HEAD
+
+				<StackPanel Name="ButtonsPanel" DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Center">
+					<Button Style="{DynamicResource SaveRoundButton}" Width="40" Height="40" Margin="8,1" ToolTip="Сохранить"
+                            Command="{Binding Path=DataContext.SaveRoomsCommand, RelativeSource={RelativeSource AncestorType={x:Type View:RoomEditorView}}}"/>
+					<Button Style="{DynamicResource CloseRoundButton}" Width="40" Height="40" Margin="8,1" ToolTip="Отменить" Click="CancelRoomEditButtonClick"
+                            Command="{Binding Path=DataContext.EditRoomsCommand, RelativeSource={RelativeSource AncestorType={x:Type View:RoomEditorView}}}"
+                            CommandParameter="Cancel"/>
+				</StackPanel>
+=======
+>>>>>>> 7f5d39e006f0efbf3449f889cd870a4cdbb41ea3
+			</StackPanel>
+			<StackPanel Grid.Row="1" Name="ButtonsPanel" Orientation="Horizontal" HorizontalAlignment="Center">
+				<Button Style="{DynamicResource SaveRoundButton}" Width="40" Height="40" Margin="8,1" ToolTip="Сохранить"/>
+				<Button Style="{DynamicResource CloseRoundButton}" Width="40" Height="40" Margin="8,1" ToolTip="Отменить" Click="CancelRoomEditButtonClick"/>
+			</StackPanel>
+		</Grid>
+	</ContentControl>
+</UserControl>

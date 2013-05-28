@@ -1,0 +1,149 @@
+﻿using System;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
+using System.Windows.Media.Animation;
+using Ester.Model;
+using Ester.Model.Events;
+using Ester.Modules.Building.ViewModel;
+using Microsoft.Practices.Prism.Events;
+using Microsoft.Practices.Prism.Regions;
+
+namespace Ester.Modules.Building.View
+{
+    /// <summary>
+    /// Interaction logic for BuildingView.xaml
+    /// </summary>
+    public partial class BuildingView : UserControl
+    {
+        private bool _isLoading = true;
+	    private bool _isLeftpanelOpened = false;
+	    private IEventAggregator _eventAggregator;
+	    private IRegionManager _regionManager;
+
+	    public BuildingView(IEventAggregator eventAggregator, IRegionManager regionManager)
+        {
+            InitializeComponent();
+		    _eventAggregator = eventAggregator;
+		    _regionManager = regionManager;
+        }
+
+        private void BuildingViewDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            var dc = e.NewValue as BuildingViewModel;
+            if (dc == null) return;
+
+            dc.CurrentPlanChangedEvent += OnCurrentPlanChanged;
+        }
+
+        private void OnCurrentPlanChanged(Canvas plan, bool? fromTop)
+        {
+            if (_isLoading)
+            {
+                HideLoader();
+                _isLoading = false;
+            }
+            if (fromTop == null)
+            {                
+                PlansPanel.ShowPlan(plan);
+            }
+            if (fromTop == true)
+                PlansPanel.ShowFromTop(plan);
+            if (fromTop == false)
+                PlansPanel.ShowFromBottom(plan);
+
+            InnerPlansButton.Background = new SolidColorBrush(Color.FromRgb(0xCC, 0xCC, 0xCC));
+            InnerPlansListView.Visibility = Visibility.Collapsed;
+        }
+
+        private void HideLoader()
+        {
+            var hideLoaderAnimation = new DoubleAnimation();
+            hideLoaderAnimation.From = 1;
+            hideLoaderAnimation.To = 0;
+            hideLoaderAnimation.Duration = new Duration(TimeSpan.FromMilliseconds(300));
+            var sb = new Storyboard();
+            sb.Children.Add(hideLoaderAnimation);
+            Storyboard.SetTarget(hideLoaderAnimation, LoaderGrid);
+            Storyboard.SetTargetProperty(hideLoaderAnimation, new PropertyPath(OpacityProperty));
+            sb.Completed += OnHideLoaderCompleted;
+            SchemeGrid.Visibility = Visibility.Visible;
+            sb.Begin();
+        }
+
+        private void OnHideLoaderCompleted(object sender, EventArgs e)
+        {
+            LoaderGrid.Visibility = Visibility.Collapsed;
+        }
+
+        private void LayersButtonClick(object sender, RoutedEventArgs e)
+        {
+            InnerPlansButton.Background = new SolidColorBrush(Color.FromRgb(0xCC, 0xCC, 0xCC));
+            InnerPlansListView.Visibility = Visibility.Collapsed;
+            LayersListView.Visibility = LayersListView.Visibility == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
+            LayersButton.Background = LayersListView.Visibility == Visibility.Visible
+                                          ? (SolidColorBrush)Resources["SelectedControlBrush"]
+                                          : new SolidColorBrush(Color.FromRgb(0xCC, 0xCC, 0xCC));
+        }
+
+        private void InnerPlansButtonClick(object sender, RoutedEventArgs e)
+        {
+            LayersButton.Background = new SolidColorBrush(Color.FromRgb(0xCC, 0xCC, 0xCC));
+            LayersListView.Visibility = Visibility.Collapsed;
+            InnerPlansListView.Visibility = InnerPlansListView.Visibility == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
+            InnerPlansButton.Background = InnerPlansListView.Visibility == Visibility.Visible
+                                          ? (SolidColorBrush)Resources["SelectedControlBrush"]
+                                          : new SolidColorBrush(Color.FromRgb(0xCC, 0xCC, 0xCC));
+        }
+
+		private void SwitchLeftPanelButtonClick(object sender, RoutedEventArgs e)
+		{
+			if (_isLeftpanelOpened)
+			{
+				(Resources["HideLeftPanel"] as Storyboard).Begin();
+			}
+			else
+			{
+				(Resources["ShowLeftPanel"] as Storyboard).Begin();
+			}
+			_eventAggregator.GetEvent<ToggleLeftPanelEvent>().Publish(_isLeftpanelOpened);
+			_isLeftpanelOpened = !_isLeftpanelOpened;
+			
+		}
+
+	    private void NavigateToAccessControlButtonClick(object sender, RoutedEventArgs e)
+	    {
+		    UncheckButtons();
+			AcNavButton.IsChecked = true;
+			
+			_regionManager.RequestNavigate(RegionNames.ContextRegion, new Uri(ViewNames.RoomAccessControlView, UriKind.Relative));
+	    }
+
+	    private void NavigateToSmallEventsButtonClick(object sender, RoutedEventArgs e)
+	    {
+			UncheckButtons();
+			EvNavButton.IsChecked = true;
+
+			_regionManager.RequestNavigate(RegionNames.ContextRegion, new Uri(ViewNames.SmallEventsView, UriKind.Relative));
+	    }
+
+	    private void NavigateToRoomEditButtonClick(object sender, RoutedEventArgs e)
+	    {
+			UncheckButtons();
+			ReNavButton.IsChecked = true;
+<<<<<<< HEAD
+			_regionManager.RequestNavigate(RegionNames.ContextRegion, new Uri(ViewNames.RoomView, UriKind.Relative));
+=======
+
+			_regionManager.RequestNavigate(RegionNames.ContextRegion, new Uri(ViewNames.RoomEditorView, UriKind.Relative));
+>>>>>>> 058a59ac26550c782873624f7f11b4b48839198a
+	    }
+
+		private void UncheckButtons()
+		{
+			EvNavButton.IsChecked = false;
+			AcNavButton.IsChecked = false;
+			ReNavButton.IsChecked = false;
+		}
+    }
+}

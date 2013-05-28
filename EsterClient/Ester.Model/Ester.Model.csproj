@@ -1,0 +1,434 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{35E5892C-34EC-4102-B61C-0DE02A4B9E10}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Ester.Model</RootNamespace>
+    <AssemblyName>Ester.Model</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DynamicDataDisplay">
+      <HintPath>..\..\Libraries\DynamicDataDisplay.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Expression.Interactions">
+      <HintPath>..\..\packages\Prism.4.1.0.0\lib\NET40\Microsoft.Expression.Interactions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Prism">
+      <HintPath>..\..\packages\Prism.4.1.0.0\lib\NET40\Microsoft.Practices.Prism.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Prism.Interactivity">
+      <HintPath>..\..\packages\Prism.4.1.0.0\lib\NET40\Microsoft.Practices.Prism.Interactivity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation">
+      <HintPath>..\..\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Unity.3.0.1304.0\lib\Net45\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Unity.3.0.1304.0\lib\Net45\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Newtonsoft.Json.5.0.5\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Nini, Version=1.1.0.0, Culture=neutral, PublicKeyToken=691faec150a7fa7b, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Trove.Nini.1.1.0.0\lib\net20\Nini.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="RestSharp, Version=104.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\RestSharp.104.1\lib\net4\RestSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Interactivity">
+      <HintPath>..\..\packages\Prism.4.1.0.0\lib\NET40\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.XML" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Extensions\EnumerationExtension.cs" />
+    <Compile Include="BaseClasses\ExtScrollViewer.cs" />
+    <Compile Include="BaseClasses\SortableObservableCollection.cs" />
+    <Compile Include="BaseClasses\SynchronizeSelectedPersons.cs" />
+    <Compile Include="BaseClasses\User.cs" />
+    <Compile Include="BaseClasses\TemplateObject.cs" />
+    <Compile Include="BaseClasses\WeakEventHandler.cs" />
+    <Compile Include="Converters\ACLevelConverter.cs" />
+    <Compile Include="Converters\BitmapImageToBitmapSource.cs" />
+    <Compile Include="Converters\BoolToVisibilityTrueConverter.cs" />
+    <Compile Include="Converters\ByteArrayToBitmapSourceConverter.cs" />
+    <Compile Include="Converters\EnumDescriptionConverter.cs" />
+    <Compile Include="Converters\UserTypeToVisibilityConverter.cs" />
+    <Compile Include="Converters\ValueToBrushConverter.cs" />
+    <Compile Include="Converters\InvertVisibilityConverter.cs" />
+    <Compile Include="Converters\DateTimeToDateDDMMYYYY.cs" />
+    <Compile Include="Converters\DocumentTypeToString.cs" />
+    <Compile Include="Converters\ItemsCountToVisibilityConverter.cs" />
+    <Compile Include="Converters\NullableToVisibilityConverter.cs" />
+    <Compile Include="Converters\ObjectToStringConverter.cs" />
+    <Compile Include="Converters\PersonTypeToVisibility.cs" />
+    <Compile Include="Converters\StringToDoubleConverter.cs" />
+    <Compile Include="Converters\StringToVisibilityConverter.cs" />
+    <Compile Include="Converters\TemplatesToStringConverter.cs" />
+    <Compile Include="Converters\VentilationLevelConverter.cs" />
+    <Compile Include="Converters\VisibilityToBooleanConverter.cs" />
+    <Compile Include="Enums\AccessModes.cs" />
+    <Compile Include="Enums\AuthStates.cs" />
+    <Compile Include="Enums\RegionNames.cs" />
+    <Compile Include="Enums\Urls.cs" />
+    <Compile Include="Enums\UserRoles.cs" />
+    <Compile Include="Enums\ViewNames.cs" />
+    <Compile Include="Events\ApplicationLoadedEvent.cs" />
+    <Compile Include="Events\AppShutdownCommand.cs" />
+    <Compile Include="Events\ChangeZoomAllowedEvent.cs" />
+    <Compile Include="Events\PlanControlDragEvent.cs" />
+    <Compile Include="Events\SelectedContentChanged.cs" />
+    <Compile Include="Events\ShowAdUsersImportEvent.cs" />
+    <Compile Include="Events\ShowErrorEvent.cs" />
+    <Compile Include="Events\ShowFullPlan.cs" />
+    <Compile Include="Events\ShowPlanEvent.cs" />
+    <Compile Include="Events\ShowScanerViewEvent.cs" />
+    <Compile Include="Events\ToggleLeftPanelEvent.cs" />
+    <Compile Include="Events\ZoomInto.cs" />
+    <Compile Include="Extensions\BitmapSourceExtension.cs" />
+    <Compile Include="Extensions\ListExtensions.cs" />
+    <Compile Include="Extensions\ObservableCollectionExtension.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="Interfaces\IAccessCardReader.cs" />
+    <Compile Include="Interfaces\IDataTransport.cs" />
+    <Compile Include="Interfaces\IEsterViewModel.cs" />
+    <Compile Include="Interfaces\IPeopleRepository.cs" />
+    <Compile Include="PlanControls\PlanGraph.xaml.cs">
+      <DependentUpon>PlanGraph.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PlanControls\PrecisionConditioner.xaml.cs">
+      <DependentUpon>PrecisionConditioner.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PlanControls\RunStop.xaml.cs">
+      <DependentUpon>RunStop.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PlanControls\SchedulesBox.xaml.cs">
+      <DependentUpon>SchedulesBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PlanControls\ValuesSlider.xaml.cs">
+      <DependentUpon>ValuesSlider.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\PlanObjectsRepository.cs" />
+    <Compile Include="Repositories\Repository.cs" />
+    <Compile Include="Interfaces\IServerInfo.cs" />
+    <Compile Include="Interfaces\ISessionInfo.cs" />
+    <Compile Include="PlanControls\3d\3WayChoke.xaml.cs">
+      <DependentUpon>3WayChoke.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PlanControls\3d\AirPump.xaml.cs">
+      <DependentUpon>AirPump.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PlanControls\3d\Choke.xaml.cs">
+      <DependentUpon>Choke.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PlanControls\3d\EHeater.xaml.cs">
+      <DependentUpon>EHeater.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PlanControls\3d\Filter.xaml.cs">
+      <DependentUpon>Filter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PlanControls\3d\Radiator.xaml.cs">
+      <DependentUpon>Radiator.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PlanControls\3d\RadiatorTop.xaml.cs">
+      <DependentUpon>RadiatorTop.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PlanControls\3d\Tube.xaml.cs">
+      <DependentUpon>Tube.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PlanControls\3d\VTube.xaml.cs">
+      <DependentUpon>VTube.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PlanControls\3d\WaterFilter.xaml.cs">
+      <DependentUpon>WaterFilter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PlanControls\3d\WaterPump3d.xaml.cs">
+      <DependentUpon>WaterPump3d.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PlanControls\Camera.xaml.cs">
+      <DependentUpon>Camera.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PlanControls\FireAlarm.xaml.cs">
+      <DependentUpon>FireAlarm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PlanControls\FireChoke.xaml.cs">
+      <DependentUpon>FireChoke.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PlanControls\InnerPlan.xaml.cs">
+      <DependentUpon>InnerPlan.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PlanControls\Lamp.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>Lamp.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PlanControls\PlanLink.xaml.cs">
+      <DependentUpon>PlanLink.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PlanControls\TextSensor.xaml.cs">
+      <DependentUpon>TextSensor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\PeopleRepository.cs" />
+    <Compile Include="BaseClasses\SensorBase.cs" />
+    <Compile Include="Repositories\SchedulesRepository.cs" />
+    <Compile Include="Services\AccessCardReader.cs" />
+    <Compile Include="Services\EsterBootstrapper.cs" />
+    <Compile Include="Services\JsonConvertWrapper.cs" />
+    <Compile Include="Services\LogsLongPull.cs" />
+    <Compile Include="Services\WorkWithImages.cs" />
+    <Compile Include="Services\CommonInstances.cs" />
+    <Compile Include="Services\DataTransport.cs" />
+    <Compile Include="Services\NotificationsLongPull.cs" />
+    <Compile Include="Services\ServerInfo.cs" />
+    <Compile Include="Services\SessionInfo.cs" />
+    <Compile Include="Services\ValuesLongPull.cs" />
+    <Compile Include="Converters\TemperatureConverter.cs" />
+    <Compile Include="UserControls\ChartPlotter\ChartPlotter.cs" />
+    <Compile Include="UserControls\ChartPlotter\DisplayRange.cs" />
+    <Compile Include="UserControls\ChartPlotter\GraphModel.cs" />
+    <Compile Include="UserControls\ChartPlotter\ViewportAxesRangeRestriction.cs" />
+    <Compile Include="UserControls\FlipPanel.cs" />
+    <Compile Include="UserControls\FlipPanel.xaml.cs">
+      <DependentUpon>FlipPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Loader.xaml.cs">
+      <DependentUpon>Loader.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Plane.cs" />
+    <Compile Include="UserControls\PlanObjectItem.cs" />
+    <Compile Include="UserControls\PlanObjectsSelector.cs" />
+    <Compile Include="UserControls\ZoomPanel.xaml.cs">
+      <DependentUpon>ZoomPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ValidationRules\TextBoxValidationRules.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="PlanControls\3d\3WayChoke.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PlanControls\3d\AirPump.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PlanControls\3d\Choke.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PlanControls\3d\EHeater.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PlanControls\3d\Filter.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PlanControls\3d\Radiator.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PlanControls\3d\RadiatorTop.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PlanControls\3d\Tube.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PlanControls\3d\VTube.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PlanControls\3d\WaterFilter.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PlanControls\3d\WaterPump3d.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PlanControls\Camera.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PlanControls\FireAlarm.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PlanControls\FireChoke.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PlanControls\InnerPlan.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PlanControls\Lamp.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PlanControls\PlanGraph.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PlanControls\PlanLink.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PlanControls\PrecisionConditioner.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PlanControls\RunStop.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PlanControls\SchedulesBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PlanControls\Styles\SensorStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PlanControls\TextSensor.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PlanControls\ValuesSlider.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\Brushes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\Button.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\CheckBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\LinkButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\ListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\PushButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\ScrollBar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\ScrollViewer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\Slider.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\TextBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\ToggleButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\FlipPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Loader.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\ZoomPanel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\EsterCommon\EsterCommon.csproj">
+      <Project>{236EEAD2-3202-40D6-9B05-3C12693263E7}</Project>
+      <Name>EsterCommon</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\VideoServer\VideoServer.csproj">
+      <Project>{88d7413b-5742-4c6e-b27d-de4b948a501f}</Project>
+      <Name>VideoServer</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

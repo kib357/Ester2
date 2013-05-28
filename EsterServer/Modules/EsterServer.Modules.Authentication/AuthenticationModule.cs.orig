@@ -1,0 +1,221 @@
+﻿using System;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Security.Cryptography;
+using System.Security.Permissions;
+using System.ServiceModel;
+using System.ServiceModel.Activation;
+using System.ServiceModel.Web;
+using System.Text;
+using System.Web;
+using System.Xml.Linq;
+using ConPassEntityDataModel.Exceptions;
+
+namespace EsterServer.Modules.Authentication
+{
+    [ServiceContract]
+    [AspNetCompatibilityRequirements(RequirementsMode = AspNetCompatibilityRequirementsMode.Allowed)]
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
+    public class AuthenticationModule : IAuthenticationModule
+    {
+        [WebGet(UriTemplate = "")]
+        public string Hz()
+        {
+            return "0";
+        }
+
+        [WebGet(UriTemplate = "/Salt", ResponseFormat = WebMessageFormat.Json)]
+        public string Salt()
+        {
+            return CreateSalt(48);
+        }
+
+<<<<<<< HEAD
+        
+        public string AuthenticateUser(string login, string password)
+        {
+            var response = string.Empty;
+
+=======
+        [WebGet(UriTemplate = "?user={id}&pass={password}", ResponseFormat = WebMessageFormat.Json)]
+        public HttpResponseMessage AuthenticateUser(string id, string password)
+        {
+>>>>>>> PeopleModuleFix
+            try
+            {
+                string path = Path.Combine(HttpRuntime.AppDomainAppPath, @"Resources");
+                if (!Directory.Exists(path))
+<<<<<<< HEAD
+                {
+                    throw new Exception("Не найден конфигурационный файл");
+                }
+=======
+                    throw new Exception("У сервера нет доступа к базе данных");
+>>>>>>> PeopleModuleFix
+                XDocument doc;
+                using (var sr = new StreamReader(path + @"\Users.xml"))
+                {
+                    doc = XDocument.Load(sr);
+<<<<<<< HEAD
+                }
+                var user = doc.Root.Descendants().FirstOrDefault(s =>
+                {
+                    var xAttribute = s.Attribute("Login");
+                    return xAttribute != null && xAttribute.Value == HttpUtility.HtmlDecode(login);
+                });
+
+                if (user != null && user.Attribute("Salt") != null)
+                {
+=======
+                    
+                }
+                if (doc.Root == null) throw new Exception("У сервера нет доступа к базе данных");
+                var user = doc.Root.Descendants().FirstOrDefault(s =>
+                {
+                    var xAttribute = s.Attribute("Login");
+                    return xAttribute != null && xAttribute.Value == HttpUtility.HtmlDecode(id);
+                });
+
+                if (user != null && user.Attribute("Salt") != null)
+                {
+>>>>>>> PeopleModuleFix
+                    var passwordHash = user.Attribute("Password");
+                    var salt = user.Attribute("Salt");
+                    if (passwordHash != null && salt != null)
+                    {
+                        var hash = GenerateSaltedHash(Encoding.UTF8.GetBytes(HttpUtility.HtmlDecode(password)), Encoding.UTF8.GetBytes(salt.Value));
+                        if (CompareByteArrays(hash, Convert.FromBase64String(passwordHash.Value)))
+                        {
+<<<<<<< HEAD
+                            response = "bda11d91-7ade-4da1-855d-24adfe39d174";                            
+                        }
+                    }
+                }
+                else
+                {
+                    WebOperationContext.Current.OutgoingResponse.StatusCode = HttpStatusCode.BadRequest;
+                }                
+            }
+            catch (Exception exception)
+            {
+                WebOperationContext.Current.OutgoingResponse.StatusCode = HttpStatusCode.InternalServerError;
+                WebOperationContext.Current.OutgoingResponse.StatusDescription = exception.Message;
+            }
+
+            return response;
+=======
+                            return new HttpResponseMessage(HttpStatusCode.OK)
+                            {
+                                Content = new StringContent("bda11d91-7ade-4da1-855d-24adfe39d174")
+                            };
+                        }
+                    }
+                }
+                throw new BadRequestException("Неправильный логин/пароль");
+            }
+            catch (BadRequestException ex)
+            {
+                return new HttpResponseMessage()
+                {
+                    ReasonPhrase = ex.Message,
+                    StatusCode = HttpStatusCode.BadRequest
+                };
+            }
+            catch (Exception ex)
+            {
+                return new HttpResponseMessage()
+                           {
+                               ReasonPhrase = ex.Message,
+                               StatusCode = HttpStatusCode.InternalServerError
+                           };
+            }
+>>>>>>> PeopleModuleFix
+        }
+
+        static byte[] GenerateSaltedHash(byte[] plainText, byte[] salt)
+        {
+            HashAlgorithm algorithm = new SHA256Managed();
+
+            byte[] plainTextWithSaltBytes =
+              new byte[plainText.Length + salt.Length];
+
+            for (int i = 0; i < plainText.Length; i++)
+            {
+                plainTextWithSaltBytes[i] = plainText[i];
+            }
+            for (int i = 0; i < salt.Length; i++)
+            {
+                plainTextWithSaltBytes[plainText.Length + i] = salt[i];
+            }
+
+            return algorithm.ComputeHash(plainTextWithSaltBytes);
+        }
+
+        public static bool CompareByteArrays(byte[] array1, byte[] array2)
+        {
+            if (array1.Length != array2.Length)
+            {
+                return false;
+            }
+
+            for (int i = 0; i < array1.Length; i++)
+            {
+                if (array1[i] != array2[i])
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        private static string CreateSalt(int size)
+        {
+            var rng = new RNGCryptoServiceProvider();
+            byte[] buff = new byte[size];
+            rng.GetBytes(buff);
+            return Convert.ToBase64String(buff);
+        }
+
+        
+        [WebGet(UriTemplate = "/AdAuth", ResponseFormat = WebMessageFormat.Json)]
+        [PrincipalPermission(SecurityAction.Demand, Authenticated = true)]
+        public string  AuthenticateADUser()
+        {
+            if (ServiceSecurityContext.Current.WindowsIdentity.IsAnonymous || 
+                ServiceSecurityContext.Current.WindowsIdentity.IsGuest) return "0";
+
+            string[] tmp = ServiceSecurityContext.Current.WindowsIdentity.Name.Split('\\');
+            string login = tmp[1], domain = tmp[0], sid = ServiceSecurityContext.Current.WindowsIdentity.User.Value;
+
+            string path = Path.Combine(HttpRuntime.AppDomainAppPath, @"Resources");
+            if (!Directory.Exists(path)) return "0";
+            XDocument doc;
+            using (var sr = new StreamReader(path + @"\Users.xml"))
+            {
+                doc = XDocument.Load(sr);
+            }
+            if (doc.Root == null) return "0"; 
+            var user = doc.Root.Descendants().FirstOrDefault(s =>
+            {
+                var loginAttribute = s.Attribute("Login");
+                var domainAttribute = s.Attribute("Domain");
+                var sidAttribute = s.Attribute("Sid");
+                return loginAttribute != null && loginAttribute.Value.ToLower() == login.ToLower() &&
+                       domainAttribute != null && domainAttribute.Value.ToLower() == domain.ToLower() &&
+                       sidAttribute !=null && sidAttribute.Value==sid;
+            });
+
+            if (user != null)
+            {
+                return "bda11d91-7ade-4da1-855d-24adfe39d174";               
+            }
+            return "0";
+        }
+
+        
+
+    }
+}

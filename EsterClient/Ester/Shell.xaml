@@ -1,0 +1,65 @@
+﻿<Window x:Class="Ester.Shell"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:prism="clr-namespace:Microsoft.Practices.Prism.Regions;assembly=Microsoft.Practices.Prism" 
+        xmlns:Enums="clr-namespace:Ester.Model.Enums;assembly=Ester.Model" 
+		xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+		xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+		Closing="Window_Closing_1"
+		WindowStyle="None" WindowState="Maximized"
+		>
+	<Window.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source="/Ester.Model;component/Styles/Brushes.xaml"/>
+				<ResourceDictionary Source="/Ester.Model;component/Styles/Button.xaml" />
+				<ResourceDictionary Source="/Ester.Model;component/PlanControls/Styles/SensorStyles.xaml" />
+				<ResourceDictionary Source="ShellStyles.xaml"/>
+			</ResourceDictionary.MergedDictionaries>
+			<Storyboard x:Key="str" TargetName="ImageTranslate" TargetProperty="Y">
+				<DoubleAnimation To="-1080"  From="0" Duration="0:0:0.7" />
+			</Storyboard>
+		</ResourceDictionary>
+	</Window.Resources>
+	<Grid>
+		<Image Source="{Binding OverlayImage}" Panel.ZIndex="55">
+			<i:Interaction.Triggers>
+				<ei:DataTrigger Binding="{Binding OverlayTag}" Value="On">
+					<ei:DataTrigger.Actions>
+						<ei:ControlStoryboardAction ControlStoryboardOption="Play" Storyboard="{StaticResource str}" />
+					</ei:DataTrigger.Actions>
+				</ei:DataTrigger>
+				<ei:StoryboardCompletedTrigger Storyboard="{StaticResource str}">
+					<ei:ChangePropertyAction TargetObject="{Binding}" PropertyName="OverlayImage" Value="{x:Null}" />
+				</ei:StoryboardCompletedTrigger>
+			</i:Interaction.Triggers>
+			<Image.RenderTransform>
+				<TransformGroup>
+					<TranslateTransform x:Name="ImageTranslate" />
+				</TransformGroup>
+			</Image.RenderTransform>
+		</Image>
+		<Grid Name="LoginGrid" Panel.ZIndex="65001">
+			<ContentControl prism:RegionManager.RegionName="{x:Static Enums:RegionNames.LoginRegion }" KeyboardNavigation.IsTabStop="False" FocusVisualStyle="{x:Null}" />
+		</Grid>
+		<Grid Name="MainGrid" Panel.ZIndex="50">
+			<StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Panel.ZIndex="1">
+				<Button Style="{DynamicResource ResourceKey=HeaderMinimizeButton}" Click="MinimizeApplication" KeyboardNavigation.IsTabStop="False" />
+				<Button Style="{DynamicResource ResourceKey=HeaderCloseButton}" Click="CloseApplication" KeyboardNavigation.IsTabStop="False" />
+			</StackPanel>
+			<ContentControl Margin="0,40,0,0" Name="MainRegion" prism:RegionManager.RegionName="{x:Static Enums:RegionNames.MainRegion }" KeyboardNavigation.IsTabStop="False"/>
+		</Grid>
+		<Grid x:Name="PopupGrid" Panel.ZIndex="65500">
+			<ContentControl Name="PopupRegion" prism:RegionManager.RegionName="{x:Static Enums:RegionNames.PopupRegion}" KeyboardNavigation.IsTabStop="False" />
+		</Grid>
+		<Grid x:Name="ErrorsGrid" Panel.ZIndex="65510">
+			<ContentControl Name="ErrorsRegion" prism:RegionManager.RegionName="{x:Static Enums:RegionNames.ErrorsRegion}" KeyboardNavigation.IsTabStop="False" />
+		</Grid>
+		<Grid x:Name="NotificationGrid" Panel.ZIndex="65535" Width="330" Margin="0,0,30,30" HorizontalAlignment="Right" VerticalAlignment="Bottom" >
+			<StackPanel Orientation="Vertical">
+				<ItemsControl Name="UpdaterRegion" prism:RegionManager.RegionName="{x:Static Enums:RegionNames.UpdaterRegion }" KeyboardNavigation.IsTabStop="False" />
+				<ItemsControl Name="NotificationRegion" prism:RegionManager.RegionName="{x:Static Enums:RegionNames.NotificationRegion }" KeyboardNavigation.IsTabStop="False" />
+			</StackPanel>
+		</Grid>
+	</Grid>
+</Window>

@@ -1,0 +1,53 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"                    
+		            xmlns:Controls="clr-namespace:Ester.Model.PlanControls;assembly=Ester.Model"
+                    >
+    <!--ИТП Котельная -->
+    <Canvas xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Key="FV_V_06-13" Uid="В06-В13" Tag="Этаж 1" Width="1901" Height="1001" >
+                 <Line Y1="0" Y2="920" Stroke="Black" StrokeDashArray="2, 4" StrokeThickness="4" Canvas.Left="120" Canvas.Top="80"/>
+                <Line Y1="0" Y2="920" Stroke="Black" StrokeDashArray="2, 4" StrokeThickness="4" Canvas.Left="311" Canvas.Top="80" />
+                <Line Y1="0" Y2="920" Stroke="Black" StrokeDashArray="2, 4" StrokeThickness="4" Canvas.Left="438" Canvas.Top="80"/>
+                <Line Y1="0" Y2="920" Stroke="Black" StrokeDashArray="2, 4" StrokeThickness="4" Canvas.Left="842" Canvas.Top="80"/>
+                <Line Y1="0" Y2="920" Stroke="Black" StrokeDashArray="2, 4" StrokeThickness="4" Canvas.Left="1459" Canvas.Top="80"/>
+
+            <!--________________________В06________________________-->
+            <Controls:FireChoke Address="5600.BI4107, 5600.BI4108" Canvas.Left="120" Connections="2,0" PipeWidth="475" Tag="PZ25" Canvas.Top="120" Height="80" />
+            <Controls:FireChoke Address="5600.BI4103, 5600.BI4104" Canvas.Left="312" Tag="PZ05" Canvas.Top="120" Height="80" />
+            <Controls:FireChoke Address="5600.BI4101, 5600.BI4102" Canvas.Left="376" Tag="PZ04" Canvas.Top="120" Height="80" />
+            <Controls:FireChoke Address="3600.BI2103, 3600.BI2104" Canvas.Left="439" PipeWidth="580" Tag="PZ12" Canvas.Top="120" Height="80" />
+            <Controls:FireChoke Address="3600.BI2101, 3600.BI2102" Canvas.Left="623" PipeWidth="683" Tag="PZ11" Canvas.Top="120" Height="80" />
+            <Controls:FireChoke Address="2600.BI3201, 2600.BI3202" Canvas.Left="840" Tag="PZ18" Connections="2,0" Canvas.Top="81" Height="80" />
+            <Controls:FireChoke Address="2600.BI3107, 2600.BI3108" Canvas.Left="840" Tag="PZ17" Connections="1,0" Canvas.Top="155" Height="80" />
+
+            <Controls:FireChoke Address="5600.BI2103, 5600.BI2104" Canvas.Left="120" Connections="1,0" Tag="PZ12" PipeWidth="4060" Canvas.Top="200" Height="80" />
+            <Controls:FireChoke Address="5600.BI1105, 5600.BI1106" Canvas.Left="312" Tag="PZ03" Canvas.Top="259" Connections="1,0" Height="80" />
+            <Controls:FireChoke Address="3600.BI1101, 3600.BI1102" Canvas.Left="466" Tag="PZ01" Canvas.Top="259" Connections="1,0" Height="80" />
+            <Controls:FireChoke Address="3600.BI1107, 3600.BI1108" Canvas.Left="571" Tag="PZ04" Canvas.Top="259" Height="80" />
+            <Controls:FireChoke Address="2600.BI1101, 2600.BI1102" Canvas.Left="906" Tag="PZ01" Canvas.Top="259" Connections="1,0" Height="80" />
+            <Controls:FireChoke Address="2600.BI1107, 2600.BI1108" Canvas.Left="1011" Tag="PZ04" Canvas.Top="259" Height="80" />
+            <Controls:FireChoke Address="1600.BI1303, 1600.BI1304" Canvas.Left="1459" Tag="PZ09" Canvas.Top="200" Height="80" />
+            <Controls:FireChoke Address="1600.BI1205, 1600.BI1206" Canvas.Left="1459" Tag="PZ06" Canvas.Top="259" Connections="1,0" Height="80" />
+
+            <!--________________________В08/В09________________________-->
+            <Controls:FireChoke Address="5600.BI2101, 5600.BI2102" Canvas.Left="121" Canvas.Top="403" Height="80" Tag="PZ13" PipeWidth="4195" />
+            <Controls:FireChoke Address="1600.BI1403, 1600.BI1404" Canvas.Left="1461" Canvas.Top="403" Height="80" Tag="PZ13" />
+            <!--________________________В10/В11________________________-->
+            <Controls:FireChoke Address="5600.BI1203, 5600.BI1204" Canvas.Left="120" Canvas.Top="606" Height="80" Tag="PZ03"/>
+            <Controls:FireChoke Address="5600.BI1301, 5600.BI1302" Canvas.Left="184" Canvas.Top="606" Height="80" Tag="PZ06" PipeWidth="3995" />
+            <Controls:FireChoke Address="1600.BI1201, 1600.BI1202" Canvas.Left="1461" Canvas.Top="606" Height="80" Tag="PZ04" />
+            <Controls:FireChoke Address="1600.BI1105, 1600.BI1106" Canvas.Left="1525" Canvas.Top="606" Height="80" Tag="PZ02" />
+            <!--________________________В08/В09________________________-->
+            <Controls:FireChoke Address="5600.BI4107, 5600.BI4108" Canvas.Left="121" Canvas.Top="809" Height="80" Tag="PZ26" />
+
+
+            <TextBlock Text="1 этаж" FontSize="28" Canvas.Left="1460" Canvas.Top="20" />
+            <TextBlock Text="2 этаж" FontSize="28" Canvas.Left="1122" Canvas.Top="20" />
+            <TextBlock Text="3 этаж" FontSize="28" Canvas.Left="580" Canvas.Top="20" />
+            <TextBlock Text="4 этаж" FontSize="28" Canvas.Left="333" Canvas.Top="20" />
+            <TextBlock Text="5 этаж" FontSize="28" Canvas.Left="160" Canvas.Top="20" />
+            <TextBlock Canvas.Left="32" Canvas.Top="180" FontSize="28" Text="В06" />
+            <TextBlock Canvas.Left="0" Canvas.Top="420" FontSize="28" Text="В08/В09" />
+            <TextBlock Canvas.Left="0" Canvas.Top="625" FontSize="28" Text="В10/В11" />
+            <TextBlock Canvas.Left="0" Canvas.Top="827" FontSize="28" Text="В12/В13" />  
+    </Canvas>
+</ResourceDictionary>

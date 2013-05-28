@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- MyApp.xml -->
+<Users>
+  <User Id="1" Login="Admin" Password="xzHB4nVtDGbeO3Tl2yWQXRPNRhW0tkyurCUhpfJpt2A=" Salt="4MzYH97ZwgrzDYeoePaa8b\/tgthgFlcuzpRpD+chtdpT6m6aB+unHNPeKw25Cdbo" Sid="S-1-5-21-369508907-3067756410-1725890753-1000" Role="Admin" Domain=""/>
+  <User Id="2" Login="User" Password="xzHB4nVtDGbeO3Tl2yWQXRPNRhW0tkyurCUhpfJpt2A=" Salt="4MzYH97ZwgrzDYeoePaa8b\/tgthgFlcuzpRpD+chtdpT6m6aB+unHNPeKw25Cdbo" Sid="S-1-5-21-369508907-3067756410-1725890753-1001" Role="User" Domain=""/>
+  <User Id="3" Login="Operator" Password="xzHB4nVtDGbeO3Tl2yWQXRPNRhW0tkyurCUhpfJpt2A=" Salt="4MzYH97ZwgrzDYeoePaa8b\/tgthgFlcuzpRpD+chtdpT6m6aB+unHNPeKw25Cdbo" Sid="S-1-5-21-369508907-3067756410-1725890753-1002" Role="Operator" Domain=""/>
+  <User Id="4" Login="Artemiy" Password="" Salt="" Sid="S-1-5-21-3332492352-1950398402-596331667-1000" Role="Admin" Domain="Artemiy-PC"/>
+  <User Id="5" Login="SDanny" Password="" Salt="" Sid="S-1-5-21-1231858067-835662982-1891532055-1000" Role="Admin" Domain="SDanny-PC"/>
+<User Id="6" Login="Security" Password="PKWJxn2nrgqh+9EFJ2pbu6QI8eTjIaFetXL3wdd5SFM=" Salt="/AZfqu9M8QqJB3ZWRZG/IDovYcgf1Fkjmd1iICDtWhqbU3E2u6ehbrpYZKp1womyxhGgwda8COXquYT6plLWFw==" Sid="" Role="User" Domain=""/>
+</Users>

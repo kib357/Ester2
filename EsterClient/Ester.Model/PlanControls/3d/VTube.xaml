@@ -1,0 +1,151 @@
+﻿<BaseClasses:SensorBase x:Class="Ester.Model.PlanControls.VTube"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:Controls="clr-namespace:Ester.Model.PlanControls" 
+             xmlns:BaseClasses="clr-namespace:Ester.Model.BaseClasses">
+    <Viewbox  SnapsToDevicePixels="True" Width="{Binding Path=Width, RelativeSource={RelativeSource AncestorType={x:Type Controls:VTube}}}">
+    <Grid Width="400" Height="800">
+                <Viewport3D
+	 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+            <Viewport3D.Resources>
+                    <MaterialGroup x:Key="M_TubeMaterial">
+                        <DiffuseMaterial>
+                            <DiffuseMaterial.Brush>
+                                <SolidColorBrush Color="#66cccccc"/>
+                            </DiffuseMaterial.Brush>
+                        </DiffuseMaterial>
+                        <SpecularMaterial SpecularPower="5000">
+                            <SpecularMaterial.Brush>
+                                <SolidColorBrush Color="#ffffff" Opacity="0.5"/>
+                            </SpecularMaterial.Brush>
+                        </SpecularMaterial>
+                    </MaterialGroup>
+            </Viewport3D.Resources>
+            <Viewport3D.Camera>
+                    <OrthographicCamera Position="7.481132,-5.507640,5.343665" Width="5"  LookDirection="-7.481132,5.507640,-4.343665" UpDirection="0.000000,0.000000,1.000000"/>
+            </Viewport3D.Camera>
+            <Viewport3D.Children>
+                    <ModelVisual3D>
+                        <ModelVisual3D.Content>
+                            <Model3DGroup>
+                                <GeometryModel3D Material="{StaticResource M_TubeMaterial}">
+                                    <GeometryModel3D.Geometry>
+                                        <MeshGeometry3D
+								 Positions="0.000001,0.500000,1.000000 0.000002,-0.500000,1.000000 -0.000001,-0.500000,-1.000000 -0.000002,0.500000,-1.000000"
+								 TriangleIndices="0,1,3 1,2,3"
+								 Normals="1.000000,0.000001,-0.000001 1.000000,0.000001,-0.000001 1.000000,0.000001,-0.000001 1.000000,0.000001,-0.000001"/>
+                                    </GeometryModel3D.Geometry>
+                                </GeometryModel3D>
+                                <Model3DGroup.Transform>
+                                    <Transform3DGroup>
+                                        <Transform3DGroup.Children>
+                                            <ScaleTransform3D ScaleX="1.0" ScaleY="2.0" ScaleZ="{Binding Path=PipeHeight, RelativeSource={RelativeSource AncestorType={x:Type Controls:VTube}}}"/>
+                                            <RotateTransform3D>
+                                                <RotateTransform3D.Rotation>
+                                                    <AxisAngleRotation3D  Axis="0.000000,0.000000,0.000000" Angle="0.0"/>
+                                                </RotateTransform3D.Rotation>
+                                            </RotateTransform3D>
+                                            <TranslateTransform3D OffsetX="1" OffsetY="0.0" OffsetZ="0.0"/>
+                                        </Transform3DGroup.Children>
+                                    </Transform3DGroup>
+                                </Model3DGroup.Transform>
+                            </Model3DGroup>
+                        </ModelVisual3D.Content>
+                    </ModelVisual3D>
+                    <ModelVisual3D>
+                        <ModelVisual3D.Content>
+                            <Model3DGroup>
+                                <GeometryModel3D Material="{StaticResource M_TubeMaterial}">
+                                    <GeometryModel3D.Geometry>
+                                        <MeshGeometry3D
+								 Positions="0.000001,0.500000,1.000000 0.000002,-0.500000,1.000000 -0.000001,-0.500000,-1.000000 -0.000002,0.500000,-1.000000"
+								 TriangleIndices="0,1,3 1,2,3"
+								 Normals="1.000000,0.000001,-0.000001 1.000000,0.000001,-0.000001 1.000000,0.000001,-0.000001 1.000000,0.000001,-0.000001"/>
+                                    </GeometryModel3D.Geometry>
+                                </GeometryModel3D>
+                                <Model3DGroup.Transform>
+                                    <Transform3DGroup>
+                                        <Transform3DGroup.Children>
+                                            <ScaleTransform3D ScaleX="1" ScaleY="2.0" ScaleZ="{Binding Path=PipeHeight, RelativeSource={RelativeSource AncestorType={x:Type Controls:VTube}}}"/>
+                                            <RotateTransform3D>
+                                                <RotateTransform3D.Rotation>
+                                                    <AxisAngleRotation3D  Axis="0.000000,0.000000,0.000000" Angle="0.0"/>
+                                                </RotateTransform3D.Rotation>
+                                            </RotateTransform3D>
+                                            <TranslateTransform3D OffsetX="-1" OffsetY="0.0" OffsetZ="0.0"/>
+                                        </Transform3DGroup.Children>
+                                    </Transform3DGroup>
+                                </Model3DGroup.Transform>
+                            </Model3DGroup>
+                        </ModelVisual3D.Content>
+                    </ModelVisual3D>
+                    <ModelVisual3D>
+                        <ModelVisual3D.Content>
+                            <Model3DGroup>
+                                <GeometryModel3D Material="{StaticResource M_TubeMaterial}">
+                                    <GeometryModel3D.Geometry>
+                                        <MeshGeometry3D
+								 Positions="1.000000,-0.000001,1.000000 -1.000000,-0.000000,1.000000 -1.000000,0.000001,-1.000000 1.000000,0.000001,-1.000000"
+								 TriangleIndices="0,1,3 1,2,3"
+								 Normals="-0.000000,-1.000000,-0.000001 -0.000000,-1.000000,-0.000001 -0.000000,-1.000000,-0.000001 -0.000000,-1.000000,-0.000001"/>
+                                    </GeometryModel3D.Geometry>
+                                </GeometryModel3D>
+                                <Model3DGroup.Transform>
+                                    <Transform3DGroup>
+                                        <Transform3DGroup.Children>
+                                            <ScaleTransform3D ScaleX="1" ScaleY="2.0" ScaleZ="{Binding Path=PipeHeight, RelativeSource={RelativeSource AncestorType={x:Type Controls:VTube}}}"/>
+                                            <RotateTransform3D>
+                                                <RotateTransform3D.Rotation>
+                                                    <AxisAngleRotation3D  Axis="0.000000,0.000000,0.000000" Angle="0.0"/>
+                                                </RotateTransform3D.Rotation>
+                                            </RotateTransform3D>
+                                            <TranslateTransform3D OffsetX="0" OffsetY="1" OffsetZ="0.0"/>
+                                        </Transform3DGroup.Children>
+                                    </Transform3DGroup>
+                                </Model3DGroup.Transform>
+                            </Model3DGroup>
+                        </ModelVisual3D.Content>
+                    </ModelVisual3D>
+                    <ModelVisual3D>
+                        <ModelVisual3D.Content>
+                            <Model3DGroup>
+                                <GeometryModel3D Material="{StaticResource M_TubeMaterial}">
+                                    <GeometryModel3D.Geometry>
+                                        <MeshGeometry3D
+								 Positions="1.000000,-0.000001,1.000000 -1.000000,-0.000000,1.000000 -1.000000,0.000001,-1.000000 1.000000,0.000001,-1.000000"
+								 TriangleIndices="0,1,3 1,2,3"
+								 Normals="-0.000000,-1.000000,-0.000001 -0.000000,-1.000000,-0.000001 -0.000000,-1.000000,-0.000001 -0.000000,-1.000000,-0.000001"/>
+                                    </GeometryModel3D.Geometry>
+                                </GeometryModel3D>
+                                <Model3DGroup.Transform>
+                                    <Transform3DGroup>
+                                        <Transform3DGroup.Children>
+                                            <ScaleTransform3D ScaleX="1" ScaleY="2.0" ScaleZ="{Binding Path=PipeHeight, RelativeSource={RelativeSource AncestorType={x:Type Controls:VTube}}}"/>
+                                            <RotateTransform3D>
+                                                <RotateTransform3D.Rotation>
+                                                    <AxisAngleRotation3D  Axis="0.000000,0.000000,0.000000" Angle="0.0"/>
+                                                </RotateTransform3D.Rotation>
+                                            </RotateTransform3D>
+                                            <TranslateTransform3D OffsetX="0.0" OffsetY="-1" OffsetZ="0.0"/>
+                                        </Transform3DGroup.Children>
+                                    </Transform3DGroup>
+                                </Model3DGroup.Transform>
+                            </Model3DGroup>
+                        </ModelVisual3D.Content>
+                    </ModelVisual3D>
+                    <ModelVisual3D>
+                        <ModelVisual3D.Content>
+                            <SpotLight Position="5.25,-3.65,2.71"  Direction="-5.25,3.65,-2.71" Color="#CCCCCC"/>
+                        </ModelVisual3D.Content>
+                    </ModelVisual3D>
+                    <ModelVisual3D>
+                        <ModelVisual3D.Content>
+                            <SpotLight Position="5.25,-3.65,2.71"  Direction="-5.25,3.65,-2.71" Color="#CCCCCC"/>
+                        </ModelVisual3D.Content>
+                    </ModelVisual3D>
+                </Viewport3D.Children>
+        </Viewport3D>
+    </Grid>
+    </Viewbox>
+</BaseClasses:SensorBase>

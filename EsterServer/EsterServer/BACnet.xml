@@ -1,0 +1,16 @@
+<Nini>
+  <Section Name="BACnet">
+    <Key Name="IpAddress" Value="192.168.0.82" />
+    <Key Name="RequestTimeOut" Value="5" />
+  </Section>
+  <Section Name="Tracking">
+    <Key Name="TrackUnsubscribedDevices" Value="False" />
+    <Key Name="QueryFaultCount" Value="6" />
+    <Key Name="QueryInterval" Value="5" />
+  </Section>
+  <Section Name="Searching">
+    <Key Name="ManageDeviceServicesInterval" Value="5" />
+    <Key Name="SendWhoIsInterval" Value="3" />
+    <Key Name="LostDevicesSearchInterval" Value="60" />
+  </Section>
+</Nini>

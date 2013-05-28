@@ -1,0 +1,190 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="EsterCommon.PlanObjectTypes.Abstract.BaseObject">
+    <Position X="2.75" Y="0.75" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AARCAAAABAAiAAIAAAAAAEQAAAIIAAAhCwAAAAACAAA=</HashCode>
+      <FileName>PlanObjectTypes\Abstract\BaseObject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EsterCommon.PlanObjectTypes.Abstract.Subsystem" Collapsed="true">
+    <Position X="2.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PlanObjectTypes\Abstract\Subsystem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EsterCommon.PlanObjectTypes.Conditioner" Collapsed="true">
+    <Position X="7" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAQAAACAAABAAgAAAAAA=</HashCode>
+      <FileName>PlanObjectTypes\Conditioner.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EsterCommon.PlanObjectTypes.Container" Collapsed="true">
+    <Position X="18.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PlanObjectTypes\Container.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="EsterCommon.PlanObjectTypes.Cutout" Collapsed="true">
+    <Position X="18.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PlanObjectTypes\Cutout.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EsterCommon.PlanObjectTypes.DHSPlan" Collapsed="true">
+    <Position X="23" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PlanObjectTypes\DHSPlan.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="EsterCommon.PlanObjectTypes.ElectricalGridPlan" Collapsed="true">
+    <Position X="5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PlanObjectTypes\ElectricalGridPlan.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="EsterCommon.PlanObjectTypes.FloorPlan" Collapsed="true">
+    <Position X="9.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PlanObjectTypes\FloorPlan.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="EsterCommon.PlanObjectTypes.Geometry" Collapsed="true">
+    <Position X="14" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PlanObjectTypes\Geometry.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EsterCommon.PlanObjectTypes.Heater" Collapsed="true">
+    <Position X="11.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEQAAAAAIAAAAAAABAABAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PlanObjectTypes\Heater.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EsterCommon.PlanObjectTypes.Lamp" Collapsed="true">
+    <Position X="16" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAABAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PlanObjectTypes\Lamp.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EsterCommon.PlanObjectTypes.LightGroup" Collapsed="true">
+    <Position X="20.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQQAAAABAAAAAAAAAAEEAAAAQIAAAAAAAAAgAAgABA=</HashCode>
+      <FileName>PlanObjectTypes\LightGroup.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="EsterCommon.PlanObjectTypes.LightSensor" Collapsed="true">
+    <Position X="2.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAABAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PlanObjectTypes\LightSensor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EsterCommon.PlanObjectTypes.MediaPlan" Collapsed="true">
+    <Position X="11.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PlanObjectTypes\MediaPlan.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="EsterCommon.PlanObjectTypes.Room" Collapsed="true">
+    <Position X="16.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PlanObjectTypes\Room.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="EsterCommon.PlanObjectTypes.TemperatureSensor" Collapsed="true">
+    <Position X="13.75" Y="7.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAIACAAgAAAAIAAAAAgAQAAAAEAAA=</HashCode>
+      <FileName>PlanObjectTypes\TemperatureSensor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EsterCommon.PlanObjectTypes.Text" Collapsed="true">
+    <Position X="20.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PlanObjectTypes\Text.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EsterCommon.PlanObjectTypes.TextSensor" Collapsed="true">
+    <Position X="22.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PlanObjectTypes\TextSensor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EsterCommon.PlanObjectTypes.VentilationPlan" Collapsed="true">
+    <Position X="7" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PlanObjectTypes\VentilationPlan.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="EsterCommon.PlanObjectTypes.VolumeSensor" Collapsed="true">
+    <Position X="4.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PlanObjectTypes\VolumeSensor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EsterCommon.PlanObjectTypes.WdSensor" Collapsed="true">
+    <Position X="9.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQgAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PlanObjectTypes\WdSensor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EsterCommon.PlanObjectTypes.Data.GeometryData">
+    <Position X="0.75" Y="0.75" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAgAAAAAAQAAAkACBAAAAAAAAAAAAA=</HashCode>
+      <FileName>PlanObjectTypes\Data\GeometryData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EsterCommon.PlanObjectTypes.GroupedLamp" Collapsed="true">
+    <Position X="24.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PlanObjectTypes\GroupedLamp.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="EsterCommon.PlanObjectTypes.Data.BaseObjectProperty">
+    <Position X="6.75" Y="2.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAIAAAAAAAAAAAAAABAgAAAAAAAAAAA=</HashCode>
+      <FileName>PlanObjectTypes\Data\BaseObjectProperty.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Interface Name="EsterCommon.PlanObjectTypes.Interfaces.IContainerObject">
+    <Position X="6.75" Y="0.75" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PlanObjectTypes\Interfaces\IContainerObject.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -1,0 +1,275 @@
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.ServiceModel.Activation;
+using System.ServiceModel.Web;
+using System.Timers;
+using System.Web;
+using System.Xml.Linq;
+using BACsharp;
+using BacNetApi;
+<<<<<<< HEAD
+using EsterServer.Model.Aspects;
+using EsterServer.Model.Ioc;
+using Microsoft.Practices.Unity;
+=======
+using EsterServer.Modules.BacNetServer.Alarms;
+using EsterServer.Modules.BacNetServer.Notifications;
+using EsterServer.Modules.BacNetServer.Schedules;
+>>>>>>> Schedule
+using NLog;
+using Newtonsoft.Json;
+using Nini.Config;
+
+namespace EsterServer.Modules.BacNetServer
+{
+    public delegate void ValuesChangedEventHandler(string address, string oldValue, string newValue);
+
+    [AspNetCompatibilityRequirements(RequirementsMode = AspNetCompatibilityRequirementsMode.Allowed)]
+    [UnityServiceBehavior]
+    public class BacNetServer : IBacNetServer
+    {
+        private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
+        private readonly XmlConfigSource _configSource = new XmlConfigSource(Path.Combine(HttpRuntime.AppDomainAppPath, @"Resources\ServerConfig.xml")) { AutoSave = true };
+
+        public static event ValuesChangedEventHandler ValuesChanged;
+        public NotificationListener Listener;
+
+        private IUnityContainer _container;
+        private readonly FileSystemWatcher _watcher;
+        private readonly Timer _pushValuesToClientTimer;
+
+        private static Dictionary<string, string> _allValues;
+        private static Dictionary<string, string> _changedValues;
+
+        public static BacNet Network;
+
+        public BacNetServer(IUnityContainer container)
+        {
+            _container = container;
+            
+            _allValues = new Dictionary<string, string>();
+            _changedValues = new Dictionary<string, string>();
+            Network = new BacNet(_configSource.Configs["BacNet"].Get("Ip"));
+
+            _watcher = new FileSystemWatcher(Path.Combine(HttpRuntime.AppDomainAppPath, @"Resources\Dictionaries")) {NotifyFilter = NotifyFilters.LastWrite, IncludeSubdirectories = true};
+            _watcher.Created += WatcherEvent;
+            _watcher.Changed += WatcherEvent;
+            _watcher.Deleted += WatcherEvent;
+
+            _pushValuesToClientTimer = new Timer(5000);
+            _pushValuesToClientTimer.Elapsed += PushValuesToClientTimerTick;
+
+            Listener = new NotificationListener();
+
+            GetBacnetAddresses();
+
+            _container.RegisterInstance(new AlarmChecker());
+            _watcher.EnableRaisingEvents = true;
+        }
+
+        #region Client requests
+
+        #region Get values    
+        [Log("Чтение значений всех опрашиваемых объектов BACnet")]
+        public Dictionary<string, string> GetAllSensorsValues()
+        {
+            try
+            {
+                return _allValues;
+            }
+            catch (Exception exception)
+            {
+                WebOperationContext.Current.OutgoingResponse.StatusCode = HttpStatusCode.InternalServerError;
+                WebOperationContext.Current.OutgoingResponse.StatusDescription = exception.Message;
+                return null;
+            }        
+        }
+
+        [Log("Чтение текущего значения объекта BACnet")]
+        public string GetPresentValueProperty(string deviceAddress, string objectAddress)
+        {
+            var response = string.Empty;
+
+            try
+            {
+                uint instance;
+                if (uint.TryParse(deviceAddress, out instance))
+                {
+                    var value = Network[instance].Objects[objectAddress].Get();
+                    if (value != null)
+                    {
+                        response = value.ToString();
+                    }
+                }
+
+                WebOperationContext.Current.OutgoingResponse.StatusCode = HttpStatusCode.BadRequest;
+            }
+            catch (Exception exception)
+            {
+                WebOperationContext.Current.OutgoingResponse.StatusCode = HttpStatusCode.InternalServerError;
+                WebOperationContext.Current.OutgoingResponse.StatusDescription = exception.Message;
+            }
+
+            return response;
+        }
+
+        [Log("Чтение свойства объекта BACnet")]
+        public string GetCustomPropertyValue(string deviceAddress, string objectAddress, string propertyName)
+        {
+            var response = string.Empty;
+
+            WebOperationContext.Current.OutgoingResponse.StatusCode = HttpStatusCode.NotImplemented;
+            return response;
+        }
+        #endregion
+
+        #region Set value
+
+        [Log("Запись текущего значения объекта BACnet")]
+        public void SetPresentValueProperty(string deviceAddress, string objectAddress, Stream stream)
+        {
+            try
+            {
+                var reader = new StreamReader(stream);
+                string value = reader.ReadToEnd();
+
+                WriteValue(deviceAddress, objectAddress, value);
+            }
+            catch (Exception exception)
+            {
+                WebOperationContext.Current.OutgoingResponse.StatusCode = HttpStatusCode.InternalServerError;
+                WebOperationContext.Current.OutgoingResponse.StatusDescription = exception.Message;
+            }
+        }
+
+        [Log("Запись свойства объекта BACnet")]
+        public void SetCustomPropertyValue(string deviceAddress, string objectAddress, string propertyName, Stream stream)
+        {
+            var response = new HttpResponseMessage();
+
+            try
+            {
+                var reader = new StreamReader(stream);
+                string value = reader.ReadToEnd();
+
+                WriteValue(deviceAddress, objectAddress, value, propertyName);
+            }
+            catch (Exception exception)
+            {
+                WebOperationContext.Current.OutgoingResponse.StatusCode = HttpStatusCode.InternalServerError;
+                WebOperationContext.Current.OutgoingResponse.StatusDescription = exception.Message;
+            }
+        }
+        
+        #endregion
+
+        #endregion
+        private void WriteValue(string deviceAddress, string objectAddress, string value, string propertyId = "")
+        {
+            var property = BacnetPropertyId.PresentValue;
+            if (!string.IsNullOrEmpty(propertyId))
+                Enum.TryParse(propertyId, out property);
+            uint instance;
+            if (uint.TryParse(deviceAddress, out instance))
+            {
+                Network[instance].Objects[objectAddress].Set(value, property);
+            } 
+        }
+
+        private void WatcherEvent(object sender, FileSystemEventArgs e)
+        {
+            GetBacnetAddresses();
+        }
+
+        private void PushValuesToClientTimerTick(object sender, ElapsedEventArgs e)
+        {
+            if (_changedValues.Count > 0)
+                PushValuesToClients();
+            _pushValuesToClientTimer.Start();
+        }
+
+        private static void PushValuesToClients()
+        {
+            ValuesPusherComet.SetEvent(_changedValues);
+            _changedValues = new Dictionary<string, string>();
+        }
+
+        private static void OnBacnetValueChanged(string address, string value)
+        {
+            var myEvent = new LogEventInfo(LogLevel.Info, "BAChistory", "");
+            myEvent.Properties.Add("address", address);
+            myEvent.Properties.Add("value", value);
+            _logger.Log(myEvent);
+            if (_allValues.ContainsKey(address))
+            {
+                if (ValuesChanged != null)
+                    ValuesChanged(address, _allValues[address], value);
+                _allValues[address] = value;
+            }
+            else
+            {
+                if (ValuesChanged != null)
+                    ValuesChanged(address, string.Empty, value);
+                _allValues.Add(address, value);
+            }
+            if (_changedValues.ContainsKey(address))
+                _changedValues[address] = value;
+            else
+                _changedValues.Add(address, value);
+            if (_changedValues.Count >= 100)
+                PushValuesToClients();
+        }
+
+        #region Get bacnet adresses list
+        private void GetBacnetAddresses(string relativePath = @"Resources\Dictionaries")
+        {
+            string path = Path.Combine(HttpRuntime.AppDomainAppPath, relativePath);
+            if (!Directory.Exists(path)) return;
+
+            foreach (string fileName in Directory.GetFiles(path).Where(f => f.EndsWith(".xaml")))
+            {
+                XDocument doc;
+                using (var sr = new StreamReader(fileName))
+                {
+                    doc = XDocument.Load(sr);
+                }
+                foreach (var descendant in doc.Root.Descendants())
+                {
+                    foreach (var xAttribute in descendant.Attributes())
+                    {
+                        if (xAttribute.Name.LocalName.ToLower().Contains("address"))
+                        {
+                            var addrList = xAttribute.Value.Split(',');
+                            foreach (var addr in addrList)
+                            {
+                                AddBacnetObject(addr);
+                            }
+                        }
+                    }
+                }
+            }
+            _pushValuesToClientTimer.Start();
+        }
+
+        public static void AddBacnetObject(string address)
+        {
+            if (string.IsNullOrWhiteSpace(address) || !address.Contains('.')) return;
+
+            uint instance;
+            if (uint.TryParse(address.Split('.')[0].Trim(), out instance))
+            {
+                string objAddress = address.Split('.')[1].Trim();
+                if (!_allValues.ContainsKey(address))
+                {
+                    Network[instance].Objects[objAddress].ValueChangedEvent += OnBacnetValueChanged;
+                    _allValues.Add(address, string.Empty);
+                }
+            }
+        }
+        #endregion
+    }
+}

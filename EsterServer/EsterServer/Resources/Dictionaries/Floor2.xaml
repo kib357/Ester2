@@ -1,0 +1,741 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:Controls="clr-namespace:Ester.Model.PlanControls;assembly=Ester.Model">
+  <Canvas xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Key="Floor2" Uid="2" Width="1000" Height="800">
+    <Canvas Uid="Подложка" Canvas.Left="0" Canvas.Top="0">
+      <Path Width="932.875" Height="696.363" Canvas.Left="6.00003" Canvas.Top="5.23584" Stretch="Fill" StrokeThickness="4" StrokeMiterLimit="2.75" Stroke="#FFE2E3E0" Fill="#FFF2F2EF" Data="F1 M 35.284,45.3944C 35.284,44.6611 35.884,44.0611 36.6174,44.0611L 216.604,44.0611C 217.337,44.0611 217.937,43.4611 217.937,42.7277L 217.937,8.56915C 217.937,7.83575 218.537,7.23584 219.271,7.23584L 282.809,7.23584C 283.543,7.23584 284.143,7.83575 284.143,8.56915L 284.143,42.7277C 284.143,43.4611 284.743,44.0611 285.476,44.0611L 661.489,44.0611C 662.223,44.0611 662.823,43.4611 662.823,42.7277L 662.823,8.56915C 662.823,7.83575 663.423,7.23584 664.156,7.23584L 723.551,7.23584C 724.284,7.23584 724.884,7.83575 724.884,8.56915L 724.884,42.7277C 724.884,43.4611 725.484,44.0611 726.217,44.0611L 908.299,44.0611C 909.032,44.0611 909.632,44.6611 909.632,45.3944L 909.632,166.398C 909.632,167.132 910.232,167.732 910.965,167.732L 935.541,167.732C 936.275,167.732 936.875,168.332 936.875,169.065L 936.875,226.405C 936.875,227.138 936.275,227.738 935.541,227.738L 910.965,227.738C 910.232,227.738 909.632,228.338 909.632,229.072L 909.632,477.758C 909.632,478.492 910.232,479.092 910.965,479.092L 935.541,479.092C 936.275,479.092 936.875,479.693 936.875,480.425L 936.875,537.769C 936.875,538.502 936.275,539.102 935.541,539.102L 910.965,539.102C 910.232,539.102 909.632,539.702 909.632,540.436L 909.632,661.441C 909.632,662.174 909.032,662.774 908.299,662.774L 728.313,662.774C 727.58,662.774 726.98,663.374 726.98,664.108L 726.98,698.265C 726.98,698.998 726.38,699.598 725.647,699.598L 662.108,699.598C 661.375,699.598 660.775,698.998 660.775,698.265L 660.775,638.873C 660.775,638.141 660.175,637.54 659.441,637.54L 285.476,637.54C 284.743,637.54 284.143,638.141 284.143,638.873L 284.143,698.265C 284.143,698.998 283.543,699.598 282.809,699.598L 219.271,699.598C 218.537,699.598 217.937,698.998 217.937,698.265L 217.937,664.108C 217.937,663.374 217.337,662.774 216.604,662.774L 36.6174,662.774C 35.884,662.774 35.284,662.174 35.284,661.441L 35.284,540.436C 35.284,539.702 34.684,539.102 33.9507,539.102L 9.33337,539.102C 8.60003,539.102 8.00004,538.502 8.00004,537.769L 8.00004,480.425C 8.00004,479.693 8.60003,479.092 9.33337,479.092L 33.9507,479.092C 34.684,479.092 35.284,478.492 35.284,477.758L 35.284,229.072C 35.284,228.338 34.684,227.738 33.9507,227.738L 9.33337,227.738C 8.60003,227.738 8.00004,227.138 8.00004,226.405L 8.00004,169.065C 8.00004,168.332 8.60003,167.732 9.33337,167.732L 33.9507,167.732C 34.684,167.732 35.284,167.132 35.284,166.398L 35.284,45.3944 Z " />
+    </Canvas>
+    <Canvas Uid="Внешние_комнаты" Canvas.Left="0" Canvas.Top="0">
+      <Controls:Room Canvas.Left="35.2846" Canvas.Top="44.061" Title="205A" TemperatureAddress="2404.AI101" SettedTemperatureAddress="2404.AV31" SettedTemperatureBacstatAllowedAddress=""
+               VentilationLevelAddress="2404.AV32" VentilationBacstatAllowedAddress="" ACLevelAddress="2404.AV47" ACBacstatAllowedAddress=""
+               LightLevelAddress="17821.AI1007" SettedLightLevelAddress="2400.AV16" LightEnabledAddress="2400.BV16"
+               Doors="2200.DC209001" Id="8e37b5f0-e5eb-4108-bdc1-dad74b06f65e" Description="Председатель судебного состава Лясинский Д.Н.">
+        <Rectangle Width="109.196" Height="122.927" Stretch="Fill" Fill="#FCFFF5" />
+      </Controls:Room>
+      <Controls:Room Title="205" Width="71.228" Height="122.927" Canvas.Left="145.967" Canvas.Top="44.061" TemperatureAddress="2407.AI101" SettedTemperatureAddress="2407.AV31"
+               VentilationLevelAddress="2407.AV32" LightLevelAddress="17821.AI1006"  SettedLightLevelAddress="2400.AV17" LightEnabledAddress="2400.BV17"
+               Doors="2200.DC209002" Id="62f7157d-c6af-4073-b46e-240bfddf564d" Description="Приемная председателя состава (Лясинский Д.П.)">
+        <Rectangle Stretch="Fill" Fill="#FCFFF5" />
+      </Controls:Room>
+      <Controls:Room Title="Лестница(служебная)" Width="64.72" Height="159.752" Canvas.Left="218.681" Canvas.Top="7.23566" Doors="2100.DC212001" Id="7a352605-c70c-46b8-9a1d-ca31e48ca0a2" Description="Запасная лестница">
+        <Rectangle Stretch="Fill" Fill="#FCFFF5" />
+      </Controls:Room>
+      <Controls:Room Title="206" Width="63.0253" Height="122.927" Canvas.Left="284.886" Canvas.Top="44.061" TemperatureAddress="2409.AI101" SettedTemperatureAddress="2409.AV31"
+               VentilationLevelAddress="2409.AV32" LightLevelAddress="17821.AI1005" SettedLightLevelAddress="2400.AV18" LightEnabledAddress="2400.BV18"
+               Doors="2100.DC211001" Id="ce4a73ff-768a-4f13-bdc8-dfee366f7f3f" Description="Приемная Беспалова М.Б. (Матвеева Н.В.)">
+        <Rectangle Stretch="Fill" Fill="#FCFFF5" />
+      </Controls:Room>
+      <Controls:Room Title="206А" Width="64.896" Height="122.927" Canvas.Left="349.398" Canvas.Top="44.061" TemperatureAddress="2410.AI101" SettedTemperatureAddress="2410.AV31"
+               VentilationLevelAddress="2410.AV32" ACLevelAddress="2410.AV47"
+               LightLevelAddress="17821.AI1004" SettedLightLevelAddress="2400.AV22" LightEnabledAddress="2400.BV22"
+               Doors="2100.DC211002" Id="ff4fa7e7-c2eb-4716-9f8d-8ec35b1fe9ea" Description="Кабинет судьи (Беспалов М.Б)">
+        <Rectangle Stretch="Fill" Fill="#FCFFF5" />
+      </Controls:Room>
+      <Controls:Room Title="208" Width="65.6107" Height="122.927" Canvas.Left="530.09" Canvas.Top="44.061" TemperatureAddress="2416.AI101" SettedTemperatureAddress="2416.AV31"
+               VentilationLevelAddress="2416.AV32" LightLevelAddress="17821.AI1107"  SettedLightLevelAddress="2400.AV19" LightEnabledAddress="2400.BV19"
+               Doors="2100.DC209002" Id="979f63c1-d846-475b-994f-a068ec638add" Description="Приемная Полторацкой Э.Ю. (ВАКАНСИЯ)">
+        <Rectangle Stretch="Fill" Fill="#FCFFF5" />
+      </Controls:Room>
+      <Controls:Room Title="208А" Width="64.8959" Height="122.925" Canvas.Left="597.186" Canvas.Top="44.0623" TemperatureAddress="2419.AI101" SettedTemperatureAddress="2419.AV31"
+               VentilationLevelAddress="2419.AV32" ACLevelAddress="2419.AV47"
+               LightLevelAddress="17821.AI1106"  SettedLightLevelAddress="2400.AV20" LightEnabledAddress="2400.BV20"
+               Doors="2100.DC209001" Id="621dec0f-dc90-4f1e-96e9-b5a87b0e9581" Description="Кабинет судьи Полторацской Э.Ю.">
+        <Rectangle Stretch="Fill" Fill="#FCFFF5" />
+      </Controls:Room>
+      <Controls:Room Title="210А" Width="60.5733" Height="159.752" Canvas.Left="663.569" Canvas.Top="7.23566" TemperatureAddress="2421.AI101" SettedTemperatureAddress="2421.AV31"
+               VentilationLevelAddress="2421.AV32" ACLevelAddress="2421.AV47"
+               LightLevelAddress="17821.AI1105" SettedLightLevelAddress="2400.AV21" LightEnabledAddress="2400.BV21"
+               Doors="2100.DC208001" Id="b2714ef0-53c5-4688-8b04-bc0cdef5aad4" Description="Кабинет судьи (Кустов А.В.)">
+        <Rectangle Stretch="Fill" Fill="#FCFFF5" />
+      </Controls:Room>
+      <Controls:Room Title="210" Width="59.896" Height="122.927" Canvas.Left="725.627" Canvas.Top="44.061" TemperatureAddress="2424.AI101" SettedTemperatureAddress="2424.AV31"
+               VentilationLevelAddress="2424.AV32" LightLevelAddress="17822.AI68615" SettedLightLevelAddress="2300.AV1301" LightEnabledAddress="2300.BV1301"
+               Doors="2100.DC208002" Id="8c8d1ce3-ea2e-40d9-ba79-fc8e19b1414f" Description="Приемная Кустова А.В. (Протопопова Н.И.)">
+        <Rectangle Stretch="Fill" Fill="#FCFFF5" />
+      </Controls:Room>
+      <Controls:Room Title="211" Width="57.7266" Height="122.925" Canvas.Left="787.01" Canvas.Top="44.0623" TemperatureAddress="2427.AI101" SettedTemperatureAddress="2427.AV31"
+               VentilationLevelAddress="2427.AV32" LightLevelAddress="17822.AI68614" SettedLightLevelAddress="2300.AV1302" LightEnabledAddress="2300.BV1302"
+               Doors="2100.DC207002" Id="9ffa1bcf-c963-4023-bd17-25676c6d6949" Description="Приемная Сеитова Э.М. (Гурская Е.А.)">
+        <Rectangle Stretch="Fill" Fill="#FCFFF5" />
+      </Controls:Room>
+      <Controls:Room Title="211А" Width="63.4094" Height="122.927" Canvas.Left="846.222" Canvas.Top="44.061" TemperatureAddress="2428.AI101" SettedTemperatureAddress="2428.AV31"
+               VentilationLevelAddress="2428.AV32" ACLevelAddress="2428.AV47"
+               LightLevelAddress="17822.AI68613" Doors="2100.DC207001" SettedLightLevelAddress="2300.AV1303" LightEnabledAddress="2300.BV1303"
+               Id="2844a1f0-cbb6-489b-8d02-70ce4f8e7e84" Description="Кабинет судьи Сеитов Э.М.">
+        <Rectangle Stretch="Fill" Fill="#FCFFF5" />
+      </Controls:Room>
+      <Controls:Room Title="212" Width="66.2187" Height="126.287" Canvas.Left="843.414" Canvas.Top="228.482" TemperatureAddress="2432.AI101" SettedTemperatureAddress="2432.AV31"
+               VentilationLevelAddress="2432.AV32" LightLevelAddress="17822.AI68612" SettedLightLevelAddress="2300.AV1107" LightEnabledAddress="2300.BV1107"
+               Doors="2100.DC205001" Id="93fb0f58-4c08-400b-a6a4-2ce6307b485a" Description="Судья Назметдинова Р.Б.">
+        <Rectangle Stretch="Fill" Fill="#FCFFF5" />
+      </Controls:Room>
+      <Controls:Room Title="212А" Width="66.2187" Height="122.097" Canvas.Left="843.414" Canvas.Top="356.254" TemperatureAddress="2333.AI101" SettedTemperatureAddress="2333.AV31"
+               VentilationLevelAddress="2333.AV32" ACLevelAddress="2333.AV47"
+               LightLevelAddress="17822.AI68611" SettedLightLevelAddress="2300.AV1106" LightEnabledAddress="2300.BV1106"
+               Doors="2100.DC205002" Id="46267709-cc34-4c92-be91-7ed9b7f7301a" Description="Судья Назметдинова Р.Б.">
+        <Rectangle Stretch="Fill" Fill="#FCFFF5" />
+      </Controls:Room>
+      <Controls:Room Title="213А" Width="63.1414" Height="122.929" Canvas.Left="846.491" Canvas.Top="539.845" TemperatureAddress="2336.AI101" SettedTemperatureAddress="2336.AV31"
+               VentilationLevelAddress="2336.AV32" ACLevelAddress="2336.AV47"
+               LightLevelAddress="17822.AI68356" SettedLightLevelAddress="2300.AV1105" LightEnabledAddress="2300.BV1105"
+               Doors="2100.DC204001" Id="31435980-29c3-482c-b4ea-7b9f568fd901" Description="Судья Садретинова Н.М.">
+        <Rectangle Stretch="Fill" Fill="#FCFFF5" />
+      </Controls:Room>
+      <Controls:Room Title="213" Width="58.1813" Height="122.929" Canvas.Left="786.823" Canvas.Top="539.845" TemperatureAddress="2338.AI101" SettedTemperatureAddress="2338.AV31"
+               VentilationLevelAddress="2338.AV32" LightLevelAddress="17822.AI68355" SettedLightLevelAddress="2300.AV1104" LightEnabledAddress="2300.BV1104"
+               Doors="2100.DC204002" Id="4532fa71-d06a-4c74-b114-edd931da0db0" Description="Судья Садретинова Н.М.">
+        <Rectangle Stretch="Fill" Fill="#FCFFF5" />
+      </Controls:Room>
+      <Controls:Room Title="214" Width="57.6147" Height="122.928" Canvas.Left="727.723" Canvas.Top="539.846" TemperatureAddress="2340.AI101" SettedTemperatureAddress="2340.AV31"
+               VentilationLevelAddress="2340.AV32" LightLevelAddress="17822.AI68354" SettedLightLevelAddress="2300.AV1103" LightEnabledAddress="2300.BV1103"
+               Doors="2100.DC201001" Id="80b40994-3c3b-4710-936b-f9efa36beb1f" Description="Служебное помещение">
+        <Rectangle Stretch="Fill" Fill="#FCFFF5" />
+      </Controls:Room>
+      <Controls:Room Title="Лестница(левая)" Width="64.76" Height="159.709" Canvas.Left="661.423" Canvas.Top="540.291" IsPublic="True" Doors="2100.DC202001" Id="3bfbcefc-6c96-4741-859e-3b3977ae8fc8" Description="Основная лестница">
+        <Rectangle Stretch="Fill" Fill="#FCFFF5" />
+      </Controls:Room>
+      <Controls:Room Title="216" Width="128.084" Height="97.6334" Canvas.Left="531.889" Canvas.Top="540.29" TemperatureAddress="2345.AI101" SettedTemperatureAddress="2345.AV31"
+               VentilationLevelAddress="2345.AV32" LightLevelAddress="17822.AI68353" SettedLightLevelAddress="2300.AV1102" LightEnabledAddress="2300.BV1102"
+               Doors="2200.DC203001" Id="75cf0f8d-65c8-4055-815d-d0db5181ee03" Description="Секретари судебного заседания (административный состав)">
+        <Path Stretch="Fill" Fill="#FCFFF5" Data="F1 M 659.973,540.29L 613.049,540.29L 613.049,546.468L 584.714,546.468L 584.714,540.29L 531.889,540.29L 531.889,637.924L 659.973,637.924L 659.973,540.716" />
+      </Controls:Room>
+      <Controls:Room Title="218" Width="123.129" Height="97.6946" Canvas.Left="407.531" Canvas.Top="539.845" TemperatureAddress="2349.AI101" SettedTemperatureAddress="2349.AV31"
+               VentilationLevelAddress="2349.AV32" LightLevelAddress="17822.AI68353" SettedLightLevelAddress="2300.AV1101" LightEnabledAddress="2300.BV1101"
+               Doors="2200.DC203002" Id="6de204fa-b8d4-481e-bf07-ddc839439331" Description="Секретари судебного заседания (банкротный состав)">
+        <Rectangle Stretch="Fill" Fill="#FCFFF5" />
+      </Controls:Room>
+      <Controls:Room Title="Лестница(левая)" Width="67.3053" Height="159.753" Canvas.Left="218.681" Canvas.Top="539.845" Doors="2200.DC206001" Id="cb790b42-42d8-4a90-b0e1-421dad874b8e" Description="Служебная лестница">
+        <Path Stretch="Fill" Fill="#FCFFF5" Data="F1 M 218.681,539.845L 285.987,539.845L 285.987,637.184L 284.143,637.184L 284.143,699.598L 218.681,699.598L 218.681,539.845 Z " />
+      </Controls:Room>
+      <Controls:Room Title="201" Width="60.5733" Height="122.929" Canvas.Left="156.622" Canvas.Top="539.845" TemperatureAddress="2352.AI101" SettedTemperatureAddress="2352.AV31"
+               VentilationLevelAddress="2352.AV32" LightLevelAddress="17821.AI1204" SettedLightLevelAddress="2400.AV2" LightEnabledAddress="2400.BV2"
+               Doors="2200.DC208002" Id="a00611d9-bb4d-4866-841b-79105ef66066" Description="Приемная Мотовилова А.Н. (Силина Н.И.)">
+        <Rectangle Stretch="Fill" Fill="#FCFFF5" />
+      </Controls:Room>
+      <Controls:Room Title="201А" Width="119.852" Height="122.929" Canvas.Left="35.2846" Canvas.Top="539.845" TemperatureAddress="2354.AI101" SettedTemperatureAddress="2354.AV31"
+               VentilationLevelAddress="2354.AV32" ACLevelAddress="2354.AV47"
+               LightLevelAddress="17821.AI1203" Doors="2200.DC208001" SettedLightLevelAddress="2400.AV1" LightEnabledAddress="2400.BV1"
+               Id="d57aa632-ddc1-4086-bc3a-cbaf813b3679" Description="Кабинет председателя состава(Мотовилов А.Н.)">
+        <Rectangle Stretch="Fill" Fill="#FCFFF5" />
+      </Controls:Room>
+      <Controls:Room Title="202" Width="177.629" Height="66.0573" Canvas.Left="35.285" Canvas.Top="412.294" TemperatureAddress="2357.AI101" SettedTemperatureAddress="2357.AV31"
+               VentilationLevelAddress="2357.AV32" LightLevelAddress="17821.AI1202" SettedLightLevelAddress="2400.AV13" LightEnabledAddress="2400.BV13"
+               Doors="2200.DC205001" Id="3b507e59-e90e-4581-81d0-462072fd73c3" Description="Приемная хаместителя председателя суда">
+        <Path Stretch="Fill" Fill="#FCFFF5" Data="F1 M 212.914,412.294L 212.914,478.352L 35.285,478.352L 35.285,412.294L 212.641,412.294" />
+      </Controls:Room>
+      <Controls:Room Title="202А" Width="177.629" Height="114.607" Canvas.Left="35.2846" Canvas.Top="296.204" TemperatureAddress="2358.AI101" SettedTemperatureAddress="2358.AV31"
+               VentilationLevelAddress="2358.AV32" ACLevelAddress="2358.AV47"
+               LightLevelAddress="17821.AI1201" SettedLightLevelAddress="2400.AV14" LightEnabledAddress="2400.BV14"
+               Doors="2200.DC205002" Id="4c78a2ff-dfb2-47d1-b84f-a7be155a1982" Description="Кабинет заместителя председателя суда">
+        <Rectangle Stretch="Fill" Fill="#FCFFF5" />
+      </Controls:Room>
+      <Controls:Room Title="Комната отдыха" Width="177.629" Height="66.2346" Canvas.Left="35.285" Canvas.Top="228.483" TemperatureAddress="2403.AI101" SettedTemperatureAddress="2403.AV31"
+               VentilationLevelAddress="2403.AV32" LightLevelAddress="17821.AI1200" SettedLightLevelAddress="2400.AV15" LightEnabledAddress="2400.BV15"
+               Doors="2200.DC210001" Id="b10f7ee9-87fc-4441-b1a4-b340d17e86f1" Description="Комната отдыха заместителя председателя суда">
+        <Path Stretch="Fill" Fill="#FCFFF5" Data="F1 M 203.108,228.483L 203.108,258.614L 212.914,258.614L 212.914,294.718L 35.285,294.718L 35.285,228.483L 203.108,228.483 Z " />
+      </Controls:Room>
+    </Canvas>
+    <Canvas Uid="Внутреннние_комнаты" Canvas.Left="0" Canvas.Top="0">
+      <Controls:Room Title="204" Width="118.573" Height="68.4187" Canvas.Left="287.473" Canvas.Top="228.482" Doors="2200.DC211002" Id="e33ca891-5db0-4d61-8703-2a99774925fc"
+               LightEnabledAddress="2400.BV11" Description="Туалет женский">
+        <Rectangle Stretch="Fill" Fill="#FCFFF5" />
+      </Controls:Room>
+      <Controls:Room Title="203" Width="118.573" Height="71.452" Canvas.Left="287.473" Canvas.Top="298.386" Doors="2200.DC211001" Id="65feda6e-a66f-418b-846a-73b7b93f84b8"
+               LightEnabledAddress="2400.BV12" Description="Тулает мужской">
+        <Rectangle Stretch="Fill" Fill="#FCFFF5" />
+      </Controls:Room>
+      <Controls:Room Title="207(совещательная)" Width="56.6947" Height="90.4867" Canvas.Left="407.531" Canvas.Top="228.482" TemperatureAddress="2411.AI101" SettedTemperatureAddress="2411.AV31"
+               VentilationLevelAddress="2411.AV32" ACLevelAddress="2411.AV44"
+               LightLevelAddress="17821.AI1100" SettedLightLevelAddress="2400.AV10" LightEnabledAddress="2400.BV10"
+               Id="878ee083-b186-4a15-9cb4-5fd4d7978dbf" Description="Совещательная комната">
+        <Rectangle Stretch="Fill" Fill="#FCFFF5" />
+      </Controls:Room>
+      <Controls:Room Title="207(туалет)" Width="56.6947" Height="34.3133" Canvas.Left="407.531" Canvas.Top="320.456" Id="c1fdba70-8f66-4c50-84f8-b5fb8265d758"
+               LightEnabledAddress="2400.BV9" Description="Туалет">
+        <Path Stretch="Fill" Fill="#FCFFF5" Data="F1 M 407.531,320.456L 464.226,320.456L 464.226,354.769L 407.531,354.769L 407.531,320.502" />
+      </Controls:Room>
+      <Controls:Room Title="207" Width="129.943" Height="126.287" Canvas.Left="465.711" Canvas.Top="228.482" TemperatureAddress="2417.AI101" SettedTemperatureAddress="2417.AV31"
+               VentilationLevelAddress="2417.AV32" ACLevelAddress="2417.AV44" LightLevelAddress="17821.AI1101" SettedLightLevelAddress="2400.AV7" LightEnabledAddress="2400.BV7"
+               Doors="2100.DC210001, 2100.DC210002" Id="d1a66c42-5452-45e1-82f9-ddeee1b144bc" Description="Зал судебных заседаний">
+        <Rectangle Stretch="Fill" Fill="#FCFFF5" />
+      </Controls:Room>
+      <Controls:Room Title="209" Width="131.503" Height="126.287" Canvas.Left="597.141" Canvas.Top="228.482" TemperatureAddress="2423.AI101" SettedTemperatureAddress="2423.AV31"
+               VentilationLevelAddress="2423.AV32" ACLevelAddress="2423.AV44"
+               LightLevelAddress="17821.AI1102" SettedLightLevelAddress="2400.AV5" LightEnabledAddress="2400.BV5"
+               Doors="2100.DC206002, 2100.DC206001" Id="75780388-fd67-42e6-994f-ddaa484d2ce6" Description="Зал судебных заседаний">
+        <Rectangle Stretch="Fill" Fill="#FCFFF5" />
+      </Controls:Room>
+      <Controls:Room Title="209(совещательная)" Width="55.3933" Height="86.564" Canvas.Left="730.13" Canvas.Top="228.482" TemperatureAddress="2431.AI101" SettedTemperatureAddress="2431.AV31"
+               VentilationLevelAddress="2431.AV32" ACLevelAddress="2431.AV47"
+               LightLevelAddress="17821.AI1103" SettedLightLevelAddress="2400.AV4" LightEnabledAddress="2400.BV4"
+               Id="20bf201d-a259-4fee-b8b5-3da123f34302" Description="Совещательная">
+        <Rectangle Stretch="Fill" Fill="#FCFFF5" />
+      </Controls:Room>
+      <Controls:Room Title="209(туалет)" Width="55.3933" Height="38.2373" Canvas.Left="730.13" Canvas.Top="316.533" Id="f5a50685-5bfe-49b0-91b6-d1eaecda9054"
+               LightEnabledAddress="2400.BV3" Description="Туалет">
+        <Rectangle Stretch="Fill" Fill="#FCFFF5" />
+      </Controls:Room>
+      <Controls:Room Title="215(туалет)" Width="55.3933" Height="34.3147" Canvas.Left="730.13" Canvas.Top="356.254" Id="0fc78a29-f8a0-491d-9e4b-68be460b9022"
+               LightEnabledAddress="2300.BV1201" Description="Туалет">
+        <Rectangle Stretch="Fill" Fill="#FCFFF5" />
+      </Controls:Room>
+      <Controls:Room Title="215(совещательная)" Width="55.3933" Height="86.296" Canvas.Left="730.13" Canvas.Top="392.056" TemperatureAddress="2341.AI101" SettedTemperatureAddress="2341.AV31"
+               VentilationLevelAddress="2341.AV32" ACLevelAddress="2341.AV47" LightLevelAddress="17822.AI68357" SettedLightLevelAddress="2300.AV1108" LightEnabledAddress="2300.BV1108"
+               Id="decf0d70-cadd-42f9-84e8-085a395769ff" Description="Совещательная">
+        <Rectangle Stretch="Fill" Fill="#FCFFF5" />
+      </Controls:Room>
+      <Controls:Room Title="215" Width="131.503" Height="122.097" Canvas.Left="597.141" Canvas.Top="356.254" TemperatureAddress="2342.AI101" SettedTemperatureAddress="2342.AV31"
+               VentilationLevelAddress="2342.AV32" ACLevelAddress="2342.AV50" LightLevelAddress="17822.AI68358" SettedLightLevelAddress="2300.AV1202" LightEnabledAddress="2300.BV1202"
+               Doors="2200.DC204001, 2200.DC204002" Id="ad9808a7-4aed-452b-a74c-de93bd78647d" Description="Зал судебных заседаний">
+        <Rectangle Stretch="Fill" Fill="#FCFFF5" />
+      </Controls:Room>
+      <Controls:Room Title="217" Width="129.943" Height="122.097" Canvas.Left="465.711" Canvas.Top="356.254" TemperatureAddress="2346.AI101" SettedTemperatureAddress="2346.AV31"
+               VentilationLevelAddress="2346.AV32" ACLevelAddress="2346.AV44" LightLevelAddress="17822.AI68359" SettedLightLevelAddress="2300.AV1204" LightEnabledAddress="2300.BV1204"
+               Doors="2200.DC202001, 2200.DC202002" Id="3681b4ab-d131-4b4a-9393-e2cac88466f5" Description="Зал судебных заседаний">
+        <Rectangle Stretch="Fill" Fill="#FCFFF5" />
+      </Controls:Room>
+      <Controls:Room Title="217(туалет)" Width="56.6947" Height="30.1253" Canvas.Left="407.531" Canvas.Top="356.254" Id="2fc251ec-d9ff-4ea5-a48d-4c28f96679ca"
+               LightEnabledAddress="2300.BV1207" Description="Туалет">
+        <Rectangle Stretch="Fill" Fill="#FCFFF5" />
+      </Controls:Room>
+      <Controls:Room Title="217(совещательная)" Width="56.6947" Height="90.4866" Canvas.Left="407.531" Canvas.Top="387.865" TemperatureAddress="2350.AI101" SettedTemperatureAddress="2350.AV31"
+               VentilationLevelAddress="2350.AV32" ACLevelAddress="2350.AV44" LightLevelAddress="17822.AI68360" SettedLightLevelAddress="2300.AV1206" LightEnabledAddress="2300.BV1206"
+               Doors="2200.DC201002" Id="4d07c370-5447-4e1d-ba4f-736b08897715" Description="Совещательная">
+        <Rectangle Stretch="Fill" Fill="#FCFFF5" />
+      </Controls:Room>
+      <Controls:Room Title="217А" Width="43.052" Height="60.8827" Canvas.Left="362.994" Canvas.Top="371.324" LightLevelAddress="17822.AI68361" Doors="2200.DC201001"
+               SettedLightLevelAddress="2300.AV1208" LightEnabledAddress="2300.BV1208" Id="247b615d-39a6-4e7c-bff2-3b6aa5f95e5b" Description="Складское помещение">
+        <Rectangle Stretch="Fill" Fill="#FCFFF5" />
+      </Controls:Room>
+      <Controls:Room Title="Туалет для инвалидов" Width="74.036" Height="60.8827" Canvas.Left="287.473" Canvas.Top="371.324" Id="86d43085-91d9-4ad6-bedd-3572eb6d0f76"
+               LightEnabledAddress="2400.BV23" Description="Туалет для инвалидов">
+        <Rectangle Stretch="Fill" Fill="#FCFFF5" />
+      </Controls:Room>
+      <Rectangle Width="118.573" Height="44.66" Canvas.Left="287.473" Canvas.Top="433.692" Stretch="Fill" Fill="#FCFFF5" />
+    </Canvas>
+    <Canvas Uid="Коридоры" Canvas.Left="0" Canvas.Top="0">
+      <!--27,8951    6,00695-->
+      <Controls:Room Width="112.824" Height="124.415" Canvas.Left="416.0149" Canvas.Top="44.5531" TemperatureAddress="2413.AI101" SettedTemperatureAddress="2413.AV31" IsPublic="True"
+               VentilationLevelAddress="2413.AV32" LightLevelAddress="17821.AI1108" SettedLightLevelAddress="2400.AV27" LightEnabledAddress="2400.BV28"
+               Id="8199211e-ca6b-4d5d-813c-2fbdd7c0c053" Description="Служебный коридор">
+        <Rectangle Stretch="Fill" Fill="#FCFFF5" />
+      </Controls:Room>
+      <Controls:Room Width="929.153" Height="58.5067" Canvas.Left="8.0005" Canvas.Top="168.4741" IsPublic="True" LightLevelAddress="17821.AI1101" Id="79f9b5da-64dc-4a97-a2f5-134b89efd5c1"
+               SettedLightLevelAddress="2400.AV24" LightEnabledAddress="2400.BV25" Description="Коридор">
+        <Rectangle Stretch="Fill" Fill="#FCFFF5" />
+      </Controls:Room>
+      <Controls:Room Width="54.9173" Height="127.772" Canvas.Left="787.2469" Canvas.Top="226.9961" IsPublic="True" LightLevelAddress="17821.AI1103" Id="6f173553-49ce-4f77-b5e1-95103f240ee1"
+                SettedLightLevelAddress="2400.AV26" LightEnabledAddress="2400.BV27" Description="Коридор">
+        <Rectangle Stretch="Fill" Fill="#FCFFF5" />
+      </Controls:Room>
+      <Controls:Room Width="54.9173" Height="123.552" Canvas.Left="787.2469" Canvas.Top="356.2531" IsPublic="True" LightLevelAddress="17822.AI68610" Id="6d92c498-efb9-47ca-8d78-f75ca4278b4c"
+                SettedLightLevelAddress="2300.AV1309" LightEnabledAddress="2300.BV1310" Description="Коридор">
+        <Rectangle Stretch="Fill" Fill="#FCFFF5" />
+      </Controls:Room>
+      <Controls:Room Width="185.881" Height="58.524" Canvas.Left="751.2299" Canvas.Top="479.8351" LightLevelAddress="17822.AI68609" Doors="2100.DC203001" IsPublic="True"
+               Id="78189f52-aa8f-47d5-84ce-8b672cf3c9e7" Description="Коридор"
+               SettedLightLevelAddress="2300.AV1308" LightEnabledAddress="2300.BV1309">
+        <Rectangle Stretch="Fill" Fill="#FCFFF5" />
+      </Controls:Room>
+      <Controls:Room Width="462.036" Height="66.8173" Canvas.Left="287.7079" Canvas.Top="479.8351" IsPublic="True" LightLevelAddress="17822.AI68098" Id="0092452d-36f8-454b-a3bd-c7ffee6013b7"
+               SettedLightLevelAddress="2300.AV1307" LightEnabledAddress="2300.BV1308" Description="Коридор">
+        <Path Stretch="Fill" Fill="#FCFFF5" Data="F1 M 743.737,510.464L 607.972,510.464L 607.972,518.757L 578.441,518.757L 578.441,510.463L 400.269,510.463L 281.701,510.463L 281.701,451.94L 743.737,451.94L 743.737,510.464 Z " />
+      </Controls:Room>
+      <Controls:Room Width="118.568" Height="99.1813" Canvas.Left="287.7079" Canvas.Top="538.3581" TemperatureAddress="2351.AI101" SettedTemperatureAddress="2351.AV31"
+               VentilationLevelAddress="2351.AV32" IsPublic="True" LightLevelAddress="17822.AI68098" Id="28403770-e7d6-4af0-8c36-a865ec969e7f" Description="Холл"
+               SettedLightLevelAddress="2300.AV1306" LightEnabledAddress="2300.BV1307">
+        <Rectangle Stretch="Fill" Fill="#FCFFF5" />
+      </Controls:Room>
+      <Controls:Room Width="277.985" Height="58.5359" Canvas.Left="8.2365" Canvas.Top="479.8211" LightLevelAddress="17822.AI68097" IsPublic="True" Doors="2200.DC207001"
+               Id="7252bb3e-e6e1-4c9d-8805-cafc6a1ae6e4" Description="Коридор"
+               SettedLightLevelAddress="2300.AV1304" LightEnabledAddress="2300.BV1305">
+        <Rectangle Stretch="Fill" Fill="#FCFFF5" />
+      </Controls:Room>
+      <Controls:Room Width="71.5853" Height="122.54" Canvas.Left="214.6369" Canvas.Top="357.2811" IsPublic="True" LightLevelAddress="17822.AI68096" Id="db58fbe2-4aeb-4e42-9c96-5d83a958fd2b"
+               SettedLightLevelAddress="2300.AV1305" LightEnabledAddress="2300.BV1306" Description="Коридор">
+        <Rectangle Stretch="Fill" Fill="#FCFFF5" />
+      </Controls:Room>
+      <Controls:Room Width="81.3933" Height="128.797" Canvas.Left="204.8289" Canvas.Top="226.9961" IsPublic="True" LightLevelAddress="17821.AI1100" Id="4976c281-cd9c-4b52-93dd-96982d40f091"
+               SettedLightLevelAddress="2400.AV25" LightEnabledAddress="2400.BV26" Description="Коридор">
+        <Path Stretch="Fill" Fill="#FCFFF5" Data="F1 M 208.022,199.101L 280.215,199.101L 280.215,327.898L 208.63,327.898L 208.63,229.231L 198.822,229.231L 198.822,200.586L 208.022,200.586L 208.022,199.101 Z " />
+      </Controls:Room>
+      <!--<Path Width="928.875" Height="312.107" Canvas.Left="8.00056" Canvas.Top="44.0609" Stretch="Fill" Fill="#FCFFF5" Data="F1 M 285.986,355.794L 214.401,355.794L 214.401,257.128L 204.593,257.128L 204.593,228.484L 213.793,228.484L 213.793,226.997L 8.00056,226.997L 8.00056,168.477L 415.779,168.477L 415.779,44.0609L 528.603,44.0609L 528.603,168.477L 936.875,168.477L 936.875,226.984L 841.925,226.984L 841.925,354.769L 787.01,354.769L 787.01,226.997L 285.986,226.997L 285.986,356.168"/>
+            <Path Width="277.985" Height="181.077" Canvas.Left="8.00056" Canvas.Top="357.282" Stretch="Fill" Fill="#FCFFF5" Data="F1 M 285.986,538.359L 285.986,357.282L 214.401,357.282L 214.401,479.823L 8.00056,479.823L 8.00056,538.359L 285.986,538.359 Z "/>
+            <Path Width="462.036" Height="157.347" Canvas.Left="287.472" Canvas.Top="479.837" Stretch="Fill" Fill="#FCFFF5" Data="F1 M 406.04,538.359L 584.207,538.359L 584.207,546.654L 613.756,546.654L 613.756,538.361L 749.508,538.361L 749.508,479.837L 287.472,479.837L 287.472,637.183L 406.04,637.183L 406.04,538.359 Z "/>
+            <Path Width="185.924" Height="182.107" Canvas.Left="750.994" Canvas.Top="356.254" Stretch="Fill" Fill="#FCFFF5" Data="F1 M 750.994,538.361L 750.994,479.837L 787.01,479.837L 787.01,356.254L 841.928,356.254L 841.928,479.806L 936.918,479.806L 936.918,538.361L 750.994,538.361 Z "/>-->
+    </Canvas>
+    <Canvas Uid="План" Canvas.Left="0" Canvas.Top="0">
+      <Path Width="380.495" Height="124.416" Canvas.Left="35.2848" Canvas.Top="44.0604" Stretch="Fill" Fill="#FF0B0C0D" Data="F1 M 415.78,168.476L 415.78,44.0604L 414.294,44.0604L 414.294,166.988L 349.397,166.988L 349.397,44.0604L 347.911,44.0604L 347.911,166.988L 284.886,166.988L 284.886,44.0604L 283.401,44.0604L 283.401,166.988L 218.681,166.988L 218.681,44.0604L 217.195,44.0604L 217.195,166.988L 145.968,166.988L 145.968,44.0604L 144.481,44.0604L 144.481,166.988L 35.2848,166.988L 35.2848,168.476L 415.78,168.476 Z " />
+      <Path Width="381.029" Height="124.415" Canvas.Left="528.604" Canvas.Top="44.0615" Stretch="Fill" Fill="#FF0B0C0D" Data="F1 M 846.222,166.988L 846.222,44.0629L 844.737,44.0629L 844.737,166.988L 787.01,166.988L 787.01,44.0615L 785.524,44.0615L 785.524,166.988L 725.628,166.988L 725.628,44.0629L 724.141,44.0629L 724.141,166.988L 663.568,166.988L 663.568,44.0629L 662.082,44.0629L 662.082,166.988L 597.186,166.988L 597.186,44.0615L 595.7,44.0615L 595.7,166.988L 530.089,166.988L 530.089,44.0629L 528.604,44.0629L 528.604,168.476L 909.633,168.476L 909.633,166.988L 846.222,166.988 Z " />
+      <Path Width="874.348" Height="435.792" Canvas.Left="35.2846" Canvas.Top="226.982" Stretch="Fill" Fill="#FF0B0C0D" Data="F1 M 785.523,390.569L 730.13,390.569L 730.13,356.254L 785.523,356.254M 287.473,433.692L 406.046,433.692L 406.046,478.352L 287.473,478.352M 406.046,296.902L 287.473,296.902L 287.473,228.484L 406.046,228.484M 464.226,318.97L 407.531,318.97L 407.531,228.484L 464.226,228.484M 730.13,316.533L 785.523,316.533L 785.523,354.77L 730.13,354.77M 785.523,315.046L 730.13,315.046L 730.13,228.482L 785.523,228.482M 597.141,228.482L 728.643,228.482L 728.643,354.769L 597.141,354.769M 465.711,356.254L 595.654,356.254L 595.654,478.352L 465.711,478.352M 407.531,387.865L 464.226,387.865L 464.226,478.352L 407.531,478.352M 362.994,371.324L 406.046,371.324L 406.046,432.206L 362.994,432.206M 287.473,371.324L 361.509,371.324L 361.509,432.206L 287.473,432.206M 406.046,369.838L 287.473,369.838L 287.473,298.386L 406.046,298.386M 464.226,386.378L 407.531,386.378L 407.531,356.253L 464.226,356.253M 464.226,354.769L 407.531,354.769L 407.531,320.456L 464.226,320.456M 465.711,228.482L 595.654,228.482L 595.654,354.769L 465.711,354.769M 728.643,478.352L 597.141,478.352L 597.141,356.254L 728.643,356.254M 730.13,392.056L 785.523,392.056L 785.523,478.352L 730.13,478.352M 841.929,354.769L 787.01,354.769L 787.01,226.997L 407.531,226.997L 407.531,226.982L 406.046,226.982L 406.046,226.997L 285.986,226.982L 285.986,355.794L 214.401,355.794L 214.382,257.128L 204.593,257.128L 204.593,228.482L 213.793,228.482L 213.793,226.997L 35.2846,226.997L 35.2846,228.482L 203.107,228.482L 203.098,258.613L 212.914,258.613L 212.914,294.717L 35.2846,294.717L 35.2846,296.204L 212.914,296.204L 212.914,410.81L 35.2846,410.81L 35.2846,412.294L 212.914,412.294L 212.914,478.352L 35.2846,478.352L 35.2846,479.837L 214.401,479.822L 214.401,357.282L 285.986,357.282L 285.986,538.36L 35.2846,538.36L 35.2846,539.845L 155.137,539.845L 155.137,662.328L 156.623,662.328L 156.623,539.845L 217.195,539.845L 217.195,662.774L 218.682,662.774L 218.682,539.845L 285.986,539.845L 285.986,637.184L 287.473,637.184L 287.473,479.837L 749.509,479.837L 749.509,538.361L 613.742,538.361L 613.755,546.653L 584.213,546.653L 584.207,538.36L 406.041,538.36L 406.046,637.54L 407.531,637.54L 407.531,539.845L 530.661,539.845L 530.661,637.54L 532.147,637.54L 532.147,539.845L 582.726,539.845L 582.721,548.14L 615.242,548.122L 615.242,539.846L 660.031,539.846L 660.031,637.54L 661.517,637.54L 661.517,539.846L 726.237,539.846L 726.237,662.774L 727.723,662.774L 727.723,539.846L 785.338,539.845L 785.338,662.774L 786.823,662.774L 786.823,539.845L 845.006,539.845L 845.006,662.774L 846.491,662.774L 846.491,539.845L 909.633,539.845L 909.633,538.36L 750.994,538.361L 750.994,479.837L 787.01,479.806L 787.01,356.254L 841.929,356.254L 841.929,479.806L 909.633,479.837L 909.633,478.352L 843.414,478.352L 843.414,356.254L 909.633,356.254L 909.633,354.769L 843.414,354.769L 843.414,228.482L 909.633,228.482L 909.633,226.997L 841.925,226.997L 841.929,354.769 Z " />
+      <Rectangle Width="17.0293" Height="4.45868" Canvas.Left="590.335" Canvas.Top="41.8317" Stretch="Fill" Fill="#FF666565" />
+      <Rectangle Width="39.0547" Height="4.45868" Canvas.Left="516.061" Canvas.Top="41.8317" Stretch="Fill" Fill="#FF666565" />
+      <Path Width="33.7934" Height="41.284" Canvas.Left="642.496" Canvas.Top="5.00635" Stretch="Fill" Fill="#FF666565" Data="F1 M 642.496,46.2903L 661.338,46.2903C 663.388,46.2903 665.054,44.6223 665.054,42.5743L 665.054,9.46503L 676.289,9.46503L 676.289,5.00635L 664.31,5.00635C 662.262,5.00635 660.596,6.67169 660.596,8.72235L 660.596,41.8317L 642.496,41.8317L 642.496,46.2903 Z " />
+      <Path Width="26.2147" Height="41.2839" Canvas.Left="711.51" Canvas.Top="5.00604" Stretch="Fill" Fill="#FF666565" Data="F1 M 711.51,9.46466L 722.655,9.46466L 722.655,42.574C 722.655,44.622 724.321,46.29 726.371,46.29L 737.725,46.29L 737.725,41.8314L 727.114,41.8314L 727.114,8.72198C 727.114,6.67139 725.447,5.00604 723.399,5.00604L 711.51,5.00604L 711.51,9.46466 Z " />
+      <Rectangle Width="17.476" Height="4.45868" Canvas.Left="336.929" Canvas.Top="41.8303" Stretch="Fill" Fill="#FF666565" />
+      <Rectangle Width="21.8453" Height="4.45734" Canvas.Left="336.839" Canvas.Top="635.313" Stretch="Fill" Fill="#FF666565" />
+      <Rectangle Width="17.12" Height="4.45868" Canvas.Left="463.81" Canvas.Top="41.8317" Stretch="Fill" Fill="#FF666565" />
+      <Rectangle Width="14.9787" Height="4.45734" Canvas.Left="400.058" Canvas.Top="635.313" Stretch="Fill" Fill="#FF666565" />
+      <Rectangle Width="39.0547" Height="4.45868" Canvas.Left="389.625" Canvas.Top="41.8303" Stretch="Fill" Fill="#FF666565" />
+      <Rectangle Width="17.1201" Height="4.46002" Canvas.Left="836.251" Canvas.Top="660.544" Stretch="Fill" Fill="#FF666565" />
+      <Rectangle Width="4.45862" Height="17.0307" Canvas.Left="907.403" Canvas.Top="407.229" Stretch="Fill" Fill="#FF666565" />
+      <Rectangle Width="30.0479" Height="4.46002" Canvas.Left="770.982" Canvas.Top="660.544" Stretch="Fill" Fill="#FF666565" />
+      <Rectangle Width="4.45862" Height="36.7347" Canvas.Left="907.403" Canvas.Top="335.273" Stretch="Fill" Fill="#FF666565" />
+      <Rectangle Width="4.45862" Height="17.0293" Canvas.Left="907.403" Canvas.Top="283.022" Stretch="Fill" Fill="#FF666565" />
+      <Path Width="31.7" Height="31.8174" Canvas.Left="907.404" Canvas.Top="459.761" Stretch="Fill" Fill="#FF666565" Data="F1 M 939.104,491.578L 939.104,480.581C 939.104,478.533 937.437,476.866 935.389,476.866L 911.862,476.866L 911.862,459.761L 907.404,459.761L 907.404,477.607C 907.404,479.657 909.07,481.325 911.12,481.325L 934.645,481.325L 934.645,491.578L 939.104,491.578 Z " />
+      <Path Width="31.7" Height="32.0987" Canvas.Left="907.404" Canvas.Top="148.027" Stretch="Fill" Fill="#FF666565" Data="F1 M 911.862,148.027L 907.404,148.027L 907.404,166.246C 907.404,168.295 909.07,169.961 911.119,169.961L 934.645,169.961L 934.645,180.126L 939.104,180.126L 939.104,169.218C 939.104,167.169 937.437,165.502 935.389,165.502L 911.862,165.502L 911.862,148.027 Z " />
+      <Rectangle Width="21.92" Height="4.45734" Canvas.Left="522.674" Canvas.Top="635.313" Stretch="Fill" Fill="#FF666565" />
+      <Rectangle Width="17.0293" Height="4.45868" Canvas.Left="836.341" Canvas.Top="41.8317" Stretch="Fill" Fill="#FF666565" />
+      <Rectangle Width="28.176" Height="4.45868" Canvas.Left="772.945" Canvas.Top="41.8317" Stretch="Fill" Fill="#FF666565" />
+      <Path Width="23.272" Height="70.9746" Canvas.Left="888.59" Canvas.Top="41.8317" Stretch="Fill" Fill="#FF666565" Data="F1 M 888.59,46.2903L 907.403,46.2903L 907.403,112.806L 911.862,112.806L 911.862,45.5463C 911.862,43.4996 910.195,41.8317 908.146,41.8317L 888.59,41.8317L 888.59,46.2903 Z " />
+      <Path Width="31.7" Height="32.5426" Canvas.Left="907.404" Canvas.Top="215.258" Stretch="Fill" Fill="#FF666565" Data="F1 M 934.645,215.258L 934.645,225.508L 911.119,225.508C 909.07,225.508 907.404,227.178 907.404,229.226L 907.404,247.8L 911.862,247.8L 911.862,229.968L 935.389,229.968C 937.437,229.968 939.104,228.3 939.104,226.254L 939.104,215.258L 934.645,215.258 Z " />
+      <Rectangle Width="4.45866" Height="17.0307" Canvas.Left="33.0552" Canvas.Top="407.229" Stretch="Fill" Fill="#FF666565" />
+      <Path Width="33.0813" Height="66.516" Canvas.Left="268.628" Canvas.Top="635.312" Stretch="Fill" Fill="#FF666565" Data="F1 M 301.709,635.312L 285.629,635.312C 283.581,635.312 281.913,636.978 281.913,639.026L 281.913,697.37L 268.628,697.37L 268.628,701.828L 282.657,701.828C 284.707,701.828 286.373,700.163 286.373,698.114L 286.373,639.77L 301.709,639.77L 301.709,635.312 Z " />
+      <Path Width="23.0933" Height="70.9773" Canvas.Left="33.0554" Canvas.Top="594.027" Stretch="Fill" Fill="#FF666565" Data="F1 M 56.1487,660.544L 37.514,660.544L 37.514,594.027L 33.0554,594.027L 33.0554,661.289C 33.0554,663.338 34.722,665.004 36.7714,665.004L 56.1487,665.004L 56.1487,660.544 Z " />
+      <Path Width="28.8013" Height="41.284" Canvas.Left="204.607" Canvas.Top="660.544" Stretch="Fill" Fill="#FF666565" Data="F1 M 233.408,697.37L 220.167,697.37L 220.167,664.26C 220.167,662.212 218.5,660.544 216.452,660.544L 204.607,660.544L 204.607,665.004L 215.708,665.004L 215.708,698.114C 215.708,700.163 217.376,701.828 219.423,701.828L 233.408,701.828L 233.408,697.37 Z " />
+      <Rectangle Width="4.45866" Height="17.0293" Canvas.Left="33.0552" Canvas.Top="283.022" Stretch="Fill" Fill="#FF666565" />
+      <Path Width="31.7427" Height="32.1893" Canvas.Left="5.77097" Canvas.Top="526.708" Stretch="Fill" Fill="#FF666565" Data="F1 M 33.055,558.897L 37.5136,558.897L 37.5136,540.589C 37.5136,538.54 35.847,536.873 33.799,536.873L 10.2283,536.873L 10.2283,526.708L 5.77097,526.708L 5.77097,537.616C 5.77097,539.665 7.43763,541.33 9.48563,541.33L 33.055,541.33L 33.055,558.897 Z " />
+      <Path Width="31.7427" Height="32.0987" Canvas.Left="5.77137" Canvas.Top="148.027" Stretch="Fill" Fill="#FF666565" Data="F1 M 10.2287,180.126L 10.2287,169.961L 33.7994,169.961C 35.8474,169.961 37.514,168.296 37.514,166.246L 37.514,148.027L 33.0554,148.027L 33.0554,165.502L 9.48603,165.502C 7.43803,165.502 5.77137,167.169 5.77137,169.217L 5.77137,180.126L 10.2287,180.126 Z " />
+      <Path Width="23.2707" Height="70.9747" Canvas.Left="888.592" Canvas.Top="594.029" Stretch="Fill" Fill="#FF666565" Data="F1 M 907.404,594.029L 907.404,660.545L 888.592,660.545L 888.592,665.003L 908.147,665.003C 910.196,665.003 911.863,663.337 911.863,661.289L 911.863,594.029L 907.404,594.029 Z " />
+      <Path Width="31.7" Height="32.1893" Canvas.Left="907.404" Canvas.Top="526.708" Stretch="Fill" Fill="#FF666565" Data="F1 M 934.645,526.708L 934.645,536.874L 911.119,536.874C 909.07,536.874 907.404,538.54 907.404,540.588L 907.404,558.898L 911.862,558.898L 911.862,541.331L 935.389,541.331C 937.437,541.331 939.104,539.666 939.104,537.616L 939.104,526.708L 934.645,526.708 Z " />
+      <Path Width="33.7933" Height="66.516" Canvas.Left="642.496" Canvas.Top="635.312" Stretch="Fill" Fill="#FF666565" Data="F1 M 676.289,697.37L 663.004,697.37L 663.004,639.026C 663.004,636.978 661.337,635.312 659.288,635.312L 642.496,635.312L 642.496,639.77L 658.545,639.77L 658.545,698.114C 658.545,700.163 660.211,701.828 662.261,701.828L 676.289,701.828L 676.289,697.37 Z " />
+      <Path Width="24.3414" Height="41.284" Canvas.Left="711.51" Canvas.Top="660.544" Stretch="Fill" Fill="#FF666565" Data="F1 M 735.852,660.544L 728.466,660.544C 726.417,660.544 724.752,662.212 724.752,664.26L 724.752,697.37L 711.51,697.37L 711.51,701.828L 725.494,701.828C 727.544,701.828 729.209,700.163 729.209,698.114L 729.209,665.004L 735.852,665.004L 735.852,660.544 Z " />
+      <Rectangle Width="17.0307" Height="4.45868" Canvas.Left="91.3686" Canvas.Top="41.8303" Stretch="Fill" Fill="#FF666565" />
+      <Rectangle Width="30.1373" Height="4.45868" Canvas.Left="143.441" Canvas.Top="41.8303" Stretch="Fill" Fill="#FF666565" />
+      <Rectangle Width="4.45866" Height="36.7347" Canvas.Left="33.0552" Canvas.Top="335.273" Stretch="Fill" Fill="#FF666565" />
+      <Path Width="33.0813" Height="41.2827" Canvas.Left="268.628" Canvas.Top="5.00604" Stretch="Fill" Fill="#FF666565" Data="F1 M 268.628,9.46466L 281.913,9.46466L 281.913,42.5727C 281.913,44.622 283.581,46.2887 285.629,46.2887L 301.709,46.2887L 301.709,41.83L 286.373,41.83L 286.373,8.72198C 286.373,6.67139 284.707,5.00604 282.657,5.00604L 268.628,5.00604L 268.628,9.46466 Z " />
+      <Rectangle Width="21.0427" Height="4.46002" Canvas.Left="91.3686" Canvas.Top="660.544" Stretch="Fill" Fill="#FF666565" />
+      <Path Width="24.6987" Height="41.2826" Canvas.Left="208.71" Canvas.Top="5.00635" Stretch="Fill" Fill="#FF666565" Data="F1 M 208.71,46.2889L 216.453,46.2889C 218.501,46.2889 220.167,44.6223 220.167,42.5729L 220.167,9.46503L 233.409,9.46503L 233.409,5.00635L 219.423,5.00635C 217.377,5.00635 215.709,6.67169 215.709,8.72235L 215.709,41.8303L 208.71,41.8303L 208.71,46.2889 Z " />
+      <Rectangle Width="21.3107" Height="4.45734" Canvas.Left="586.054" Canvas.Top="635.313" Stretch="Fill" Fill="#FF666565" />
+      <Path Width="31.7427" Height="32.5426" Canvas.Left="5.7711" Canvas.Top="215.258" Stretch="Fill" Fill="#FF666565" Data="F1 M 5.7711,215.258L 5.7711,226.254C 5.7711,228.3 7.43777,229.968 9.48577,229.968L 33.0551,229.968L 33.0551,247.8L 37.5138,247.8L 37.5138,229.226C 37.5138,227.178 35.8471,225.508 33.7991,225.508L 10.2284,225.508L 10.2284,215.258L 5.7711,215.258 Z " />
+      <Path Width="31.7427" Height="32.0987" Canvas.Left="5.77097" Canvas.Top="459.479" Stretch="Fill" Fill="#FF666565" Data="F1 M 33.055,476.866L 9.48563,476.866C 7.43763,476.866 5.77097,478.532 5.77097,480.58L 5.77097,491.578L 10.2283,491.578L 10.2283,481.324L 33.799,481.324C 35.847,481.324 37.5136,479.656 37.5136,477.608L 37.5136,459.479L 33.055,459.479L 33.055,476.866 Z " />
+      <Rectangle Width="21.8453" Height="4.46002" Canvas.Left="147.631" Canvas.Top="660.544" Stretch="Fill" Fill="#FF666565" />
+      <Path Width="23.0933" Height="70.9733" Canvas.Left="33.0552" Canvas.Top="41.8312" Stretch="Fill" Fill="#FF666565" Data="F1 M 37.5139,112.805L 37.5139,46.2885L 56.1486,46.2885L 56.1486,41.8312L 36.7712,41.8312C 34.7219,41.8312 33.0552,43.4992 33.0552,45.546L 33.0552,112.805L 37.5139,112.805 Z " />
+      <Path Width="1.33333" Height="36.552" Canvas.Left="34.618" Canvas.Top="423.594" Stretch="Fill" StrokeThickness="1.33333" StrokeLineJoin="Round" Stroke="#FF1380AB" Data="F1 M 35.2847,424.26L 35.2847,459.479" />
+      <Path Width="1.33333" Height="36.5546" Canvas.Left="34.618" Canvas.Top="371.341" Stretch="Fill" StrokeThickness="1.33333" StrokeLineJoin="Round" Stroke="#FF1380AB" Data="F1 M 35.2847,372.008L 35.2847,407.229" />
+      <Path Width="1.33333" Height="36.5546" Canvas.Left="34.618" Canvas.Top="299.385" Stretch="Fill" StrokeThickness="1.33333" StrokeLineJoin="Round" Stroke="#FF1380AB" Data="F1 M 35.2847,300.052L 35.2847,335.273" />
+      <Path Width="1.33333" Height="36.5547" Canvas.Left="34.618" Canvas.Top="247.134" Stretch="Fill" StrokeThickness="1.33333" StrokeLineJoin="Round" Stroke="#FF1380AB" Data="F1 M 35.2847,247.801L 35.2847,283.022" />
+      <Path Width="1.33333" Height="36.4654" Canvas.Left="7.33363" Canvas.Top="179.459" Stretch="Fill" StrokeThickness="1.33333" StrokeLineJoin="Round" Stroke="#FF1380AB" Data="F1 M 8.0003,180.126L 8.0003,215.258" />
+      <Path Width="1.33333" Height="36.556" Canvas.Left="34.618" Canvas.Top="112.138" Stretch="Fill" StrokeThickness="1.33333" StrokeLineJoin="Round" Stroke="#FF1380AB" Data="F1 M 35.2847,112.805L 35.2847,148.027" />
+      <Path Width="36.5533" Height="1.33333" Canvas.Left="55.482" Canvas.Top="43.3944" Stretch="Fill" StrokeThickness="1.33333" StrokeLineJoin="Round" Stroke="#FF1380AB" Data="F1 M 56.1487,44.0611L 91.3687,44.0611" />
+      <Path Width="36.3747" Height="1.33333" Canvas.Left="107.733" Canvas.Top="43.3944" Stretch="Fill" StrokeThickness="1.33333" StrokeLineJoin="Round" Stroke="#FF1380AB" Data="F1 M 108.4,44.0611L 143.441,44.0611" />
+      <Path Width="36.4653" Height="1.33333" Canvas.Left="172.912" Canvas.Top="43.3944" Stretch="Fill" StrokeThickness="1.33333" StrokeLineJoin="Round" Stroke="#FF1380AB" Data="F1 M 173.578,44.0611L 208.71,44.0611" />
+      <Path Width="36.5533" Height="1.33333" Canvas.Left="232.742" Canvas.Top="6.56887" Stretch="Fill" StrokeThickness="1.33333" StrokeLineJoin="Round" Stroke="#FF1380AB" Data="F1 M 233.408,7.23553L 268.628,7.23553" />
+      <Path Width="36.5533" Height="1.33333" Canvas.Left="301.043" Canvas.Top="43.3944" Stretch="Fill" StrokeThickness="1.33333" StrokeLineJoin="Round" Stroke="#FF1380AB" Data="F1 M 301.709,44.0611L 336.929,44.0611" />
+      <Path Width="36.5533" Height="1.33333" Canvas.Left="353.739" Canvas.Top="43.3944" Stretch="Fill" StrokeThickness="1.33333" StrokeLineJoin="Round" Stroke="#FF1380AB" Data="F1 M 354.405,44.0611L 389.625,44.0611" />
+      <Path Width="36.464" Height="1.33333" Canvas.Left="428.013" Canvas.Top="43.3944" Stretch="Fill" StrokeThickness="1.33333" StrokeLineJoin="Round" Stroke="#FF1380AB" Data="F1 M 428.679,44.0611L 463.81,44.0611" />
+      <Path Width="36.464" Height="1.33333" Canvas.Left="480.263" Canvas.Top="43.3958" Stretch="Fill" StrokeThickness="1.33333" StrokeLineJoin="Round" Stroke="#FF1380AB" Data="F1 M 480.93,44.0624L 516.061,44.0624" />
+      <Path Width="36.5534" Height="1.33333" Canvas.Left="554.448" Canvas.Top="43.3958" Stretch="Fill" StrokeThickness="1.33333" StrokeLineJoin="Round" Stroke="#FF1380AB" Data="F1 M 555.115,44.0624L 590.335,44.0624" />
+      <Path Width="36.4641" Height="1.33333" Canvas.Left="606.698" Canvas.Top="43.3958" Stretch="Fill" StrokeThickness="1.33333" StrokeLineJoin="Round" Stroke="#FF1380AB" Data="F1 M 607.365,44.0624L 642.496,44.0624" />
+      <Path Width="36.5546" Height="1.33333" Canvas.Left="675.623" Canvas.Top="6.56887" Stretch="Fill" StrokeThickness="1.33333" StrokeLineJoin="Round" Stroke="#FF1380AB" Data="F1 M 676.289,7.23553L 711.511,7.23553" />
+      <Path Width="36.5546" Height="1.33333" Canvas.Left="737.057" Canvas.Top="43.3958" Stretch="Fill" StrokeThickness="1.33333" StrokeLineJoin="Round" Stroke="#FF1380AB" Data="F1 M 737.724,44.0624L 772.945,44.0624" />
+      <Path Width="36.5534" Height="1.33333" Canvas.Left="800.454" Canvas.Top="43.3958" Stretch="Fill" StrokeThickness="1.33333" StrokeLineJoin="Round" Stroke="#FF1380AB" Data="F1 M 801.121,44.0624L 836.341,44.0624" />
+      <Path Width="36.5534" Height="1.33333" Canvas.Left="852.704" Canvas.Top="43.3958" Stretch="Fill" StrokeThickness="1.33333" StrokeLineJoin="Round" Stroke="#FF1380AB" Data="F1 M 853.371,44.0624L 888.591,44.0624" />
+      <Path Width="1.33333" Height="36.5547" Canvas.Left="908.966" Canvas.Top="112.139" Stretch="Fill" StrokeThickness="1.33333" StrokeLineJoin="Round" Stroke="#FF1380AB" Data="F1 M 909.633,112.806L 909.633,148.027" />
+      <Path Width="1.33333" Height="36.4654" Canvas.Left="936.251" Canvas.Top="179.459" Stretch="Fill" StrokeThickness="1.33333" StrokeLineJoin="Round" Stroke="#FF1380AB" Data="F1 M 936.918,180.126L 936.918,215.258" />
+      <Path Width="1.33333" Height="36.5547" Canvas.Left="908.966" Canvas.Top="247.134" Stretch="Fill" StrokeThickness="1.33333" StrokeLineJoin="Round" Stroke="#FF1380AB" Data="F1 M 909.633,247.801L 909.633,283.022" />
+      <Path Width="1.33333" Height="36.5546" Canvas.Left="908.966" Canvas.Top="299.385" Stretch="Fill" StrokeThickness="1.33333" StrokeLineJoin="Round" Stroke="#FF1380AB" Data="F1 M 909.633,300.052L 909.633,335.273" />
+      <Path Width="1.33333" Height="36.5546" Canvas.Left="908.966" Canvas.Top="371.341" Stretch="Fill" StrokeThickness="1.33333" StrokeLineJoin="Round" Stroke="#FF1380AB" Data="F1 M 909.633,372.008L 909.633,407.229" />
+      <Path Width="1.33333" Height="36.8334" Canvas.Left="908.966" Canvas.Top="423.594" Stretch="Fill" StrokeThickness="1.33333" StrokeLineJoin="Round" Stroke="#FF1380AB" Data="F1 M 909.633,424.26L 909.633,459.76" />
+      <Path Width="1.33333" Height="36.4639" Canvas.Left="936.251" Canvas.Top="490.911" Stretch="Fill" StrokeThickness="1.33333" StrokeLineJoin="Round" Stroke="#FF1380AB" Data="F1 M 936.918,491.578L 936.918,526.709" />
+      <Path Width="1.33333" Height="36.4654" Canvas.Left="908.966" Canvas.Top="558.23" Stretch="Fill" StrokeThickness="1.33333" StrokeLineJoin="Round" Stroke="#FF1380AB" Data="F1 M 909.633,558.897L 909.633,594.029" />
+      <Path Width="36.5547" Height="1.33333" Canvas.Left="852.704" Canvas.Top="662.108" Stretch="Fill" StrokeThickness="1.33333" StrokeLineJoin="Round" Stroke="#FF1380AB" Data="F1 M 853.371,662.775L 888.592,662.775" />
+      <Path Width="36.5534" Height="1.33333" Canvas.Left="800.364" Canvas.Top="662.108" Stretch="Fill" StrokeThickness="1.33333" StrokeLineJoin="Round" Stroke="#FF1380AB" Data="F1 M 836.25,662.775L 801.03,662.775" />
+      <Path Width="36.4639" Height="1.33333" Canvas.Left="735.185" Canvas.Top="662.108" Stretch="Fill" StrokeThickness="1.33333" StrokeLineJoin="Round" Stroke="#FF1380AB" Data="F1 M 770.982,662.775L 735.851,662.775" />
+      <Path Width="36.5546" Height="1.33333" Canvas.Left="675.622" Canvas.Top="698.932" Stretch="Fill" StrokeThickness="1.33333" StrokeLineJoin="Round" Stroke="#FF1380AB" Data="F1 M 711.51,699.599L 676.289,699.599" />
+      <Path Width="36.464" Height="1.33333" Canvas.Left="606.698" Canvas.Top="636.874" Stretch="Fill" StrokeThickness="1.33333" StrokeLineJoin="Round" Stroke="#FF1380AB" Data="F1 M 642.496,637.54L 607.365,637.54" />
+      <Path Width="42.7946" Height="1.33333" Canvas.Left="543.927" Canvas.Top="636.874" Stretch="Fill" StrokeThickness="1.33333" StrokeLineJoin="Round" Stroke="#FF1380AB" Data="F1 M 544.593,637.54L 586.055,637.54" />
+      <Path Width="108.971" Height="1.33333" Canvas.Left="414.37" Canvas.Top="636.874" Stretch="Fill" StrokeThickness="1.33333" StrokeLineJoin="Round" Stroke="#FF1380AB" Data="F1 M 415.037,637.54L 522.674,637.54" />
+      <Path Width="42.7067" Height="1.33333" Canvas.Left="358.018" Canvas.Top="636.874" Stretch="Fill" StrokeThickness="1.33333" StrokeLineJoin="Round" Stroke="#FF1380AB" Data="F1 M 400.057,637.54L 358.684,637.54" />
+      <Path Width="36.464" Height="1.33333" Canvas.Left="301.042" Canvas.Top="636.874" Stretch="Fill" StrokeThickness="1.33333" StrokeLineJoin="Round" Stroke="#FF1380AB" Data="F1 M 336.84,637.54L 301.709,637.54" />
+      <Path Width="36.5533" Height="1.33333" Canvas.Left="232.741" Canvas.Top="698.932" Stretch="Fill" StrokeThickness="1.33333" StrokeLineJoin="Round" Stroke="#FF1380AB" Data="F1 M 268.628,699.599L 233.408,699.599" />
+      <Path Width="36.464" Height="1.33333" Canvas.Left="168.81" Canvas.Top="662.108" Stretch="Fill" StrokeThickness="1.33333" StrokeLineJoin="Round" Stroke="#FF1380AB" Data="F1 M 204.608,662.775L 169.477,662.775" />
+      <Path Width="36.5533" Height="1.33333" Canvas.Left="111.745" Canvas.Top="662.108" Stretch="Fill" StrokeThickness="1.33333" StrokeLineJoin="Round" Stroke="#FF1380AB" Data="F1 M 147.632,662.775L 112.412,662.775" />
+      <Path Width="36.5533" Height="1.33333" Canvas.Left="55.482" Canvas.Top="662.108" Stretch="Fill" StrokeThickness="1.33333" StrokeLineJoin="Round" Stroke="#FF1380AB" Data="F1 M 91.3687,662.775L 56.1487,662.775" />
+      <Path Width="1.33333" Height="36.464" Canvas.Left="34.618" Canvas.Top="558.23" Stretch="Fill" StrokeThickness="1.33333" StrokeLineJoin="Round" Stroke="#FF1380AB" Data="F1 M 35.2847,558.897L 35.2847,594.028" />
+      <Path Width="1.33333" Height="36.4639" Canvas.Left="7.33363" Canvas.Top="490.911" Stretch="Fill" StrokeThickness="1.33333" StrokeLineJoin="Round" Stroke="#FF1380AB" Data="F1 M 8.0003,491.578L 8.0003,526.709" />
+    </Canvas>
+    <Canvas Uid="Двери" Canvas.Left="0" Canvas.Top="0">
+      <!--Двери внешних помещений-->
+      <Controls:Door Canvas.Left="141" Canvas.Top="562" RotationAngle="90" Address="2200.DC208001" Id="9152ea7d-0bd6-46d8-a366-3b7dc58ed626" />
+      <Controls:Door Canvas.Left="184" Canvas.Top="537" Address="2200.DC208002" Id="b2e3dc0c-6409-4776-a639-7b1905fc941f" />
+      <Controls:Door Canvas.Left="420" Canvas.Top="537" Address="2200.DC203002" Id="a7d3fc8a-977c-4984-9a6c-07cb855cf180" />
+      <Controls:Door Canvas.Left="542" Canvas.Top="537" Address="2200.DC203001" Id="21636915-b34d-4b77-a65a-78080dd80da6" />
+      <Controls:Door Canvas.Left="752" Canvas.Top="537" Address="2100.DC201001" Id="79da14db-41c9-46c6-8727-9be21c32a84a" />
+      <Controls:Door Canvas.Left="789" Canvas.Top="537" Address="2100.DC204002" Id="de0cae07-fc7a-44ad-8f61-e3ab1be19a73" />
+      <Controls:Door Canvas.Left="830" Canvas.Top="558" RotationAngle="90" Address="2100.DC204001" Id="6bb315d9-452a-4dc4-b63d-3cc539e6f10e" />
+      <Controls:Door Canvas.Left="849" Canvas.Top="353" Address="2100.DC205002" Id="8d65021e-d5b6-424e-be9d-a0384dc51256" />
+      <Controls:Door Canvas.Left="828" Canvas.Top="332" RotationAngle="90" Address="2100.DC205001" Id="15a9d992-1e84-4781-9d51-a4937c0520ac" />
+      <Controls:Door Canvas.Left="800" Canvas.Top="165" Address="2100.DC207002" Id="75537ae8-d044-4c71-9e52-22fdeccaf2b7" />
+      <Controls:Door Canvas.Left="831" Canvas.Top="145" RotationAngle="90" Address="2100.DC207001" Id="967f46bf-08c8-4466-8699-f13c169c74a5" />
+      <Controls:Door Canvas.Left="741" Canvas.Top="165" Address="2100.DC208002" Id="8867557d-99f6-40fc-936c-b7e078a1a82a" />
+      <Controls:Door Canvas.Left="711" Canvas.Top="145" RotationAngle="90" Address="2100.DC208001" Id="3e67cc36-47f8-44a9-9b13-38d845072b95" />
+      <Controls:Door Canvas.Left="549" Canvas.Top="165" Address="2100.DC209002" Id="a86ec8f3-aac7-4017-9499-edf736b28259" />
+      <Controls:Door Canvas.Left="582" Canvas.Top="145" RotationAngle="90" Address="2100.DC209001" Id="6fb3a8b1-5949-4795-8707-b8d9490a0731" />
+      <Controls:Door Canvas.Left="300" Canvas.Top="165" Address="2100.DC211001" Id="a23de2f2-0220-4587-98d9-e198d6643327" />
+      <Controls:Door Canvas.Left="333" Canvas.Top="145" RotationAngle="90" Address="2100.DC211002" Id="b3d7fb20-318d-4a70-b7cf-da53579c5caf" />
+      <Controls:Door Canvas.Left="167" Canvas.Top="165" Address="2200.DC209002" Id="7ee5779a-dd18-4791-9d2a-4f7d36fb670a" />
+      <Controls:Door Canvas.Left="130" Canvas.Top="145" RotationAngle="90" Address="2200.DC209001" Id="1f82e27c-3e4b-40f8-b073-54cbd0d13a4d" />
+      <Controls:Door Canvas.Left="162" Canvas.Top="225" Address="2200.DC210001" Id="1c874ec6-d12e-490f-aad1-6b36fa7a06cc" />
+      <Controls:Door Canvas.Left="173" Canvas.Top="409" Address="2200.DC205002" Id="f47d30cb-1bb7-44ce-98ee-55e0b5e30a79" />
+      <Controls:Door Canvas.Left="173" Canvas.Top="477" Address="2200.DC205001" Id="4c1d7664-a357-464d-b5c3-a6a737644fca" />
+      <!--Коридоры и лестницы-->
+      <Controls:Door Canvas.Left="236" Canvas.Top="537" Address="2200.DC206001" Id="90d1767b-67ca-46e4-bd94-702cf584090c" />
+      <Controls:Door Canvas.Left="678" Canvas.Top="537" Address="2100.DC202001" Id="1aad9457-51ff-484e-9cda-54e4cd7acd68" />
+      <Controls:Door Canvas.Left="236" Canvas.Top="165" Address="2100.DC212001" Id="a9648466-6798-47a1-934a-ae8b06d6a448" />
+      <Controls:Door Canvas.Left="735" Canvas.Top="508" RotationAngle="90" Address="2100.DC203001" Id="f2ecbec2-f8e7-4227-a5d2-678ee04da912" />
+      <Controls:Door Canvas.Left="272" Canvas.Top="508" RotationAngle="90" Address="2200.DC207001" Id="c2574ad2-27ae-498e-97bb-b8a484dad668" />
+      <!--Внутренние помещения-->
+      <Controls:Door Canvas.Left="272" Canvas.Top="278" RotationAngle="90" Address="2200.DC211002" Id="85d6810c-b4d6-4f1a-a71e-6fc5bebe4637" />
+      <Controls:Door Canvas.Left="272" Canvas.Top="338" RotationAngle="90" Address="2200.DC211001" Id="9abb15c5-41eb-4564-ba14-e7131e542454" />
+      <Controls:Door Canvas.Left="420" Canvas.Top="476" Address="2200.DC201002" Id="515cee14-5c05-4a5b-a18d-f2c9da1c25fd" />
+      <Controls:Door Canvas.Left="470" Canvas.Top="476" Address="2200.DC202001" Id="239477a4-ff7a-4d61-b0b4-2eec7d6bc470" />
+      <Controls:Door Canvas.Left="560" Canvas.Top="476" Address="2200.DC202002" Id="e7a2ceb7-2d8c-4389-a32d-4983d0194820" />
+      <Controls:Door Canvas.Left="602" Canvas.Top="476" Address="2200.DC204002" Id="cd87bb00-d592-4afc-b7bf-c85be08694ba" />
+      <Controls:Door Canvas.Left="694" Canvas.Top="476" Address="2200.DC204001" Id="57a5edc6-b5a7-43ec-beb8-fb070692a34a" />
+      <Controls:Door Canvas.Left="470" Canvas.Top="225" Address="2100.DC210001" Id="9adfb746-1be7-4e50-a631-3c6251767361" />
+      <Controls:Door Canvas.Left="560" Canvas.Top="225" Address="2100.DC210002" Id="bc4f97b2-6a0c-4b11-9b05-215fc3a00694" />
+      <Controls:Door Canvas.Left="602" Canvas.Top="225" Address="2100.DC206002" Id="d185b1f0-eb40-4d69-952e-7d1eb6cc4db4" />
+      <Controls:Door Canvas.Left="694" Canvas.Top="225" Address="2100.DC206001" Id="3fcb1c3e-7996-4472-9813-7cb38a101d4f" />
+      <Controls:Door Canvas.Left="392" Canvas.Top="410" RotationAngle="90" Address="2200.DC201001" Id="a7213d05-674e-4cbb-99a9-47916398ca18" />
+    </Canvas>
+    <Canvas Uid="Лампы" Canvas.Left="0" Canvas.Top="0" Visibility="Collapsed">
+      <!--ЩА2-1(2400) канал1-->
+      <!--224-->
+      <Controls:Lamp Canvas.Left="425" Canvas.Top="285" Address="17821.AI0" />
+      <Controls:Lamp Canvas.Left="425" Canvas.Top="240" Address="17821.AI1" />
+      <!--218-->
+      <Controls:Lamp Canvas.Left="480" Canvas.Top="240" Address="17821.AI2" />
+      <Controls:Lamp Canvas.Left="480" Canvas.Top="280" Address="17821.AI3" />
+      <Controls:Lamp Canvas.Left="480" Canvas.Top="320" Address="17821.AI4" />
+      <Controls:Lamp Canvas.Left="518" Canvas.Top="320" Address="17821.AI5" />
+      <Controls:Lamp Canvas.Left="518" Canvas.Top="280" Address="17821.AI6" />
+      <Controls:Lamp Canvas.Left="518" Canvas.Top="240" Address="17821.AI7" />
+      <Controls:Lamp Canvas.Left="555" Canvas.Top="240" Address="17821.AI8" />
+      <Controls:Lamp Canvas.Left="555" Canvas.Top="280" Address="17821.AI9" />
+      <Controls:Lamp Canvas.Left="555" Canvas.Top="320" Address="17821.AI10" />
+      <!--217-->
+      <Controls:Lamp Canvas.Left="610" Canvas.Top="240" Address="17821.AI11" />
+      <Controls:Lamp Canvas.Left="610" Canvas.Top="280" Address="17821.AI12" />
+      <Controls:Lamp Canvas.Left="610" Canvas.Top="320" Address="17821.AI13" />
+      <Controls:Lamp Canvas.Left="650" Canvas.Top="320" Address="17821.AI14" />
+      <Controls:Lamp Canvas.Left="650" Canvas.Top="280" Address="17821.AI15" />
+      <Controls:Lamp Canvas.Left="650" Canvas.Top="240" Address="17821.AI16" />
+      <Controls:Lamp Canvas.Left="690" Canvas.Top="240" Address="17821.AI17" />
+      <Controls:Lamp Canvas.Left="690" Canvas.Top="280" Address="17821.AI18" />
+      <Controls:Lamp Canvas.Left="690" Canvas.Top="320" Address="17821.AI19" />
+      <!--216-->
+      <Controls:Lamp Canvas.Left="745" Canvas.Top="240" Address="17821.AI20" />
+      <Controls:Lamp Canvas.Left="745" Canvas.Top="280" Address="17821.AI21" />
+      <!--234a-->
+      <Controls:Lamp Canvas.Left="355" Canvas.Top="130" Address="17821.AI22" />
+      <Controls:Lamp Canvas.Left="385" Canvas.Top="130" Address="17821.AI23" />
+      <Controls:Lamp Canvas.Left="385" Canvas.Top="95" Address="17821.AI24" />
+      <Controls:Lamp Canvas.Left="355" Canvas.Top="95" Address="17821.AI25" />
+      <Controls:Lamp Canvas.Left="355" Canvas.Top="60" Address="17821.AI26" />
+      <Controls:Lamp Canvas.Left="385" Canvas.Top="60" Address="17821.AI27" />
+      <!--234-->
+      <Controls:Lamp Canvas.Left="320" Canvas.Top="130" Address="17821.AI28" />
+      <Controls:Lamp Canvas.Left="290" Canvas.Top="130" Address="17821.AI29" />
+      <Controls:Lamp Canvas.Left="290" Canvas.Top="95" Address="17821.AI30" />
+      <Controls:Lamp Canvas.Left="320" Canvas.Top="95" Address="17821.AI31" />
+      <Controls:Lamp Canvas.Left="320" Canvas.Top="60" Address="17821.AI32" />
+      <Controls:Lamp Canvas.Left="290" Canvas.Top="60" Address="17821.AI33" />
+      <!--232-->
+      <Controls:Lamp Canvas.Left="185" Canvas.Top="130" Address="17821.AI34" />
+      <Controls:Lamp Canvas.Left="155" Canvas.Top="130" Address="17821.AI35" />
+      <Controls:Lamp Canvas.Left="155" Canvas.Top="95" Address="17821.AI36" />
+      <Controls:Lamp Canvas.Left="185" Canvas.Top="95" Address="17821.AI37" />
+      <Controls:Lamp Canvas.Left="185" Canvas.Top="60" Address="17821.AI38" />
+      <Controls:Lamp Canvas.Left="155" Canvas.Top="60" Address="17821.AI39" />
+      <!--231-->
+      <Controls:Lamp Canvas.Left="115" Canvas.Top="130" Address="17821.AI40" />
+      <Controls:Lamp Canvas.Left="80" Canvas.Top="130" Address="17821.AI41" />
+      <Controls:Lamp Canvas.Left="45" Canvas.Top="130" Address="17821.AI42" />
+      <Controls:Lamp Canvas.Left="45" Canvas.Top="95" Address="17821.AI43" />
+      <Controls:Lamp Canvas.Left="80" Canvas.Top="95" Address="17821.AI44" />
+      <Controls:Lamp Canvas.Left="115" Canvas.Top="95" Address="17821.AI45" />
+      <Controls:Lamp Canvas.Left="115" Canvas.Top="60" Address="17821.AI46" />
+      <Controls:Lamp Canvas.Left="80" Canvas.Top="60" Address="17821.AI47" />
+      <Controls:Lamp Canvas.Left="45" Canvas.Top="60" Address="17821.AI48" />
+      <!--ЩА2-1(2400) канал 2-->
+      <!--235-->
+      <Controls:Lamp Canvas.Left="240" Canvas.Top="320" Address="17821.AI100" />
+      <Controls:Lamp Canvas.Left="240" Canvas.Top="280" Address="17821.AI101" />
+      <Controls:Lamp Canvas.Left="240" Canvas.Top="240" Address="17821.AI102" />
+      <Controls:Lamp Canvas.Left="40" Canvas.Top="185" Address="17821.AI103" />
+      <Controls:Lamp Canvas.Left="80" Canvas.Top="185" Address="17821.AI104" />
+      <Controls:Lamp Canvas.Left="120" Canvas.Top="185" Address="17821.AI105" />
+      <Controls:Lamp Canvas.Left="160" Canvas.Top="185" Address="17821.AI106" />
+      <Controls:Lamp Canvas.Left="200" Canvas.Top="185" Address="17821.AI107" />
+      <Controls:Lamp Canvas.Left="240" Canvas.Top="185" Address="17821.AI108" />
+      <Controls:Lamp Canvas.Left="280" Canvas.Top="185" Address="17821.AI109" />
+      <Controls:Lamp Canvas.Left="317" Canvas.Top="185" Address="17821.AI110" />
+      <Controls:Lamp Canvas.Left="354" Canvas.Top="185" Address="17821.AI111" />
+      <Controls:Lamp Canvas.Left="391" Canvas.Top="185" Address="17821.AI112" />
+      <Controls:Lamp Canvas.Left="428" Canvas.Top="185" Address="17821.AI113" />
+      <Controls:Lamp Canvas.Left="465" Canvas.Top="185" Address="17821.AI114" />
+      <Controls:Lamp Canvas.Left="502" Canvas.Top="185" Address="17821.AI115" />
+      <Controls:Lamp Canvas.Left="539" Canvas.Top="185" Address="17821.AI116" />
+      <Controls:Lamp Canvas.Left="576" Canvas.Top="185" Address="17821.AI117" />
+      <Controls:Lamp Canvas.Left="613" Canvas.Top="185" Address="17821.AI118" />
+      <Controls:Lamp Canvas.Left="650" Canvas.Top="185" Address="17821.AI119" />
+      <Controls:Lamp Canvas.Left="687" Canvas.Top="185" Address="17821.AI120" />
+      <Controls:Lamp Canvas.Left="725" Canvas.Top="185" Address="17821.AI121" />
+      <Controls:Lamp Canvas.Left="764" Canvas.Top="185" Address="17821.AI122" />
+      <Controls:Lamp Canvas.Left="802" Canvas.Top="185" Address="17821.AI123" />
+      <Controls:Lamp Canvas.Left="802" Canvas.Top="240" Address="17821.AI124" />
+      <Controls:Lamp Canvas.Left="802" Canvas.Top="280" Address="17821.AI125" />
+      <Controls:Lamp Canvas.Left="802" Canvas.Top="320" Address="17821.AI126" />
+      <Controls:Lamp Canvas.Left="845" Canvas.Top="185" Address="17821.AI127" />
+      <Controls:Lamp Canvas.Left="885" Canvas.Top="185" Address="17821.AI128" />
+      <!--238-->
+      <Controls:Lamp Canvas.Left="700" Canvas.Top="130" Address="17821.AI129" />
+      <Controls:Lamp Canvas.Left="670" Canvas.Top="130" Address="17821.AI130" />
+      <Controls:Lamp Canvas.Left="670" Canvas.Top="95" Address="17821.AI131" />
+      <Controls:Lamp Canvas.Left="700" Canvas.Top="95" Address="17821.AI132" />
+      <Controls:Lamp Canvas.Left="700" Canvas.Top="60" Address="17821.AI133" />
+      <Controls:Lamp Canvas.Left="670" Canvas.Top="60" Address="17821.AI134" />
+      <Controls:Lamp Canvas.Left="685" Canvas.Top="25" Address="17821.AI135" />
+      <!--237-->
+      <Controls:Lamp Canvas.Left="635" Canvas.Top="130" Address="17821.AI136" />
+      <Controls:Lamp Canvas.Left="605" Canvas.Top="130" Address="17821.AI137" />
+      <Controls:Lamp Canvas.Left="605" Canvas.Top="95" Address="17821.AI138" />
+      <Controls:Lamp Canvas.Left="635" Canvas.Top="95" Address="17821.AI139" />
+      <Controls:Lamp Canvas.Left="635" Canvas.Top="60" Address="17821.AI140" />
+      <Controls:Lamp Canvas.Left="605" Canvas.Top="60" Address="17821.AI141" />
+      <!--236-->
+      <Controls:Lamp Canvas.Left="568" Canvas.Top="130" Address="17821.AI142" />
+      <Controls:Lamp Canvas.Left="538" Canvas.Top="130" Address="17821.AI143" />
+      <Controls:Lamp Canvas.Left="538" Canvas.Top="95" Address="17821.AI144" />
+      <Controls:Lamp Canvas.Left="568" Canvas.Top="95" Address="17821.AI145" />
+      <Controls:Lamp Canvas.Left="568" Canvas.Top="60" Address="17821.AI146" />
+      <Controls:Lamp Canvas.Left="538" Canvas.Top="60" Address="17821.AI147" />
+      <!--235-->
+      <Controls:Lamp Canvas.Left="500" Canvas.Top="130" Address="17821.AI148" />
+      <Controls:Lamp Canvas.Left="500" Canvas.Top="95" Address="17821.AI149" />
+      <Controls:Lamp Canvas.Left="500" Canvas.Top="60" Address="17821.AI150" />
+      <Controls:Lamp Canvas.Left="462" Canvas.Top="60" Address="17821.AI151" />
+      <Controls:Lamp Canvas.Left="425" Canvas.Top="60" Address="17821.AI152" />
+      <Controls:Lamp Canvas.Left="425" Canvas.Top="95" Address="17821.AI153" />
+      <Controls:Lamp Canvas.Left="425" Canvas.Top="130" Address="17821.AI154" />
+      <Controls:Lamp Canvas.Left="462" Canvas.Top="130" Address="17821.AI155" />
+      <!--ЩА2-1(2400) канал 3-->
+      <!--230-->
+      <Controls:Lamp Canvas.Left="170" Canvas.Top="235" Address="17821.AI200" />
+      <Controls:Lamp Canvas.Left="170" Canvas.Top="270" Address="17821.AI201" />
+      <Controls:Lamp Canvas.Left="130" Canvas.Top="235" Address="17821.AI202" />
+      <Controls:Lamp Canvas.Left="130" Canvas.Top="270" Address="17821.AI203" />
+      <Controls:Lamp Canvas.Left="90" Canvas.Top="235" Address="17821.AI204" />
+      <Controls:Lamp Canvas.Left="90" Canvas.Top="270" Address="17821.AI205" />
+      <Controls:Lamp Canvas.Left="50" Canvas.Top="235" Address="17821.AI206" />
+      <Controls:Lamp Canvas.Left="50" Canvas.Top="270" Address="17821.AI207" />
+      <!--229-->
+      <Controls:Lamp Canvas.Left="170" Canvas.Top="305" Address="17821.AI208" />
+      <Controls:Lamp Canvas.Left="130" Canvas.Top="305" Address="17821.AI209" />
+      <Controls:Lamp Canvas.Left="90" Canvas.Top="305" Address="17821.AI210" />
+      <Controls:Lamp Canvas.Left="50" Canvas.Top="305" Address="17821.AI211" />
+      <Controls:Lamp Canvas.Left="50" Canvas.Top="345" Address="17821.AI212" />
+      <Controls:Lamp Canvas.Left="90" Canvas.Top="345" Address="17821.AI213" />
+      <Controls:Lamp Canvas.Left="130" Canvas.Top="345" Address="17821.AI214" />
+      <Controls:Lamp Canvas.Left="170" Canvas.Top="345" Address="17821.AI215" />
+      <Controls:Lamp Canvas.Left="50" Canvas.Top="385" Address="17821.AI216" />
+      <Controls:Lamp Canvas.Left="90" Canvas.Top="385" Address="17821.AI217" />
+      <Controls:Lamp Canvas.Left="130" Canvas.Top="385" Address="17821.AI218" />
+      <Controls:Lamp Canvas.Left="170" Canvas.Top="385" Address="17821.AI219" />
+      <!--228-->
+      <Controls:Lamp Canvas.Left="170" Canvas.Top="450" Address="17821.AI220" />
+      <Controls:Lamp Canvas.Left="170" Canvas.Top="420" Address="17821.AI221" />
+      <Controls:Lamp Canvas.Left="130" Canvas.Top="420" Address="17821.AI222" />
+      <Controls:Lamp Canvas.Left="130" Canvas.Top="450" Address="17821.AI223" />
+      <Controls:Lamp Canvas.Left="90" Canvas.Top="450" Address="17821.AI224" />
+      <Controls:Lamp Canvas.Left="90" Canvas.Top="420" Address="17821.AI225" />
+      <Controls:Lamp Canvas.Left="50" Canvas.Top="420" Address="17821.AI226" />
+      <Controls:Lamp Canvas.Left="50" Canvas.Top="450" Address="17821.AI227" />
+      <!--201-->
+      <Controls:Lamp Canvas.Left="50" Canvas.Top="550" Address="17821.AI228" />
+      <Controls:Lamp Canvas.Left="50" Canvas.Top="590" Address="17821.AI229" />
+      <Controls:Lamp Canvas.Left="50" Canvas.Top="630" Address="17821.AI230" />
+      <Controls:Lamp Canvas.Left="88" Canvas.Top="630" Address="17821.AI231" />
+      <Controls:Lamp Canvas.Left="88" Canvas.Top="590" Address="17821.AI232" />
+      <Controls:Lamp Canvas.Left="88" Canvas.Top="550" Address="17821.AI233" />
+      <Controls:Lamp Canvas.Left="124" Canvas.Top="550" Address="17821.AI234" />
+      <Controls:Lamp Canvas.Left="124" Canvas.Top="590" Address="17821.AI235" />
+      <Controls:Lamp Canvas.Left="124" Canvas.Top="630" Address="17821.AI236" />
+      <!--202-->
+      <Controls:Lamp Canvas.Left="162" Canvas.Top="550" Address="17821.AI237" />
+      <Controls:Lamp Canvas.Left="192" Canvas.Top="550" Address="17821.AI238" />
+      <Controls:Lamp Canvas.Left="192" Canvas.Top="590" Address="17821.AI239" />
+      <Controls:Lamp Canvas.Left="162" Canvas.Top="590" Address="17821.AI240" />
+      <Controls:Lamp Canvas.Left="162" Canvas.Top="630" Address="17821.AI241" />
+      <Controls:Lamp Canvas.Left="192" Canvas.Top="630" Address="17821.AI242" />
+      <!--ЩА2-2(2300) канал 1-->
+      <!--204a-->
+      <Controls:Lamp Canvas.Left="240" Canvas.Top="370" Address="17822.AI0" />
+      <Controls:Lamp Canvas.Left="240" Canvas.Top="410" Address="17822.AI1" />
+      <Controls:Lamp Canvas.Left="240" Canvas.Top="450" Address="17822.AI2" />
+      <Controls:Lamp Canvas.Left="40" Canvas.Top="495" Address="17822.AI3" />
+      <Controls:Lamp Canvas.Left="80" Canvas.Top="495" Address="17822.AI4" />
+      <Controls:Lamp Canvas.Left="120" Canvas.Top="495" Address="17822.AI5" />
+      <Controls:Lamp Canvas.Left="160" Canvas.Top="495" Address="17822.AI6" />
+      <Controls:Lamp Canvas.Left="200" Canvas.Top="495" Address="17822.AI7" />
+      <Controls:Lamp Canvas.Left="240" Canvas.Top="495" Address="17822.AI8" />
+      <!--204-->
+      <Controls:Lamp Canvas.Left="300" Canvas.Top="495" Address="17822.AI9" />
+      <Controls:Lamp Canvas.Left="340" Canvas.Top="495" Address="17822.AI10" />
+      <Controls:Lamp Canvas.Left="325" Canvas.Top="525" Width="15" Address="17822.AI11" />
+      <Controls:Lamp Canvas.Left="300" Canvas.Top="545" Address="17822.AI12" />
+      <Controls:Lamp Canvas.Left="300" Canvas.Top="575" Address="17822.AI13" />
+      <Controls:Lamp Canvas.Left="325" Canvas.Top="585" Width="15" Address="17822.AI14" />
+      <Controls:Lamp Canvas.Left="300" Canvas.Top="605" Address="17822.AI15" />
+      <Controls:Lamp Canvas.Left="340" Canvas.Top="605" Address="17822.AI16" />
+      <Controls:Lamp Canvas.Left="380" Canvas.Top="605" Address="17822.AI17" />
+      <Controls:Lamp Canvas.Left="360" Canvas.Top="585" Width="15" Address="17822.AI18" />
+      <Controls:Lamp Canvas.Left="380" Canvas.Top="575" Address="17822.AI19" />
+      <Controls:Lamp Canvas.Left="380" Canvas.Top="545" Address="17822.AI20" />
+      <Controls:Lamp Canvas.Left="360" Canvas.Top="525" Width="15" Address="17822.AI21" />
+      <Controls:Lamp Canvas.Left="380" Canvas.Top="495" Address="17822.AI22" />
+      <Controls:Lamp Canvas.Left="418" Canvas.Top="495" Address="17822.AI23" />
+      <Controls:Lamp Canvas.Left="456" Canvas.Top="495" Address="17822.AI24" />
+      <Controls:Lamp Canvas.Left="494" Canvas.Top="495" Address="17822.AI25" />
+      <Controls:Lamp Canvas.Left="532" Canvas.Top="495" Address="17822.AI26" />
+      <Controls:Lamp Canvas.Left="570" Canvas.Top="495" Address="17822.AI27" />
+      <!--ЩА2-2(2300) канал 2-->
+      <!--205-->
+      <Controls:Lamp Canvas.Left="415" Canvas.Top="560" Address="17822.AI256" />
+      <Controls:Lamp Canvas.Left="415" Canvas.Top="600" Address="17822.AI257" />
+      <Controls:Lamp Canvas.Left="445" Canvas.Top="600" Address="17822.AI258" />
+      <Controls:Lamp Canvas.Left="445" Canvas.Top="560" Address="17822.AI259" />
+      <Controls:Lamp Canvas.Left="475" Canvas.Top="600" Address="17822.AI260" />
+      <Controls:Lamp Canvas.Left="475" Canvas.Top="560" Address="17822.AI261" />
+      <Controls:Lamp Canvas.Left="505" Canvas.Top="560" Address="17822.AI262" />
+      <Controls:Lamp Canvas.Left="505" Canvas.Top="600" Address="17822.AI263" />
+      <!--206-->
+      <Controls:Lamp Canvas.Left="540" Canvas.Top="560" Address="17822.AI264" />
+      <Controls:Lamp Canvas.Left="540" Canvas.Top="600" Address="17822.AI265" />
+      <Controls:Lamp Canvas.Left="570" Canvas.Top="600" Address="17822.AI266" />
+      <Controls:Lamp Canvas.Left="570" Canvas.Top="560" Address="17822.AI267" />
+      <Controls:Lamp Canvas.Left="600" Canvas.Top="600" Address="17822.AI268" />
+      <Controls:Lamp Canvas.Left="600" Canvas.Top="560" Address="17822.AI269" />
+      <Controls:Lamp Canvas.Left="630" Canvas.Top="560" Address="17822.AI270" />
+      <Controls:Lamp Canvas.Left="630" Canvas.Top="600" Address="17822.AI271" />
+      <!--208-->
+      <Controls:Lamp Canvas.Left="733" Canvas.Top="550" Address="17822.AI272" />
+      <Controls:Lamp Canvas.Left="760" Canvas.Top="550" Address="17822.AI273" />
+      <Controls:Lamp Canvas.Left="760" Canvas.Top="590" Address="17822.AI274" />
+      <Controls:Lamp Canvas.Left="733" Canvas.Top="590" Address="17822.AI275" />
+      <Controls:Lamp Canvas.Left="733" Canvas.Top="630" Address="17822.AI276" />
+      <Controls:Lamp Canvas.Left="760" Canvas.Top="630" Address="17822.AI277" />
+      <!--209-->
+      <Controls:Lamp Canvas.Left="793" Canvas.Top="550" Address="17822.AI278" />
+      <Controls:Lamp Canvas.Left="820" Canvas.Top="550" Address="17822.AI279" />
+      <Controls:Lamp Canvas.Left="820" Canvas.Top="590" Address="17822.AI280" />
+      <Controls:Lamp Canvas.Left="793" Canvas.Top="590" Address="17822.AI281" />
+      <Controls:Lamp Canvas.Left="793" Canvas.Top="630" Address="17822.AI282" />
+      <Controls:Lamp Canvas.Left="820" Canvas.Top="630" Address="17822.AI283" />
+      <!--210-->
+      <Controls:Lamp Canvas.Left="853" Canvas.Top="550" Address="17822.AI284" />
+      <Controls:Lamp Canvas.Left="880" Canvas.Top="550" Address="17822.AI285" />
+      <Controls:Lamp Canvas.Left="880" Canvas.Top="590" Address="17822.AI286" />
+      <Controls:Lamp Canvas.Left="853" Canvas.Top="590" Address="17822.AI287" />
+      <Controls:Lamp Canvas.Left="853" Canvas.Top="630" Address="17822.AI288" />
+      <Controls:Lamp Canvas.Left="880" Canvas.Top="630" Address="17822.AI289" />
+      <!--213-->
+      <Controls:Lamp Canvas.Left="745" Canvas.Top="400" Address="17822.AI290" />
+      <Controls:Lamp Canvas.Left="745" Canvas.Top="450" Address="17822.AI291" />
+      <!--219-->
+      <Controls:Lamp Canvas.Left="690" Canvas.Top="445" Address="17822.AI292" />
+      <Controls:Lamp Canvas.Left="690" Canvas.Top="405" Address="17822.AI293" />
+      <Controls:Lamp Canvas.Left="690" Canvas.Top="365" Address="17822.AI294" />
+      <Controls:Lamp Canvas.Left="650" Canvas.Top="365" Address="17822.AI295" />
+      <Controls:Lamp Canvas.Left="650" Canvas.Top="405" Address="17822.AI296" />
+      <Controls:Lamp Canvas.Left="650" Canvas.Top="445" Address="17822.AI297" />
+      <Controls:Lamp Canvas.Left="610" Canvas.Top="365" Address="17822.AI298" />
+      <Controls:Lamp Canvas.Left="610" Canvas.Top="405" Address="17822.AI299" />
+      <Controls:Lamp Canvas.Left="610" Canvas.Top="445" Address="17822.AI300" />
+      <!--220-->
+      <Controls:Lamp Canvas.Left="560" Canvas.Top="445" Address="17822.AI301" />
+      <Controls:Lamp Canvas.Left="560" Canvas.Top="405" Address="17822.AI302" />
+      <Controls:Lamp Canvas.Left="560" Canvas.Top="365" Address="17822.AI303" />
+      <Controls:Lamp Canvas.Left="520" Canvas.Top="365" Address="17822.AI304" />
+      <Controls:Lamp Canvas.Left="520" Canvas.Top="405" Address="17822.AI305" />
+      <Controls:Lamp Canvas.Left="520" Canvas.Top="445" Address="17822.AI306" />
+      <Controls:Lamp Canvas.Left="480" Canvas.Top="445" Address="17822.AI307" />
+      <Controls:Lamp Canvas.Left="480" Canvas.Top="405" Address="17822.AI308" />
+      <Controls:Lamp Canvas.Left="480" Canvas.Top="365" Address="17822.AI309" />
+      <!--221-->
+      <Controls:Lamp Canvas.Left="425" Canvas.Top="400" Address="17822.AI310" />
+      <Controls:Lamp Canvas.Left="425" Canvas.Top="450" Address="17822.AI311" />
+      <!--227-->
+      <Controls:Lamp Canvas.Left="372" Canvas.Top="392" Address="17822.AI312" />
+      <!--ЩА2-2(2300) канал 3-->
+      <!--204-->
+      <Controls:Lamp Canvas.Left="608" Canvas.Top="495" Address="17822.AI512" />
+      <Controls:Lamp Canvas.Left="646" Canvas.Top="495" Address="17822.AI513" />
+      <Controls:Lamp Canvas.Left="684" Canvas.Top="495" Address="17822.AI514" />
+      <Controls:Lamp Canvas.Left="722" Canvas.Top="495" Address="17822.AI515" />
+      <!--204b-->
+      <Controls:Lamp Canvas.Left="765" Canvas.Top="495" Address="17822.AI516" />
+      <Controls:Lamp Canvas.Left="805" Canvas.Top="495" Address="17822.AI517" />
+      <Controls:Lamp Canvas.Left="845" Canvas.Top="495" Address="17822.AI518" />
+      <Controls:Lamp Canvas.Left="885" Canvas.Top="495" Address="17822.AI519" />
+      <Controls:Lamp Canvas.Left="805" Canvas.Top="450" Address="17822.AI520" />
+      <Controls:Lamp Canvas.Left="805" Canvas.Top="410" Address="17822.AI521" />
+      <Controls:Lamp Canvas.Left="805" Canvas.Top="370" Address="17822.AI522" />
+      <!--211-->
+      <Controls:Lamp Canvas.Left="850" Canvas.Top="450" Address="17822.AI523" />
+      <Controls:Lamp Canvas.Left="880" Canvas.Top="450" Address="17822.AI524" />
+      <Controls:Lamp Canvas.Left="880" Canvas.Top="410" Address="17822.AI525" />
+      <Controls:Lamp Canvas.Left="850" Canvas.Top="410" Address="17822.AI526" />
+      <Controls:Lamp Canvas.Left="850" Canvas.Top="370" Address="17822.AI527" />
+      <Controls:Lamp Canvas.Left="880" Canvas.Top="370" Address="17822.AI528" />
+      <!--212-->
+      <Controls:Lamp Canvas.Left="880" Canvas.Top="320" Address="17822.AI529" />
+      <Controls:Lamp Canvas.Left="850" Canvas.Top="320" Address="17822.AI530" />
+      <Controls:Lamp Canvas.Left="850" Canvas.Top="280" Address="17822.AI531" />
+      <Controls:Lamp Canvas.Left="880" Canvas.Top="280" Address="17822.AI532" />
+      <Controls:Lamp Canvas.Left="880" Canvas.Top="240" Address="17822.AI533" />
+      <Controls:Lamp Canvas.Left="850" Canvas.Top="240" Address="17822.AI534" />
+      <!--241-->
+      <Controls:Lamp Canvas.Left="882" Canvas.Top="130" Address="17822.AI535" />
+      <Controls:Lamp Canvas.Left="852" Canvas.Top="130" Address="17822.AI536" />
+      <Controls:Lamp Canvas.Left="852" Canvas.Top="95" Address="17822.AI537" />
+      <Controls:Lamp Canvas.Left="882" Canvas.Top="95" Address="17822.AI538" />
+      <Controls:Lamp Canvas.Left="882" Canvas.Top="60" Address="17822.AI539" />
+      <Controls:Lamp Canvas.Left="852" Canvas.Top="60" Address="17822.AI540" />
+      <!--240-->
+      <Controls:Lamp Canvas.Left="806" Canvas.Top="145" Address="17822.AI541" />
+      <Controls:Lamp Canvas.Left="806" Canvas.Top="125" Address="17822.AI542" />
+      <Controls:Lamp Canvas.Left="806" Canvas.Top="105" Address="17822.AI543" />
+      <Controls:Lamp Canvas.Left="806" Canvas.Top="85" Address="17822.AI544" />
+      <Controls:Lamp Canvas.Left="806" Canvas.Top="65" Address="17822.AI545" />
+      <Controls:Lamp Canvas.Left="806" Canvas.Top="45" Address="17822.AI546" />
+      <!--239-->
+      <Controls:Lamp Canvas.Left="760" Canvas.Top="130" Address="17822.AI547" />
+      <Controls:Lamp Canvas.Left="732" Canvas.Top="130" Address="17822.AI548" />
+      <Controls:Lamp Canvas.Left="732" Canvas.Top="95" Address="17822.AI549" />
+      <Controls:Lamp Canvas.Left="760" Canvas.Top="95" Address="17822.AI550" />
+      <Controls:Lamp Canvas.Left="760" Canvas.Top="60" Address="17822.AI551" />
+      <Controls:Lamp Canvas.Left="732" Canvas.Top="60" Address="17822.AI552" />
+    </Canvas>
+    <Canvas Uid="Камеры" Canvas.Left="0" Canvas.Top="0">
+      <Controls:Camera Canvas.Left="30" Canvas.Top="205" RotationAngle="320" Address="10.81.24.201,21"/>
+      <Controls:Camera Canvas.Left="220" Canvas.Top="145" RotationAngle="300" Address="10.81.24.201,20"/>
+      <Controls:Camera Canvas.Left="260" Canvas.Top="170" RotationAngle="130" Address="10.81.24.201,22"/>
+      <Controls:Camera Canvas.Left="415" Canvas.Top="50" RotationAngle="45" Address="10.81.24.201,23"/>
+      <Controls:Camera Canvas.Left="780" Canvas.Top="170" RotationAngle="45" Address="10.81.24.201,25"/>
+      <Controls:Camera Canvas.Left="900" Canvas.Top="205" RotationAngle="225" Address="10.81.24.201,24"/>
+      <Controls:Camera Canvas.Left="465" Canvas.Top="335" RotationAngle="315" Address="10.81.24.201,34"/>
+      <Controls:Camera Canvas.Left="465" Canvas.Top="360" RotationAngle="45" Address="10.81.24.201,37"/>
+      <Controls:Camera Canvas.Left="705" Canvas.Top="335" RotationAngle="225" Address="10.81.24.201,35"/>
+      <Controls:Camera Canvas.Left="705" Canvas.Top="360" RotationAngle="135" Address="10.81.24.201,36"/>
+      <Controls:Camera Canvas.Left="30" Canvas.Top="480" RotationAngle="45" Address="10.81.24.201,32"/>
+      <Controls:Camera Canvas.Left="265" Canvas.Top="520" RotationAngle="225" Address="10.81.24.201,33"/>
+      <Controls:Camera Canvas.Left="265" Canvas.Top="540" RotationAngle="135" Address="10.81.24.201,31"/>
+      <Controls:Camera Canvas.Left="290" Canvas.Top="615" RotationAngle="315" Address="10.81.24.201,30"/>
+      <Controls:Camera Canvas.Left="705" Canvas.Top="540" RotationAngle="135" Address="10.81.24.201,29"/>
+      <Controls:Camera Canvas.Left="725" Canvas.Top="480" RotationAngle="135" Address="10.81.24.201,28"/>
+      <Controls:Camera Canvas.Left="785" Canvas.Top="520" RotationAngle="315" Address="10.81.24.201,26"/>
+      <Controls:Camera Canvas.Left="890" Canvas.Top="480" RotationAngle="135" Address="10.81.24.201,27"/>
+    </Canvas>
+  </Canvas>
+</ResourceDictionary>

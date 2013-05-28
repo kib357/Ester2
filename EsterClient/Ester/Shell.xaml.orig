@@ -1,0 +1,130 @@
+﻿<Window x:Class="Ester.Shell"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:prism="clr-namespace:Microsoft.Practices.Prism.Regions;assembly=Microsoft.Practices.Prism" 
+        xmlns:Model="clr-namespace:Ester.Model;assembly=Ester.Model"
+        DataContextChanged="ShellDataContextChanged" Closing="Window_Closing_1"
+		WindowStyle="None" WindowState="Maximized"
+		>
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Ester.Model;component/Styles/Brushes.xaml"/>
+                <ResourceDictionary Source="/Ester.Model;component/Styles/Button.xaml" />
+                <ResourceDictionary Source="/Ester.Model;component/PlanControls/Styles/SensorStyles.xaml" />
+                <ResourceDictionary Source="ShellStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+			<!--<Storyboard x:Name="ShowLeftPanelSb" x:Key="ShowLeftPanel">
+				<ThicknessAnimation Storyboard.TargetName="ContextGrid" Storyboard.TargetProperty="Margin" To="0,0,0,0" Duration="0:0:0.5" BeginTime="0"/>
+				<DoubleAnimation Storyboard.TargetName="LeftPanelSwitch" Storyboard.TargetProperty="(Border.RenderTransform).(RotateTransform.Angle)" From="0" To="180" Duration="0:0:0.5" BeginTime="0"/>
+			</Storyboard>
+			<Storyboard x:Name="HideLeftPanelSb" x:Key="HideLeftPanel">
+				<ThicknessAnimation Storyboard.TargetName="ContextGrid" Storyboard.TargetProperty="Margin" To="-400,0,0,0" Duration="0:0:0.5" BeginTime="0"/>
+				<DoubleAnimation Storyboard.TargetName="LeftPanelSwitch" Storyboard.TargetProperty="(Border.RenderTransform).(RotateTransform.Angle)" From="180" To="0" Duration="0:0:0.5" BeginTime="0"/>
+			</Storyboard>-->
+        </ResourceDictionary>
+    </Window.Resources>
+	
+
+    <Grid>
+        <Grid Name="LoginGrid" Panel.ZIndex="65001">
+            <ContentControl prism:RegionManager.RegionName="{x:Static Model:RegionNames.LoginRegion }" KeyboardNavigation.IsTabStop="False" FocusVisualStyle="{x:Null}" />
+        </Grid>
+		<Grid Name="MainGrid" Panel.ZIndex="50" >
+			<StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Panel.ZIndex="150">
+					<!--	<Border Width="40" Height="40" Name="StatusBorder" Background="Transparent" ToolTip="{Binding ConnectionProgress}" >
+								  <TextBlock Text="{Binding Progress}" FontSize="10" Margin="10,10,0,10"/>        
+						<Rectangle Margin="10" Width="18" Height="10" Fill="{Binding Status}" ToolTip="Состояние подключения:&#xa;Зелёный - подключен к серверу&#xa;Зелёный мигает - обмен данными&#xa;Красный - нет связи"/>
+									<Canvas Width="20" Height="16" VerticalAlignment="Center" HorizontalAlignment="Center" >
+										<Line X1="6" X2="6" Y1="4" Y2="16" StrokeThickness="3" Stroke="{Binding ConnectionStatus}"/>
+										<Line X1="2" X2="6" Y1="12" Y2="16" StrokeThickness="2" StrokeEndLineCap="Round" Stroke="{Binding ConnectionStatus}"/>
+										<Line X1="6" X2="10" Y1="16" Y2="12" StrokeThickness="2" StrokeStartLineCap="Round" Stroke="{Binding ConnectionStatus}"/>
+
+										<Line X1="15" X2="15" Y1="0" Y2="12" StrokeThickness="3" Stroke="{Binding ConnectionStatus}"/>
+										<Line X1="11" X2="15" Y1="4" Y2="0" StrokeThickness="2" StrokeEndLineCap="Round" Stroke="{Binding ConnectionStatus}"/>
+										<Line X1="15" X2="19" Y1="0" Y2="4" StrokeThickness="2" StrokeStartLineCap="Round" Stroke="{Binding ConnectionStatus}"/>
+									</Canvas>
+								</Border> -->
+					<Button Style="{DynamicResource ResourceKey=HeaderMinimizeButton}" Click="MinimizeApplication" KeyboardNavigation.IsTabStop="False" />
+					<Button Style="{DynamicResource ResourceKey=HeaderCloseButton}" Click="CloseApplication" KeyboardNavigation.IsTabStop="False" />
+				</StackPanel>
+			<ListView Panel.ZIndex="50" Margin="0,-80,0,0" Height="120" Grid.RowSpan="2" VerticalAlignment="Top" ItemsSource="{Binding ContentItems}" Style="{DynamicResource ResourceKey=contentListViewStyle}"
+				SelectedItem="{Binding SelectedContentItem, Mode=TwoWay}" ItemContainerStyle="{DynamicResource ResourceKey=contentListViewItemContainer}" >
+				<ListView.ItemsPanel>						
+					<ItemsPanelTemplate>
+						<StackPanel Orientation="Horizontal" Margin="100,0,0,0" />
+					</ItemsPanelTemplate>
+				</ListView.ItemsPanel>
+				<ListView.ItemTemplate>
+					<DataTemplate>
+						<TextBlock FontSize="56" FontFamily="Segoe UI Light" HorizontalAlignment="Left"
+									LineHeight="56" LineStackingStrategy="BlockLineHeight" Text="{Binding Path=.}" Background="Transparent"/>
+					</DataTemplate>
+				</ListView.ItemTemplate>
+			</ListView>		
+			<DockPanel Name="MainPanel" Margin="0,40,0,0" Panel.ZIndex="10">
+				<Border Name="ContextGrid" DockPanel.Dock="Left" BorderBrush="#4a4a4a" BorderThickness="0,0,3,0" Width="400" Margin="-400,0,0,0">
+					<ContentControl prism:RegionManager.RegionName="{x:Static Model:RegionNames.ContextRegion }" KeyboardNavigation.IsTabStop="False" Grid.Row="0" />
+				</Border>
+				<!--<ContentControl prism:RegionManager.RegionName="{x:Static Model:RegionNames.QuickSearchRegion}"  KeyboardNavigation.IsTabStop="False" Visibility="Collapsed"/>
+				<ContentControl prism:RegionManager.RegionName="{x:Static Model:RegionNames.EventSearchRegion }"  KeyboardNavigation.IsTabStop="False" DockPanel.Dock="Top" Visibility="Collapsed"/>-->
+					<!--<Grid>
+					<Grid.RowDefinitions>
+						<RowDefinition Name="ContextRow" />
+						<RowDefinition Height="300"/>
+					</Grid.RowDefinitions>
+					<ContentControl prism:RegionManager.RegionName="{x:Static Model:RegionNames.EventSearchRegion }"  KeyboardNavigation.IsTabStop="False" DockPanel.Dock="Top" Visibility="Collapsed"/>
+					
+					<DockPanel Height="250" Grid.Row="1" Margin="0" Visibility="{Binding QuickSearchVisibility}" >
+						<StackPanel Name="ButtonsBar" DockPanel.Dock="Bottom" Orientation="Horizontal">
+							<Button Style="{DynamicResource PeopleRoundButton}" Width="40" Command="{Binding ChangeSearchPanelCommand}" CommandParameter="People" Margin="20,0,0,0" 
+                            Name="PeopleSearchButton" Click="SearchButtonClick" Tag="Selected"/>
+							<Button Style="{DynamicResource RoomRoundButton}" Width="40" Command="{Binding ChangeSearchPanelCommand}" CommandParameter="Building" Margin="20,0,0,0" 
+                            Name="BuildingSearchButton" Click="SearchButtonClick"/>
+						</StackPanel>
+						
+					</DockPanel>
+				</Grid>
+			</Border>-->
+			<Grid Name="ContentGrid" Panel.ZIndex="10" Grid.Row="1">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="40"/>
+					<ColumnDefinition Width="*"/>
+				</Grid.ColumnDefinitions>
+<<<<<<< HEAD
+				<!--<StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top" Panel.ZIndex="150" Background="DarkGray" Width="40" Grid.Column="0">
+                    <Button Style="{StaticResource ExpandCollapseButton}" Width="40" Height="40" HorizontalAlignment="Center" Click="SwitchLeftPanelButtonClick" x:Name="LeftPanelSwitch" Margin="0,24,0,0" />
+                    <Button Style="{StaticResource KeyButton}" Width="40" Height="40" Command="{Binding LeftPanelNavigateCommand}" CommandParameter="RoomAccessControlView" Margin="0,12,0,0" />
+                    <Button Style="{StaticResource WrenchButton}" Width="40" Height="40" Command="{Binding LeftPanelNavigateCommand}" CommandParameter="RoomEditorView" Margin="0,12,0,12" />
+				</StackPanel>-->
+=======
+				<StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top" Panel.ZIndex="150" Background="DarkGray" Width="40" Grid.Column="0">
+                        <Button Style="{StaticResource ExpandCollapseButton}" Width="40" Height="40" HorizontalAlignment="Center" Click="SwitchLeftPanelButtonClick" x:Name="LeftPanelSwitch" Margin="0,24,0,0" />
+                        <Button Style="{StaticResource KeyButton}" Width="40" Height="40" Command="{Binding LeftPanelNavigateCommand}" CommandParameter="RoomAccessControlView" Margin="0,12,0,0" />
+                        <Button Style="{StaticResource WrenchButton}" Width="40" Height="40" Command="{Binding LeftPanelNavigateCommand}" CommandParameter="RoomEditorView" Margin="0,12,0,12" />
+                        <Button Style="{StaticResource WrenchButton}" Width="40" Height="40" Command="{Binding LeftPanelNavigateCommand}" CommandParameter="SmallEventsView" Margin="0,12,0,12" />
+                    </StackPanel>
+>>>>>>> ebccc09f8a5ae463551ff82bae8638c402c8d929
+                <ContentControl Name="MainRegionControl" prism:RegionManager.RegionName="{x:Static Model:RegionNames.MainRegion}" KeyboardNavigation.IsTabStop="False" Grid.Column="1"/>
+                <!--<ContentControl Name="BuildingRegionControl" prism:RegionManager.RegionName="{x:Static Model:RegionNames.BuildingRegion }" Visibility="Collapsed" KeyboardNavigation.IsTabStop="False" Grid.Column="1"/>
+				<ContentControl Name="PeopleRegionControl" prism:RegionManager.RegionName="{x:Static Model:RegionNames.PeopleRegion }" Visibility="Collapsed" KeyboardNavigation.IsTabStop="False" Grid.Column="1"/>
+				<ContentControl Name="LogViewerRegionControl" prism:RegionManager.RegionName="{x:Static Model:RegionNames.LogViewerRegion }" Visibility="Collapsed" KeyboardNavigation.IsTabStop="False" Grid.Column="1"/>
+				<ContentControl Name="ScheduleRegionControl" prism:RegionManager.RegionName="{x:Static Model:RegionNames.ScheduleRegion}" Visibility="Collapsed" KeyboardNavigation.IsTabStop="False" Grid.Column="1"/>-->
+			</Grid>
+		</DockPanel>
+	</Grid>
+			
+       <Grid x:Name="PopupGrid" Panel.ZIndex="100">
+            <ContentControl Name="PopupRegion" prism:RegionManager.RegionName="{x:Static Model:RegionNames.PopupRegion }" KeyboardNavigation.IsTabStop="False" />
+        </Grid>
+        <Grid x:Name="ErrorsGrid" Panel.ZIndex="110">
+            <ContentControl Name="ErrorsRegion" prism:RegionManager.RegionName="{x:Static Model:RegionNames.ErrorsRegion }" KeyboardNavigation.IsTabStop="False" />
+        </Grid>
+        <Grid x:Name="NotificationGrid" Panel.ZIndex="999" Width="330" Margin="0,0,30,30" HorizontalAlignment="Right" VerticalAlignment="Bottom" >
+            <StackPanel Orientation="Vertical">
+                <ItemsControl Name="UpdaterRegion" prism:RegionManager.RegionName="{x:Static Model:RegionNames.UpdaterRegion }" KeyboardNavigation.IsTabStop="False" />
+                <ItemsControl Name="NotificationRegion" prism:RegionManager.RegionName="{x:Static Model:RegionNames.NotificationRegion }" KeyboardNavigation.IsTabStop="False" />
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>

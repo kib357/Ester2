@@ -1,0 +1,103 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		    xmlns:Controls="clr-namespace:Ester.Model.BaseClasses;assembly=Ester.Model">
+        <Canvas xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+            x:Key="AudienceChamberLight" Width="0" Height="0" Tag="Light">           
+            <Canvas Uid="Light">
+	            <Controls:SensorBase Address="17842.AO2"/>
+	            <Controls:SensorBase Address="17842.AO3"/>
+	            <Controls:SensorBase Address="17842.AO4"/>
+	            <Controls:SensorBase Address="17842.AO5"/>
+	            <Controls:SensorBase Address="17842.AO6"/>
+	            <Controls:SensorBase Address="17842.AO7"/>
+	            <Controls:SensorBase Address="17842.AO8"/>
+	            <Controls:SensorBase Address="17842.AO17"/>
+	            <Controls:SensorBase Address="17842.AO18"/>
+	            <Controls:SensorBase Address="17842.AO19"/>
+	            <Controls:SensorBase Address="17842.AO20"/>
+	            <Controls:SensorBase Address="17842.AO21"/>
+	            <Controls:SensorBase Address="17842.AO22"/>
+	            <Controls:SensorBase Address="17842.AO23"/>
+	            <Controls:SensorBase Address="17842.AO24"/>
+	            <Controls:SensorBase Address="17842.AO25"/>
+	            <Controls:SensorBase Address="17842.AO26"/>
+	            <Controls:SensorBase Address="17842.AO27"/>
+	            <Controls:SensorBase Address="17842.AO28"/>
+	            <Controls:SensorBase Address="17842.AO29"/>
+	            <Controls:SensorBase Address="17842.AO30"/>
+	            <Controls:SensorBase Address="17842.AO31"/>
+	            <Controls:SensorBase Address="17842.AO32"/>
+	            <Controls:SensorBase Address="17842.AO33"/>
+	            <Controls:SensorBase Address="17842.AO34"/>
+	            <Controls:SensorBase Address="17842.AO35"/>
+	            <Controls:SensorBase Address="17842.AO36"/>
+	            <Controls:SensorBase Address="17842.AO37"/>
+	            <Controls:SensorBase Address="17842.AO38"/>
+	            <Controls:SensorBase Address="17842.AO39"/>
+	            <Controls:SensorBase Address="17842.AO40"/>
+	            <Controls:SensorBase Address="17842.AO41"/>
+	            <Controls:SensorBase Address="17842.AO42"/>
+	            <Controls:SensorBase Address="17842.AO43"/>
+	            <Controls:SensorBase Address="17842.AO44"/>
+	            <Controls:SensorBase Address="17842.AO45"/>
+	            <Controls:SensorBase Address="17842.AO46"/>
+	            <Controls:SensorBase Address="17842.AO47"/>
+                
+	            <Controls:SensorBase Address="17842.AI2"/>
+	            <Controls:SensorBase Address="17842.AI3"/>
+	            <Controls:SensorBase Address="17842.AI4"/>
+	            <Controls:SensorBase Address="17842.AI5"/>
+	            <Controls:SensorBase Address="17842.AI6"/>
+	            <Controls:SensorBase Address="17842.AI7"/>
+	            <Controls:SensorBase Address="17842.AI8"/>
+	            <Controls:SensorBase Address="17842.AI17"/>
+	            <Controls:SensorBase Address="17842.AI18"/>
+	            <Controls:SensorBase Address="17842.AI19"/>
+	            <Controls:SensorBase Address="17842.AI20"/>
+	            <Controls:SensorBase Address="17842.AI21"/>
+	            <Controls:SensorBase Address="17842.AI22"/>
+	            <Controls:SensorBase Address="17842.AI23"/>
+	            <Controls:SensorBase Address="17842.AI24"/>
+	            <Controls:SensorBase Address="17842.AI25"/>
+	            <Controls:SensorBase Address="17842.AI26"/>
+	            <Controls:SensorBase Address="17842.AI27"/>
+	            <Controls:SensorBase Address="17842.AI28"/>
+	            <Controls:SensorBase Address="17842.AI29"/>
+	            <Controls:SensorBase Address="17842.AI30"/>
+	            <Controls:SensorBase Address="17842.AI31"/>
+	            <Controls:SensorBase Address="17842.AI32"/>
+	            <Controls:SensorBase Address="17842.AI33"/>
+	            <Controls:SensorBase Address="17842.AI34"/>
+	            <Controls:SensorBase Address="17842.AI35"/>
+	            <Controls:SensorBase Address="17842.AI36"/>
+	            <Controls:SensorBase Address="17842.AI37"/>
+	            <Controls:SensorBase Address="17842.AI38"/>
+	            <Controls:SensorBase Address="17842.AI39"/>
+	            <Controls:SensorBase Address="17842.AI40"/>
+	            <Controls:SensorBase Address="17842.AI41"/>
+	            <Controls:SensorBase Address="17842.AI42"/>
+	            <Controls:SensorBase Address="17842.AI43"/>
+	            <Controls:SensorBase Address="17842.AI44"/>
+	            <Controls:SensorBase Address="17842.AI45"/>
+	            <Controls:SensorBase Address="17842.AI46"/>
+	            <Controls:SensorBase Address="17842.AI47"/>
+
+                <Controls:SensorBase Address="17842.AO68100"/>
+                <Controls:SensorBase Address="17842.AO68101"/>
+                <Controls:SensorBase Address="17842.AO68102"/>
+                <Controls:SensorBase Address="17842.AO68103"/>
+                <Controls:SensorBase Address="17842.AO68104"/>
+                <Controls:SensorBase Address="17842.AO68105"/>
+                <Controls:SensorBase Address="17842.AO68106"/>
+
+                <Controls:SensorBase Address="17842.AI68100"/>
+                <Controls:SensorBase Address="17842.AI68101"/>
+                <Controls:SensorBase Address="17842.AI68102"/>
+                <Controls:SensorBase Address="17842.AI68103"/>
+                <Controls:SensorBase Address="17842.AI68104"/>
+                <Controls:SensorBase Address="17842.AI68105"/>
+                <Controls:SensorBase Address="17842.AI68106"/>
+            </Canvas>
+        </Canvas>
+
+</ResourceDictionary>

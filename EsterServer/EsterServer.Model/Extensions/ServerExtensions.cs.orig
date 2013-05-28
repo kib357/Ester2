@@ -1,0 +1,250 @@
+﻿using System;
+using System.Linq;
+using System.Windows;
+using EsterCommon.Data;
+using EsterCommon.Enums;
+using EsterCommon.Exceptions;
+using EsterCommon.PlanObjectTypes;
+using EsterCommon.PlanObjectTypes.Abstract;
+using EsterCommon.PlanObjectTypes.Data;
+using EsterCommon.PlanObjectTypes.Interfaces;
+
+namespace EsterServer.Model.Extensions
+{
+<<<<<<< HEAD
+	public static class ServerExtensions
+	{
+		public static void Update(this BaseObject baseObject, PropertyTypes addressType, double doubleValue)
+		{
+			switch (addressType)
+			{
+				case PropertyTypes.LightGroup_Setpoint:
+					((LightGroup)baseObject).LightLevelSetpoint = (int)doubleValue;
+					break;
+				case PropertyTypes.LightGroup_State:
+					((LightGroup)baseObject).IsOn = ((int)doubleValue) == 1;
+					break;
+				case PropertyTypes.LightGroup_Level:
+					((LightGroup)baseObject).LightLevel = (int)doubleValue;
+					break;
+				case PropertyTypes.Light_Level:
+					((Lamp)baseObject).LightLevel = (int)doubleValue;
+					break;
+				case PropertyTypes.Thermometer_Level:
+					((TemperatureSensor)baseObject).Temperature.Update(doubleValue);
+					break;
+				case PropertyTypes.Thermometer_Setpoint:
+					((TemperatureSensor)baseObject).TemperatureSetpoint.Update(doubleValue);
+					break;
+				case PropertyTypes.Thermometer_AllowManual:
+					((TemperatureSensor)baseObject).AllowManual.Update(doubleValue);
+					break;
+				case PropertyTypes.AC_FanLevel:
+					((Conditioner)baseObject).FanLevel = (int)doubleValue;
+					break;
+				case PropertyTypes.Heater_Mode:
+					((Heater)baseObject).IsBacstatAllowed = ((int)doubleValue) == 1;
+					break;
+				case PropertyTypes.Heater_Manual:
+					((Heater)baseObject).ManualLevel = doubleValue;
+					break;
+				default:
+					throw new ArgumentOutOfRangeException("addressType");
+			}
+		}
+=======
+    public static class ServerExtensions
+    {
+        public static void Update(this BaseObject baseObject, PropertyTypes addressType, double doubleValue)
+        {
+            switch (addressType)
+            {
+                case PropertyTypes.LightGroup_Setpoint:
+                    ((LightGroup)baseObject).LightLevelSetpoint = (int)doubleValue;
+                    break;
+                case PropertyTypes.LightGroup_State:
+                    ((LightGroup)baseObject).IsOn = ((int)doubleValue) == 1;
+                    break;
+                case PropertyTypes.LightGroup_Level:
+                    ((LightGroup)baseObject).LightLevel = (int)doubleValue;
+                    break;
+                case PropertyTypes.Light_Level:
+                    ((Lamp)baseObject).LightLevel = (int)doubleValue;
+                    break;
+                case PropertyTypes.Thermometer_Level:
+                    ((TemperatureSensor)baseObject).Temperature = doubleValue;
+                    break;
+                case PropertyTypes.Thermometer_Setpoint:
+                    ((TemperatureSensor)baseObject).TemperatureSetpoint = doubleValue;
+                    break;
+                case PropertyTypes.Thermometer_AllowManual:
+                    ((TemperatureSensor)baseObject).AllowManual = ((int)doubleValue) == 1;
+                    break;
+                case PropertyTypes.AC_FanLevel:
+                    ((Conditioner)baseObject).FanLevel = (int)doubleValue;
+                    break;
+                case PropertyTypes.Heater_Mode:
+                    ((Heater)baseObject).IsBacstatAllowed = ((int)doubleValue) == 1;
+                    break;
+                case PropertyTypes.Heater_Manual:
+                    ((Heater)baseObject).ManualLevel = doubleValue;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException("addressType");
+            }
+        }
+>>>>>>> 166ba0a5253f906184db69213df06a486e5f1493
+
+        public static BaseObject FromDbObject(PlanObject plan)
+        {
+            BaseObject result;
+
+            switch ((ObjectTypes)plan.PlanObjectType.Id)
+            {
+                case ObjectTypes.Container:
+                    result = new Container();
+                    break;
+                case ObjectTypes.InnerPlan:
+                    result = new Container();
+                    break;
+                case ObjectTypes.Text:
+                    result = new Text();
+                    break;
+                case ObjectTypes.Geometry:
+                    result = new Geometry();
+                    break;
+                case ObjectTypes.Room:
+                    result = new Room();
+                    break;
+                case ObjectTypes.LightGroup:
+                    result = new LightGroup();
+                    break;
+                case ObjectTypes.Lamp:
+                    result = new Lamp();
+                    break;
+                case ObjectTypes.AC:
+                    result = new Conditioner();
+                    break;
+                case ObjectTypes.TemperatureSensor:
+                    result = new TemperatureSensor();
+                    break;
+                case ObjectTypes.LightSensor:
+                    result = new LightSensor();
+                    break;
+                case ObjectTypes.WdSensor:
+                    result = new WdSensor();
+                    break;
+                case ObjectTypes.Heater:
+                    result = new Heater();
+                    break;
+                default:
+                    return null;
+            }
+
+            result.Id = plan.Id;
+            result.ParentId = plan.ParentId;
+            result.Type = plan.PlanObjectType.Name;
+            result.TypeId = plan.TypeId;
+            result.Name = plan.Name;
+            result.Description = plan.Description;
+            result.Top = plan.Top;
+            result.Left = plan.Left;
+            result.Width = plan.Width;
+            result.Height = plan.Height;
+            result.ZIndex = plan.ZIndex;
+            result.IsContainer = plan.PlanObjectType.IsContainer;
+
+            if (plan.Geometry != null)
+            {
+                result.Path = new GeometryData();
+                result.Path.Name = "path";
+
+                var xData = plan.Geometry.Attribute("d");
+                if (xData != null) result.Path.Data = xData.Value;
+
+                result.Path.Fill = plan.Geometry.Attribute("fill") != null ? plan.Geometry.Attribute("fill").Value : "Transparent";
+                result.Path.Stroke = plan.Geometry.Attribute("stroke") != null ? plan.Geometry.Attribute("stroke").Value : "#0000";
+                try
+                {
+                    result.Path.Position = new Point(double.Parse(plan.Geometry.Attribute("x").Value.Replace('.', ',')), double.Parse(plan.Geometry.Attribute("y").Value.Replace('.', ',')));
+                }
+                catch (Exception)
+                {
+                    result.Path.Position = new Point(0, 0);
+                }
+            }
+
+            if (plan.PlanObjectType.IsContainer)
+                foreach (var planObject in plan.PlanObjects)
+                {
+                    var containerObject = result as IContainerObject;
+                    if (containerObject != null) containerObject.Children.Add(FromDbObject(planObject));
+                }
+
+            return result;
+        }
+
+        public static void ExportToDbObject(this BaseObject obj, PlanObject plan)
+        {
+            if (obj.ParentId != null && obj.ParentId >= 0)
+                plan.ParentId = obj.ParentId;
+
+            plan.Name = obj.Name;
+            plan.Description = obj.Description;
+            plan.ZIndex = obj.ZIndex;
+            plan.Left = obj.Left;
+            plan.Top = obj.Top;
+            plan.Width = obj.Width;
+            plan.Height = obj.Height;
+            plan.TypeId = obj.TypeId;
+            if (obj.Path != null)
+                plan.Geometry = obj.Path.ToSvg();
+
+            if (obj.Properties != null)
+            {
+                plan.Properties.Clear();
+                foreach (var baseObjectProperty in obj.Properties)
+                {
+                    if (baseObjectProperty.Id == 0 && !string.IsNullOrWhiteSpace(baseObjectProperty.Path))
+                    {
+                        var newProperty = new Property
+                        {
+                            AddressTypeId = baseObjectProperty.TypeId,
+                            Path = baseObjectProperty.Path
+                        };
+                        plan.Properties.Add(newProperty);
+                    }
+                    else
+                    {
+                        var property = plan.Properties.FirstOrDefault(pp => pp.Id == baseObjectProperty.Id);
+                        if (property != null && !string.IsNullOrWhiteSpace(baseObjectProperty.Path))
+                            property.Path = baseObjectProperty.Path;
+                    }
+                }
+            }
+
+            if (obj.IsContainer)
+            {
+                var container = obj as IContainerObject;
+                if (container == null) throw new BadRequestException("Children cannot be null in ContainerObject");
+
+                for (int i = plan.PlanObjects.Count - 1; i >= 0; i--)
+                {
+                    var child = container.Children.FirstOrDefault(s => s.Id == plan.PlanObjects[i].Id);
+                    if (child == null)
+                        plan.PlanObjects.RemoveAt(i);
+                    else
+                    {
+                        child.ExportToDbObject(plan.PlanObjects[i]);
+                    }
+                }
+                foreach (var childObject in container.Children.Where(c => plan.PlanObjects.All(p => p.Id != c.Id || c.Id <= 0)))
+                {
+                    var newPlan = new PlanObject();
+                    plan.PlanObjects.Add(newPlan);
+                    childObject.ExportToDbObject(newPlan);
+                }
+            }
+        }
+    }
+}

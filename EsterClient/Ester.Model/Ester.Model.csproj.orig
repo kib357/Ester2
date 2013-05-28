@@ -1,0 +1,504 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{35E5892C-34EC-4102-B61C-0DE02A4B9E10}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Ester.Model</RootNamespace>
+    <AssemblyName>Ester.Model</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Expression.Interactions">
+      <HintPath>..\..\packages\Prism.4.1.0.0\lib\NET40\Microsoft.Expression.Interactions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Prism">
+      <HintPath>..\..\packages\Prism.4.1.0.0\lib\NET40\Microsoft.Practices.Prism.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Prism.Interactivity">
+      <HintPath>..\..\packages\Prism.4.1.0.0\lib\NET40\Microsoft.Practices.Prism.Interactivity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation">
+      <HintPath>..\..\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity, Version=2.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Unity.2.1.505.0\lib\NET35\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Newtonsoft.Json.4.5.7\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Nini, Version=1.1.0.0, Culture=neutral, PublicKeyToken=691faec150a7fa7b, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Trove.Nini.1.1.0.0\lib\net20\Nini.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="RestSharp, Version=103.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\RestSharp.103.4\lib\net4\RestSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Interactivity">
+      <HintPath>..\..\packages\Prism.4.1.0.0\lib\NET40\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.XML" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Attributes\AggregatedAddress.cs" />
+    <Compile Include="Attributes\AggregatedProperty.cs" />
+    <Compile Include="Attributes\CommonProperty.cs" />
+    <Compile Include="Attributes\ReadOnlyProperty.cs" />
+    <Compile Include="BadRequestException.cs" />
+    <Compile Include="BaseClasses\AbbyFieldsCollection.cs" />
+    <Compile Include="BaseClasses\AbbyRecognizedField.cs" />
+    <Compile Include="BaseClasses\AbbyRecognizedSymbol.cs" />
+    <Compile Include="BaseClasses\AbbyStringsArray.cs" />
+    <Compile Include="BaseClasses\Document.cs" />
+    <Compile Include="BaseClasses\DocumentData.cs" />
+    <Compile Include="BaseClasses\EnumerationExtension.cs" />
+    <Compile Include="BaseClasses\ExtScrollViewer.cs" />
+    <Compile Include="BaseClasses\Item.cs" />
+    <Compile Include="BaseClasses\Person.cs" />
+    <Compile Include="BaseClasses\SortableObservableCollection.cs" />
+    <Compile Include="BaseClasses\SynchronizeSelectedPersons.cs" />
+    <Compile Include="BaseClasses\User.cs" />
+    <Compile Include="BaseClasses\TemplateObject.cs" />
+    <Compile Include="BaseClasses\WeakEventHandler.cs" />
+    <Compile Include="BaseClasses\XmlAlarmList.cs" />
+    <Compile Include="Converters\BitmapImageToBitmapSource.cs" />
+    <Compile Include="Converters\ByteArrayToBitmapSourceConverter.cs" />
+    <Compile Include="Converters\DateTimeToDateDDMMYYYY.cs" />
+    <Compile Include="Converters\DocumentTypeToString.cs" />
+    <Compile Include="Converters\ObjectToStringConverter.cs" />
+    <Compile Include="Converters\PersonTypeToVisibility.cs" />
+    <Compile Include="Converters\StringToDoubleConverter.cs" />
+    <Compile Include="Converters\StringToVisibilityConverter.cs" />
+    <Compile Include="Converters\TemplatesToStringConverter.cs" />
+    <Compile Include="Converters\VisibilityToBooleanConverter.cs" />
+    <Compile Include="Dictionaries\Sud-Salehard\Flor plans\Flor1.xaml.cs">
+      <DependentUpon>Flor1.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dictionaries\Sud-Salehard\Flor plans\Flor2.xaml.cs">
+      <DependentUpon>Flor2.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dictionaries\Sud-Salehard\Flor plans\Flor3.xaml.cs">
+      <DependentUpon>Flor3.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dictionaries\Sud-Salehard\Flor plans\Flor4.xaml.cs">
+      <DependentUpon>Flor4.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dictionaries\Sud-Salehard\Flor plans\Flor5.xaml.cs">
+      <DependentUpon>Flor5.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dictionaries\Sud-Salehard\Flor plans\FlorTest.xaml.cs">
+      <DependentUpon>FlorTest.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dictionaries\Sud-Salehard\InnerPlans\PVUTest.xaml.cs">
+      <DependentUpon>PVUTest.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dictionaries\Sud-Salehard\ITP.xaml.cs">
+      <DependentUpon>ITP.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Enums\AbbyImageType.cs" />
+    <Compile Include="Enums\AbbySaveType.cs" />
+    <Compile Include="Enums\AccessModes.cs" />
+    <Compile Include="Enums\AuthStates.cs" />
+    <Compile Include="Enums\DocumentTypes.cs" />
+    <Compile Include="Enums\PersonTypes.cs" />
+    <Compile Include="Enums\UserRoles.cs" />
+    <Compile Include="Enums\ValuesStates.cs" />
+    <Compile Include="Events\AddRoomAlarmEvent.cs" />
+    <Compile Include="Events\ApplyTemplatesToPersonEvent.cs" />
+    <Compile Include="Events\AppShutdownCommand.cs" />
+    <Compile Include="Events\ChangeCurrentPersonEvent.cs" />
+    <Compile Include="Events\ChangeSearchPanelEvent.cs" />
+    <Compile Include="Events\ContextAddedEvent.cs" />
+    <Compile Include="Events\ContextAddingEvent.cs" />
+    <Compile Include="Events\ContextChangedEvent.cs" />
+    <Compile Include="Events\ContextClearedEvent.cs" />
+    <Compile Include="Events\ContextClearingEvent.cs" />
+    <Compile Include="Events\ContextEditedEvent.cs" />
+    <Compile Include="Events\ContextRemovedEvent.cs" />
+    <Compile Include="Events\ContextRemovingEvent.cs" />
+    <Compile Include="Events\ContextUpdatingEvent.cs" />
+    <Compile Include="Events\DoorAccessModesReceivedEvent.cs" />
+    <Compile Include="Events\RemoveRoomAlarmEvent.cs" />
+    <Compile Include="Events\RoomAddedToPersonEvent.cs" />
+    <Compile Include="Events\RoomAddingToPersonEvent.cs" />
+    <Compile Include="Events\RoomDeletedFromPersonEvent.cs" />
+    <Compile Include="Events\RoomDeletingFromPersonEvent.cs" />
+    <Compile Include="Events\SelectedContentChanged.cs" />
+    <Compile Include="Events\ShowAdUsersImportEvent.cs" />
+    <Compile Include="Events\ShowAlarmsEvent.cs" />
+    <Compile Include="Events\ShowErrorEvent.cs" />
+    <Compile Include="Events\ShowFullPlan.cs" />
+    <Compile Include="Events\ShowPlanEvent.cs" />
+    <Compile Include="Events\ShowScanerViewEvent.cs" />
+    <Compile Include="Events\ZoomInto.cs" />
+    <Compile Include="Extensions\BitmapSourceExtension.cs" />
+    <Compile Include="Extensions\ListExtensions.cs" />
+    <Compile Include="Extensions\ObjectExtension.cs" />
+    <Compile Include="Extensions\ObservableCollectionExtension.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="Interfaces\AbbyInterfaces.cs" />
+    <Compile Include="Interfaces\IAbbyyScaner.cs" />
+    <Compile Include="Interfaces\IAccessCardReader.cs" />
+    <Compile Include="Interfaces\IDataTransport.cs" />
+    <Compile Include="Events\TemplateAdded.cs" />
+    <Compile Include="Events\TemplateCreateEvent.cs" />
+    <Compile Include="Interfaces\IPeopleRepository.cs" />
+    <Compile Include="Interfaces\IServerInfo.cs" />
+    <Compile Include="Interfaces\ISessionInfo.cs" />
+    <Compile Include="PlanControls\3d\3WayChoke.xaml.cs">
+      <DependentUpon>3WayChoke.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PlanControls\3d\AirPump.xaml.cs">
+      <DependentUpon>AirPump.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PlanControls\3d\Choke.xaml.cs">
+      <DependentUpon>Choke.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PlanControls\3d\EHeater.xaml.cs">
+      <DependentUpon>EHeater.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PlanControls\3d\Filter.xaml.cs">
+      <DependentUpon>Filter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PlanControls\3d\Radiator.xaml.cs">
+      <DependentUpon>Radiator.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PlanControls\3d\RadiatorTop.xaml.cs">
+      <DependentUpon>RadiatorTop.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PlanControls\3d\Tube.xaml.cs">
+      <DependentUpon>Tube.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PlanControls\3d\VTube.xaml.cs">
+      <DependentUpon>VTube.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PlanControls\3d\WaterFilter.xaml.cs">
+      <DependentUpon>WaterFilter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PlanControls\3d\WaterPump3d.xaml.cs">
+      <DependentUpon>WaterPump3d.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PlanControls\Door.xaml.cs">
+      <DependentUpon>Door.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PlanControls\FireAlarm.xaml.cs">
+      <DependentUpon>FireAlarm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PlanControls\FireChoke.xaml.cs">
+      <DependentUpon>FireChoke.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PlanControls\InnerPlan.xaml.cs">
+      <DependentUpon>InnerPlan.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PlanControls\Lamp.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>Lamp.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PlanControls\PlanLink.xaml.cs">
+      <DependentUpon>PlanLink.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PlanControls\Room.xaml.cs">
+      <DependentUpon>Room.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PlanControls\RunStop.xaml.cs">
+      <DependentUpon>RunStop.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PlanControls\TextSensor.xaml.cs">
+      <DependentUpon>TextSensor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RegionNames.cs" />
+    <Compile Include="Repositories\GuestsRepository.cs" />
+    <Compile Include="Repositories\PeopleRepository.cs" />
+    <Compile Include="BaseClasses\SensorBase.cs" />
+    <Compile Include="Repositories\PlansRepository.cs" />
+    <Compile Include="Repositories\ScheduleRepository.cs" />
+    <Compile Include="Services\AbbyyScaner.cs" />
+    <Compile Include="Services\AccessCardReader.cs" />
+<<<<<<< HEAD
+    <Compile Include="Services\LongPullingStarter.cs" />
+=======
+    <Compile Include="Services\LogsLongPull.cs" />
+>>>>>>> ed55e9658389c0cc4901d674ebd6fecac2900c03
+    <Compile Include="Services\WorkWithImages.cs" />
+    <Compile Include="Services\ColorConvertion.cs" />
+    <Compile Include="Services\CommonInstances.cs" />
+    <Compile Include="Services\CommonRequests.cs" />
+    <Compile Include="Services\DataTransport.cs" />
+    <Compile Include="Services\NotificationsLongPull.cs" />
+    <Compile Include="Services\ResourceDictionaries.cs" />
+    <Compile Include="Services\ServerInfo.cs" />
+    <Compile Include="Services\SessionInfo.cs" />
+    <Compile Include="Services\ValuesLongPull.cs" />
+    <Compile Include="Services\XAMLSearch.cs" />
+    <Compile Include="UserControls\BoxChoiceItems.xaml.cs">
+      <DependentUpon>BoxChoiceItems.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Loader.xaml.cs">
+      <DependentUpon>Loader.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\TimeBox\TimeBox.xaml.cs">
+      <DependentUpon>TimeBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\TimeBox\TimeInputType.cs" />
+    <Compile Include="UserControls\TimeBox\TimeInputValidation.cs" />
+    <Compile Include="UserControls\ZoomPanel.xaml.cs">
+      <DependentUpon>ZoomPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ValidationRules\NumericDataValidation.cs" />
+    <Compile Include="ValidationRules\TextBoxValidationRules.cs" />
+    <Compile Include="Wrappers\DoorAccessModeParameter.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Dictionaries\Sud-Salehard\Flor plans\Flor1.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Dictionaries\Sud-Salehard\Flor plans\Flor2.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Dictionaries\Sud-Salehard\Flor plans\Flor3.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Dictionaries\Sud-Salehard\Flor plans\Flor4.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Dictionaries\Sud-Salehard\Flor plans\Flor5.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Dictionaries\Sud-Salehard\Flor plans\FlorTest.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Dictionaries\Sud-Salehard\InnerPlans\PVUTest.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Dictionaries\Sud-Salehard\ITP.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PlanControls\3d\3WayChoke.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PlanControls\3d\AirPump.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PlanControls\3d\Choke.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PlanControls\3d\EHeater.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PlanControls\3d\Filter.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PlanControls\3d\Radiator.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PlanControls\3d\RadiatorTop.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PlanControls\3d\Tube.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PlanControls\3d\VTube.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PlanControls\3d\WaterFilter.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PlanControls\3d\WaterPump3d.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PlanControls\Door.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PlanControls\FireAlarm.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PlanControls\FireChoke.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PlanControls\InnerPlan.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PlanControls\Lamp.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PlanControls\PlanLink.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PlanControls\Room.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PlanControls\RunStop.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PlanControls\Styles\SensorStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PlanControls\TextSensor.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\Brushes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\Button.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\CheckBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\LinkButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\ListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\PushButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\ScrollBar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\ScrollViewer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\Slider.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\TextBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\ToggleButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\BoxChoiceItems.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\Loader.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\TimeBox\TimeBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\ZoomPanel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\EsterCommon\EsterCommon.csproj">
+      <Project>{236EEAD2-3202-40D6-9B05-3C12693263E7}</Project>
+      <Name>EsterCommon %28EsterCommon\EsterCommon%29</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

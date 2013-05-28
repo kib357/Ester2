@@ -1,0 +1,34 @@
+﻿<BaseClasses:SensorBase x:Class="Ester.Model.PlanControls.FireChoke"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:Controls="clr-namespace:Ester.Model.PlanControls"
+                     xmlns:BaseClasses="clr-namespace:Ester.Model.BaseClasses">
+    <Viewbox Height="{Binding Path=Height, RelativeSource={RelativeSource AncestorType={x:Type Controls:FireChoke}}}">
+        <StackPanel Orientation="Horizontal">
+            <Border Name="LeftBorder" Visibility="Collapsed" Background="{Binding Path=PipeColor, RelativeSource={RelativeSource AncestorType={x:Type Controls:FireChoke}}}" Width="130" Height="190" VerticalAlignment="Top"/>
+            <StackPanel Orientation="Vertical">
+                <Grid Height="60">
+                    <TextBlock Text="{Binding Path=Tag, RelativeSource={RelativeSource AncestorType={x:Type Controls:FireChoke}}}" HorizontalAlignment="Left" Margin="20,0,0,0" FontSize="48"/>
+                </Grid>
+                <Border Width="{Binding Path=PipeWidth, RelativeSource={RelativeSource AncestorType={x:Type Controls:FireChoke}}}" 
+                        Background="{Binding Path=PipeColor, RelativeSource={RelativeSource AncestorType={x:Type Controls:FireChoke}}}"
+                        MinWidth="200" Height="130" BorderThickness="0">
+                    <StackPanel Orientation="Horizontal">
+                        <Grid Name="Choke" Width="200" HorizontalAlignment="Left" Visibility="Hidden">                            
+                        <Ellipse HorizontalAlignment="Center" VerticalAlignment="Center" Width="30" Height="30" Fill="#FF2d2a22"/>
+                        <Border HorizontalAlignment="Center" VerticalAlignment="Center" Width="12" Height="120" Background="#FF2d2a22" CornerRadius="6" Name="Choke1">
+                            <Border.LayoutTransform>
+                                <RotateTransform CenterX="6" CenterY="60" Angle="{Binding Path=RotationAngle, RelativeSource={RelativeSource AncestorType={x:Type Controls:FireChoke}}}"/>
+                            </Border.LayoutTransform>                            
+                        </Border>
+                        <TextBlock FontSize="40" Foreground="#FFdd4a22" Height="60" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,15" Name="ChokeText" />
+                        </Grid>
+                    </StackPanel>
+                </Border>
+                <Grid Height="60">
+                </Grid>
+            </StackPanel>
+            <Border Name="RightBorder" Visibility="Collapsed" Background="{Binding Path=PipeColor, RelativeSource={RelativeSource AncestorType={x:Type Controls:FireChoke}}}" Width="130" Height="190" VerticalAlignment="Bottom"/>
+        </StackPanel>
+    </Viewbox>
+</BaseClasses:SensorBase>

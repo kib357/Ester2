@@ -1,0 +1,173 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Ester" EntityNamespace="EsterCommon.Data" ContextNamespace="EsterCommon.Data" Class="PlansDc" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=localhost\SQLEXPRESS;Initial Catalog=Ester;User ID=ester" SettingsObjectName="EsterCommon.Properties.Settings" SettingsPropertyName="EsterConnectionString3" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Dictionaries" Member="Dictionaries">
+    <Type Name="Dictionary">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Data" Type="System.Xml.Linq.XElement" DbType="Xml" CanBeNull="true" UpdateCheck="Never" />
+    </Type>
+  </Table>
+  <Table Name="dbo.History" Member="Histories">
+    <Type Name="History">
+      <Column Name="Id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TimeStamp" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="PropertyId" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="Value" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Logs" Member="Logs">
+    <Type Name="Log">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Logger" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="LogLevel" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="TimeStamp" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Column Name="EsterUser" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Value" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Message" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Details" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Schedules" Member="Schedules">
+    <Type Name="Schedule">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ObjectId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="OverrideController" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="DeleteOnSync" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="Schedule_SchedulesContent" Member="SchedulesContents" ThisKey="Id" OtherKey="ScheduleId" Type="SchedulesContent" />
+      <Association Name="Schedule_SchedulesControlledProperty" Member="SchedulesControlledProperties" ThisKey="Id" OtherKey="ScheduleId" Type="SchedulesControlledProperty" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SchedulesContent" Member="SchedulesContents">
+    <Type Name="SchedulesContent">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ScheduleId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Day" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Time" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Column Name="Value" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Association Name="Schedule_SchedulesContent" Member="Schedule" ThisKey="ScheduleId" OtherKey="Id" Type="Schedule" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SchedulesControlledProperties" Member="SchedulesControlledProperties">
+    <Type Name="SchedulesControlledProperty">
+      <Column Name="ScheduleId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="PropertyId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="Schedule_SchedulesControlledProperty" Member="Schedule" ThisKey="ScheduleId" OtherKey="Id" Type="Schedule" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Property_SchedulesControlledProperty" Member="Property" ThisKey="PropertyId" OtherKey="Id" Type="Property" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Units" Member="Units">
+    <Type Name="Unit">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
+      <Association Name="Unit_Property" Member="Properties" ThisKey="Id" OtherKey="UnitsId" Type="Property" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Users" Member="Users">
+    <Type Name="User">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Login" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Password" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ApiKey" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="RoleID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="User_UserPlanObjectType" Member="UserPlanObjectTypes" ThisKey="Id" OtherKey="SubjectId" Type="UserPlanObjectType" />
+      <Association Name="UserRole_User" Member="UserRole" ThisKey="RoleID" OtherKey="Id" Type="UserRole" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.UserRoles" Member="UserRoles">
+    <Type Name="UserRole">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="RoleName" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Association Name="UserRole_User" Member="Users" ThisKey="Id" OtherKey="RoleID" Type="User" />
+      <Association Name="UserRole_UserPlanObjectType" Member="UserPlanObjectTypes" ThisKey="Id" OtherKey="SubjectId" Type="UserPlanObjectType" />
+    </Type>
+  </Table>
+  <Table Name="dbo.UserPlanObjectTypes" Member="UserPlanObjectTypes">
+    <Type Name="UserPlanObjectType">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="SubjectId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PlanObjectTypeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Allowed" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="UserRole_UserPlanObjectType" Member="UserRole" ThisKey="SubjectId" OtherKey="Id" Type="UserRole" IsForeignKey="true" />
+      <Association Name="User_UserPlanObjectType" Member="User" ThisKey="SubjectId" OtherKey="Id" Type="User" IsForeignKey="true" />
+      <Association Name="PlanObjectType_UserPlanObjectType" Member="PlanObjectType" ThisKey="PlanObjectTypeId" OtherKey="Id" Type="PlanObjectType" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PropertyAlarmLevels" Member="PropertyAlarmLevels">
+    <Type Name="PropertyAlarmLevel">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Association Name="PropertyAlarmLevel_PropertyAlarm" Member="PropertyAlarms" ThisKey="Id" OtherKey="LevelId" Type="PropertyAlarm" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PropertyAlarms" Member="PropertyAlarms">
+    <Type Name="PropertyAlarm">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PropertyId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="LevelId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Value" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Statement" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Association Name="PropertyAlarmLevel_PropertyAlarm" Member="PropertyAlarmLevel" ThisKey="LevelId" OtherKey="Id" Type="PropertyAlarmLevel" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Property_PropertyAlarm" Member="Property" ThisKey="PropertyId" OtherKey="Id" Type="Property" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PlanObjectTypes" Member="PlanObjectTypes">
+    <Type Name="PlanObjectType">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ClassName" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="IsContainer" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Icon" Type="System.Xml.Linq.XElement" DbType="Xml" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="DefaultGeometry" Type="System.Xml.Linq.XElement" DbType="Xml" CanBeNull="true" UpdateCheck="Never" />
+      <Association Name="PlanObjectType_UserPlanObjectType" Member="UserPlanObjectTypes" ThisKey="Id" OtherKey="PlanObjectTypeId" Type="UserPlanObjectType" />
+      <Association Name="PlanObjectType_PropertyType" Member="PropertyTypes" ThisKey="Id" OtherKey="TypeId" Type="PropertyType" />
+      <Association Name="PlanObjectType_PlanObject" Member="PlanObjects" ThisKey="Id" OtherKey="TypeId" Type="PlanObject" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PropertyTypes" Member="PropertyTypes">
+    <Type Name="PropertyType">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="TypeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="PropertyType_Property" Member="Properties" ThisKey="Id" OtherKey="AddressTypeId" Type="Property" />
+      <Association Name="PlanObjectType_PropertyType" Member="PlanObjectType" ThisKey="TypeId" OtherKey="Id" Type="PlanObjectType" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Properties" Member="Properties">
+    <Type Name="Property">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ObjectId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AddressTypeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UnitsId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Path" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Multiplier" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Association Name="Property_SchedulesControlledProperty" Member="SchedulesControlledProperties" ThisKey="Id" OtherKey="PropertyId" Type="SchedulesControlledProperty" />
+      <Association Name="Property_PropertyAlarm" Member="PropertyAlarms" ThisKey="Id" OtherKey="PropertyId" Type="PropertyAlarm" />
+      <Association Name="PropertyType_Property" Member="PropertyType" ThisKey="AddressTypeId" OtherKey="Id" Type="PropertyType" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Unit_Property" Member="Unit" ThisKey="UnitsId" OtherKey="Id" Type="Unit" IsForeignKey="true" DeleteRule="CASCADE" />
+      <Association Name="PlanObject_Property" Member="PlanObject" ThisKey="ObjectId" OtherKey="Id" Type="PlanObject" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PlanObjects" Member="PlanObjects">
+    <Type Name="PlanObject">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TypeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ParentId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="[Left]" Member="Left" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="[Top]" Member="Top" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="[Order]" Member="Order" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Width" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Height" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="VisualData" Type="System.Xml.Linq.XElement" DbType="Xml" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Geometry" Type="System.Xml.Linq.XElement" DbType="Xml" CanBeNull="true" UpdateCheck="Never" />
+      <Association Name="PlanObject_Property" Member="Properties" ThisKey="Id" OtherKey="ObjectId" Type="Property" />
+      <Association Name="PlanObject_PlanObject" Member="PlanObjects" ThisKey="Id" OtherKey="ParentId" Type="PlanObject" />
+      <Association Name="PlanObject_PlanObject" Member="Parent" ThisKey="ParentId" OtherKey="Id" Type="PlanObject" IsForeignKey="true" />
+      <Association Name="PlanObjectType_PlanObject" Member="PlanObjectType" ThisKey="TypeId" OtherKey="Id" Type="PlanObjectType" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>

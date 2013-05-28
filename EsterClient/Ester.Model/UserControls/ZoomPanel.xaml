@@ -1,0 +1,46 @@
+﻿<UserControl x:Class="Ester.Model.UserControls.ZoomPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:Extensions="clr-namespace:Ester.Model.BaseClasses"
+             xmlns:UserControls="clr-namespace:Ester.Model.UserControls">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Ester.Model;component/Styles/Button.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>        
+			<Extensions:ExtScrollViewer x:Name="PlanScrollViewer" FocusVisualStyle="{x:Null}" VerticalScrollBarVisibility="Auto" Margin="10,0,0,0"
+				HorizontalScrollBarVisibility="Visible" Style="{DynamicResource ResourceKey=DefaultScrollViewerStyle}" SizeChanged="PlanScrollViewer_SizeChanged">
+            <Grid x:Name="PlanGrid">
+                <Grid.LayoutTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleX="{Binding ElementName=slider, Path=Value}" ScaleY="{Binding ElementName=slider, Path=Value}" />
+                    </TransformGroup>
+                </Grid.LayoutTransform>
+                <Grid Name="Content1Grid" Margin="0,0,0,0">
+                    <Viewbox SnapsToDevicePixels="True" Width="{Binding ElementName=PlanGrid, Path=ActualWidth}" Height="{Binding ElementName=PlanGrid, Path=ActualHeight}" >
+                        <ContentControl Name="Content1" Background="Transparent" SnapsToDevicePixels="True" />
+                    </Viewbox>
+                </Grid>
+                <Grid Name="Content2Grid" Margin="0,0,0,0">
+                    <Viewbox SnapsToDevicePixels="True" Width="{Binding ElementName=PlanGrid, Path=ActualWidth}" Height="{Binding ElementName=PlanGrid, Path=ActualHeight}" >
+                        <ContentControl Name="Content2" Background="Transparent" SnapsToDevicePixels="True"/>
+                    </Viewbox>
+                </Grid>
+            </Grid>
+        </Extensions:ExtScrollViewer>
+        
+        <!--__________________________________________Zoom Slider + Debug Info______________________________________________________-->
+        <StackPanel Orientation="Vertical" Margin="10,500,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="Collapsed">            
+            <Button Style="{DynamicResource ResourceKey=PlusButton}" Width="25" Margin="0,0,0,0" HorizontalAlignment="Left" Click="ZoomIn_Click"/>
+            <Slider Minimum="1" Margin="-17,0,0,0" x:Name="slider" FocusVisualStyle="{x:Null}" Height="200" Orientation="Vertical" HorizontalAlignment="Left"
+                Value="{Binding Scale, Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type UserControls:ZoomPanel}}}" 
+                Maximum="50" TickFrequency="0.1" SmallChange="0.1" LargeChange="1" Style="{DynamicResource ResourceKey=DefaultSliderStyle}"/>
+            <Button Style="{DynamicResource ResourceKey=MinusButton}" Width="25" Margin="0,0,0,0" HorizontalAlignment="Left" Click="ZoomOut_Click"/>
+            <Button Style="{DynamicResource ResourceKey=ShowAllButton}" Width="25" Margin="0,10,0,0" HorizontalAlignment="Left" 
+                    Name="ShowAllButton" Click="ShowAll_Click" Visibility="Hidden"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

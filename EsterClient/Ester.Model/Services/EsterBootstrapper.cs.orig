@@ -1,0 +1,95 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows;
+using Ester.Model.Events;
+using Ester.Model.Interfaces;
+using Ester.Model.Repositories;
+using Microsoft.Practices.Prism.Events;
+using Microsoft.Practices.Unity;
+
+namespace Ester.Model.Services
+{
+    public class EsterBootstrapper : IEsterBootstrapper
+    {
+        private readonly List<Repository> _repositories = new List<Repository>();
+        private readonly List<IEsterViewModel> _viewModels = new List<IEsterViewModel>();
+        private readonly ISessionInfo _sessionInfo;
+        private readonly IEventAggregator _eventAggregator;
+
+        public event BootProgressChangedEventHandler BootProgressChangedEvent;
+
+        private void OnBootProgressChangedEvent(string message)
+        {
+            var handler = BootProgressChangedEvent;
+            if (handler != null)
+                Application.Current.Dispatcher.BeginInvoke(new Action(() => handler(message)));
+        }
+
+        public EsterBootstrapper(IUnityContainer container, IEventAggregator eventAggregator, ISessionInfo sessionInfo)
+        {
+            _sessionInfo = sessionInfo;
+            _eventAggregator = eventAggregator;
+
+            _repositories.Add(container.Resolve<PeopleRepository>());
+            _repositories.Add(container.Resolve<PlansRepository>());
+            _repositories.Add(container.Resolve<SchedulesRepository>());
+
+            _viewModels.Add(container.Resolve<IEsterViewModel>("building"));
+            _viewModels.Add(container.Resolve<IEsterViewModel>("schedules"));
+            _viewModels.Add(container.Resolve<IEsterViewModel>("people"));
+            _viewModels.Add(container.Resolve<IEsterViewModel>("logs"));
+            _viewModels.Add(container.Resolve<IEsterViewModel>("updates"));
+<<<<<<< HEAD
+        }        
+=======
+        }
+>>>>>>> origin/master
+
+        public void BeginLoad(Guid apiKey)
+        {
+            _sessionInfo.ApiKey = apiKey;
+            OnBootProgressChangedEvent("Передача данных");
+            StartRepositories();
+        }
+
+        private void StartRepositories()
+        {
+            foreach (var repository in _repositories.Where(r => !r.HasData))
+            {
+                repository.DataReceivedEvent += OnDataLoaded;
+                repository.LoadData();
+            }
+        }
+
+        private void OnDataLoaded(Repository sender)
+        {
+            if (sender.HasData)
+                OnBootProgressChangedEvent("Загрузка завершена - " + sender.Title);
+            if (_repositories.All(r => r.HasData))
+                Application.Current.Dispatcher.BeginInvoke(new Action(ConfigureViewModels));
+        }
+
+        private void ConfigureViewModels()
+        {
+            OnBootProgressChangedEvent("Настройка приложения");
+            foreach (var esterViewModel in _viewModels)
+            {
+                esterViewModel.ViewModelConfiguredEvent += OnViewModelLoaded;
+                esterViewModel.Configure();
+            }
+        }
+
+        private void OnViewModelLoaded(IEsterViewModel sender)
+        {
+            if (sender.IsReady)
+                OnBootProgressChangedEvent("Расширение готово - " + sender.Title);
+            if (_viewModels.All(vm => vm.IsReady))
+            {
+                OnBootProgressChangedEvent("Открываемся...");
+                _eventAggregator.GetEvent<ApplicationLoadedEvent>().Publish(null);
+            }
+        }
+    }
+}

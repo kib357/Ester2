@@ -1,0 +1,11 @@
+﻿<UserControl x:Class="Ester.View.StartView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:Enums="clr-namespace:Ester.Model.Enums;assembly=Ester.Model"
+             xmlns:prism="clr-namespace:Microsoft.Practices.Prism.Regions;assembly=Microsoft.Practices.Prism"
+             mc:Ignorable="d" 
+             >
+	<ContentControl Name="MainRegion" prism:RegionManager.RegionName="{x:Static Enums:RegionNames.ModulesRegion}" KeyboardNavigation.IsTabStop="False" />
+</UserControl>

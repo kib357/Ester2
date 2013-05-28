@@ -1,0 +1,420 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Linq;
+using System.Threading;
+using System.Windows;
+using Ester.Model.Events;
+using Ester.Model.Interfaces;
+using Ester.Model.Repositories;
+using Ester.Modules.Schedule.Model;
+using EsterCommon.BaseClasses;
+using EsterCommon.Enums;
+using Microsoft.Practices.Prism.Commands;
+using Microsoft.Practices.Prism.Events;
+using Microsoft.Practices.Prism.Regions;
+using Microsoft.Practices.Prism.ViewModel;
+using Microsoft.Practices.Unity;
+
+namespace Ester.Modules.Schedule.ViewModel
+{
+
+	public delegate void TreeSelectionChangedEventHandler(object sender);
+
+
+	public class Nya : NotificationObject
+	{
+		public byte Day { get; set; }
+		public object Value { get; set; }
+		public double Time { get; set; }
+		public Visibility TooltipVisibility { get; set; }
+	}
+
+	public class SchedulesViewModel : NotificationObject, INavigationAware, IEsterViewModel
+	{
+		public DelegateCommand<object> AddNewValueTimeRangeCommand { get; set; }
+		public DelegateCommand<object> DeleteValueTimeRangeCommand { get; set; }
+
+		public DelegateCommand AddScheduleCommand { get; set; }
+		public DelegateCommand<object> MoveScheduleCommand { get; set; }
+
+		public DelegateCommand SaveScheduleCommand { get; set; }
+		public DelegateCommand DropScheduleCommand { get; set; }
+
+		private readonly IEventAggregator _eventAggregator;
+		private readonly IDataTransport _dataTransport;
+		private SchedulesRepository _scheduleRepository;
+
+		public List<string> Test { get; set; }
+
+		public SchedulesViewModel(IEventAggregator eventAggregator, IDataTransport dataTransport, IUnityContainer container)
+		{
+			Schedules = new ObservableCollection<ScheduleClass>();
+			_eventAggregator = eventAggregator;
+			_dataTransport = dataTransport;
+			_scheduleRepository = container.Resolve<SchedulesRepository>();
+			_scheduleRepository.DataReceivedEvent += SchedulesReceived;
+
+			AddNewValueTimeRangeCommand = new DelegateCommand<object>(AddValueTimeRange);
+			DeleteValueTimeRangeCommand = new DelegateCommand<object>(DeleteValueTimeRange);
+
+			AddScheduleCommand = new DelegateCommand(AddSchedule);
+			MoveScheduleCommand = new DelegateCommand<object>(MoveSchedule);
+
+			SaveScheduleCommand = new DelegateCommand(SaveSchedule);
+			DropScheduleCommand = new DelegateCommand(DropSchedule);
+
+			Sched = new ScheduleClass();
+
+			/*var a1 = new List<ValueTimeRange>(
+				new ValueTimeRange[]
+				{
+					new ValueTimeRange
+						{
+							Start = new DateTime(2000,1,1,0,0,0),
+							Length = new TimeSpan(0, 12, 0, 0),
+							Value = 3
+						},
+					new ValueTimeRange
+						{
+							Start = new DateTime(2000,1,1,12,0,0),
+							Length = new TimeSpan(0, 4, 0, 0),
+							Value = 2
+						},
+					new ValueTimeRange
+						{
+							Start = new DateTime(2000,1,1,18,0,0),
+							Length = new TimeSpan(0, 7, 59, 59, 999),
+							Value = null
+						}
+				});
+			var a2 = new List<ValueTimeRange>(
+				new ValueTimeRange[]
+				{
+					new ValueTimeRange
+						{
+							Start = DateTime.Parse("01.01.2000 00:00"),
+							Length = new TimeSpan(0, 4, 35, 0),
+							Value = 3
+						},
+					new ValueTimeRange
+						{
+							Start = DateTime.Parse("01.01.2000 00:00"),
+							Length = new TimeSpan(0, 8, 25, 0),
+							Value = 2
+						},
+					new ValueTimeRange
+						{
+							Start = DateTime.Parse("01.01.2000 00:00"),
+							Length = new TimeSpan(0, 11, 59, 59,999),
+							Value = null
+						}
+				});
+<<<<<<< HEAD
+			CurrendSchedule = new Dictionary<int, ObservableCollection<ValueTimeRange>>();
+			CurrendSchedule.Add(0, new ObservableCollection<ValueTimeRange>(a1));
+			//CurrendSchedule.Add(1, new ObservableCollection<ValueTimeRange>(a2));
+		}
+
+		public event ViewModelConfiguredEventHandler ViewModelConfiguredEvent;
+		public void OnViewModelConfiguredEvent()
+		{
+			ViewModelConfiguredEventHandler handler = ViewModelConfiguredEvent;
+			if (handler != null) handler();
+=======
+			Sched.Days = new Dictionary<int, List<ValueTimeRange>>();
+			Sched.Days.Add(0, a1);
+			Sched.Days.Add(1, a2);*/
+>>>>>>> 96421d923d897606de0d7cf0c4fb2b3b88753f3d
+		}
+
+		private bool _isReady = false;
+		public bool IsReady()
+		{
+			return _isReady;
+		}
+
+		public void Configure()
+		{
+			_isReady = true;
+			OnViewModelConfiguredEvent();
+		}
+
+		private void SchedulesReceived(Repository sender)
+		{
+			//Schedules = _scheduleRepository.Schedules;
+			//OnViewWidthChanged();
+			//if (NotForbidden)
+			//	CurrentScheduleId = Schedules.FirstOrDefault().Id;
+			//else
+			//{
+			//	var week = new Dictionary<int, ObservableCollection<ValueTimeRange>>();
+			//	for (var i = 0; i < 7; i++)
+			//		week[i] = new ObservableCollection<ValueTimeRange>();
+			//	CurrentSchedule = new ScheduleClass("*", "Title", ScheduleTypes.SKUD, week);
+			//}
+		}
+
+		private async void DropSchedule()
+		{
+			//const string dropScheduleURL = @"/Schedules/";
+			//await _dataTransport.DeleteRequestAsync(dropScheduleURL + CurrentSchedule.Id, true);
+			//Schedules.Remove(CurrentSchedule);
+			//if (Schedules.Any())
+			//	CurrentScheduleId = Schedules.LastOrDefault().Id;
+			//else
+			//{
+			//	RaisePropertyChanged("NotForbidden");
+			//	var week = new Dictionary<int, ObservableCollection<ValueTimeRange>>();
+			//	for (var i = 0; i < 7; i++)
+			//		week[i] = new ObservableCollection<ValueTimeRange>();
+			//	CurrentSchedule = new ScheduleClass("*", "Title", ScheduleTypes.SKUD, week);
+			//}
+			//RaisePropertyChanged("ScheduleNames");
+		}
+
+		private void MoveSchedule(object obj)
+		{
+			var pair = (KeyValuePair<string, ScheduleTypes>)obj;
+			var item = Schedules.FirstOrDefault(s => s.Id == pair.Key);
+			if (item == null) return;
+			item.Type = pair.Value;
+			RaisePropertyChanged("ScheduleNames");
+			RaisePropertyChanged("ChosenScheduleType");
+		}
+
+		private async void SaveSchedule()
+		{
+			const string saveScheduleURL = @"/Schedules/";
+
+			if (CurrentSchedule == null)
+				throw new Exception("Расписание не выбрано");
+			if (string.IsNullOrWhiteSpace(Title))
+				throw new Exception("Незадано имя расписания");
+
+			CurrentSchedule.Name = Title;
+			ScheduleClass savedSchedule = await _dataTransport.PostRequestAsync<ScheduleClass>(CurrentSchedule, saveScheduleURL + CurrentSchedule.Id, true);
+			if (savedSchedule == null) return;
+			RaisePropertyChanged("ScheduleNames");
+			RaisePropertyChanged("ChosenScheduleType");
+		}
+
+		private async void AddSchedule()
+		{
+			//const string addScheduleURL = @"/Schedules";
+			//var name = NewScheduleName;
+			//if (Schedules.FirstOrDefault(e => e.Name == name) != null || String.IsNullOrWhiteSpace(name)) return;
+			//var week = new Dictionary<int, ObservableCollection<ValueTimeRange>>();
+			//for (var i = 0; i < 7; i++)
+			//	week[i] = new ObservableCollection<ValueTimeRange>();
+			//var newSchedule = new ScheduleClass(Guid.NewGuid().ToString(), name, ChosenScheduleType, week);
+			//var addedSchedule = await _dataTransport.PostRequestAsync<ScheduleClass>(newSchedule, addScheduleURL, true);
+			//if (addedSchedule == null) return;
+
+			//Schedules.Add(addedSchedule);
+			//CurrentScheduleId = Schedules.LastOrDefault().Id;
+
+			//NewScheduleName = "";
+			//RaisePropertyChanged("NotForbidden");
+			//RaisePropertyChanged("ScheduleNames");
+			//RaisePropertyChanged("ChosenScheduleType");
+		}
+
+		private void TreeViewSelectionChanged(object sender)
+		{
+			CurrentScheduleId = (sender as TreeChild).Id;
+		}
+
+		private void DeleteValueTimeRange(object obj)
+		{
+			//var id = (int)obj;
+			//foreach (var day in CurrentSchedule.Days)
+			//{
+			//	var item = day.Value.FirstOrDefault(s => s.Id == id);
+			//	if (item == null) continue;
+			//	day.Value.Remove(item);
+			//	return;
+			//}
+		}
+
+		private DateTime FromPositionToDateTime(double position)
+		{
+			var ratio = _viewWidth / 1440;
+			var minutes = position / ratio;
+			var start = new DateTime(1900, 1, 1, TimeSpan.FromMinutes(minutes).Hours,
+									 TimeSpan.FromMinutes(minutes).Minutes, 0);
+			return start;
+		}
+
+		private void AddValueTimeRange(object obj)
+		{
+			//if (obj == null) return;
+			//var args = (AddValueTimeRangeArgs)obj;
+			//var position = args.Position;
+			//var dayOfWeek = args.DayOfWeek;
+			//var minStep = args.MinStep;
+			//var start = FromPositionToDateTime(position);
+			//int i;
+			//var dayValues = CurrentSchedule.Days[dayOfWeek];
+			//for (i = 0; i < dayValues.Count; i++)
+			//{
+			//	if (dayValues[i].Start <= start && (dayValues[i].Start.AddMinutes(dayValues[i].Length.TotalMinutes) > start)) return;
+			//	if (dayValues[i].Start > start) break;
+			//}
+			//var allValues = CurrentSchedule.Days.SelectMany(day => day.Value).ToList();
+			//var last = allValues.OrderByDescending(s => s.Id).FirstOrDefault();
+			//var id = last == null ? 0 : last.Id + 1;
+			//CurrentSchedule.Days[dayOfWeek].Insert(i,
+			//			 new ValueTimeRange()
+			//				 {
+			//					 Id = id,
+			//					 Start = start,
+			//					 Value = 0,
+			//					 Length = TimeSpan.FromMinutes(minStep - 1),
+			//					 CurrentWidth = ViewWidth
+			//				 });
+		}
+
+		private void OnViewWidthChanged()
+		{
+			//foreach (var valueTimeRange in Schedules.SelectMany(schedule => schedule.Days).SelectMany(day => day.Value))
+			//	valueTimeRange.CurrentWidth = ViewWidth;
+		}
+
+		#region Properties
+
+		public bool NotForbidden
+		{
+			get { return Schedules.Any(); }
+		}
+
+		private string _currentScheduleId;
+		public string CurrentScheduleId
+		{
+			get { return _currentScheduleId; }
+			set
+			{
+				_currentScheduleId = value;
+				RaisePropertyChanged("CurrentScheduleId");
+				RaisePropertyChanged("NotForbidden");
+				if (NotForbidden)
+					CurrentSchedule = Schedules.FirstOrDefault(schedule => schedule.Id == _currentScheduleId);
+			}
+		}
+
+		public ScheduleClass Sched { get; set; }
+		public Dictionary<int, ObservableCollection<ValueTimeRange>> CurrendSchedule { get; set; }
+
+		private ScheduleTypes _chosenScheduleType = ScheduleTypes.SKUD;
+		public ScheduleTypes ChosenScheduleType
+		{
+			get { return _chosenScheduleType; }
+			set { _chosenScheduleType = value; RaisePropertyChanged("ChosenScheduleType"); }
+		}
+
+		private string _newScheduleName;
+		public string NewScheduleName
+		{
+			get { return _newScheduleName; }
+			set { _newScheduleName = value; RaisePropertyChanged("NewScheduleName"); }
+		}
+
+		private string _title;
+		public string Title
+		{
+			get { return _title; }
+			set { _title = value; RaisePropertyChanged("Title"); }
+		}
+
+		private ObservableCollection<ScheduleClass> _schedules;
+		public ObservableCollection<ScheduleClass> Schedules
+		{
+			get { return _schedules; }
+			set
+			{
+				_schedules = value;
+				RaisePropertyChanged("Title");
+				RaisePropertyChanged("Schedules");
+				RaisePropertyChanged("ScheduleNames");
+			}
+		}
+
+		private ScheduleClass _currentSchedule;
+		public ScheduleClass CurrentSchedule
+		{
+			get { return _currentSchedule; }
+			set
+			{
+				_currentSchedule = value;
+				Title = _currentSchedule.Name;
+				RaisePropertyChanged("CurrentSchedule");
+			}
+		}
+
+		private double _viewWidth = 1440;
+		public double ViewWidth
+		{
+			get { return _viewWidth; }
+			set
+			{
+				_viewWidth = value;
+				RaisePropertyChanged("ViewWidth");
+				OnViewWidthChanged();
+			}
+		}
+
+		private List<int> _dayTimeSpans = new List<int>(Enumerable.Range(1, 24));
+		public List<int> DayTimeSpans
+		{
+			get
+			{
+				return _dayTimeSpans;
+			}
+		}
+
+		public ObservableCollection<ScheduleGroup> ScheduleNames
+		{
+			get
+			{
+				var collection = new ObservableCollection<ScheduleGroup>();
+				foreach (ScheduleTypes type in Enum.GetValues(typeof(ScheduleTypes)))
+				{
+					var paircol = new ObservableCollection<TreeChild>();
+					if (Schedules != null)
+						foreach (var child in Schedules.Where(schedule => schedule.Type == type).Select(schedule => new TreeChild(schedule.Id, schedule.Name, schedule.Id == CurrentScheduleId)))
+						{
+							child.SelectionChanged += TreeViewSelectionChanged;
+							paircol.Add(child);
+						}
+					var description = type.ToString();
+					var fieldInfo = type.GetType().GetField(type.ToString());
+					var attribArray = fieldInfo.GetCustomAttributes(false);
+					var attrib = attribArray[0] as DescriptionAttribute;
+					if (attribArray.Length != 0 && attrib != null)
+						description = attrib.Description;
+					collection.Add(new ScheduleGroup() { Name = type, Description = description, Items = paircol });
+				}
+				return collection;
+			}
+		}
+		#endregion
+
+		#region navigation
+		public bool IsNavigationTarget(NavigationContext navigationContext)
+		{
+			return true;
+		}
+
+		public void OnNavigatedFrom(NavigationContext navigationContext)
+		{
+		}
+
+		public void OnNavigatedTo(NavigationContext navigationContext)
+		{
+			_eventAggregator.GetEvent<ToggleLeftPanelEvent>().Publish(true);
+		}
+
+		#endregion
+	}
+}

@@ -1,0 +1,19 @@
+﻿<BaseClasses:SensorBase x:Class="Ester.Model.PlanControls.Lamp"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:PlanControls="clr-namespace:Ester.Model.PlanControls"
+             xmlns:BaseClasses="clr-namespace:Ester.Model.BaseClasses">
+    <Viewbox Width="{Binding Path=Width, RelativeSource={RelativeSource AncestorType={x:Type PlanControls:Lamp}}}"
+             Height="{Binding Path=Height, RelativeSource={RelativeSource AncestorType={x:Type PlanControls:Lamp}}}">
+            <Grid Width="20" Height="20">
+                <Grid Background="{Binding LampColor, RelativeSource={RelativeSource AncestorType={x:Type PlanControls:Lamp}}}">
+                    <TextBlock Text="{Binding OnPercentage, RelativeSource={RelativeSource AncestorType={x:Type PlanControls:Lamp}}}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                </Grid>
+                <Grid Visibility="{Binding LampFailureVisibility, RelativeSource={RelativeSource AncestorType={x:Type PlanControls:Lamp}}}">
+                    <Line X1="0" Y1="0" X2="30" Y2="30" Fill="Red"/>
+                    <Line X1="30" Y1="0" X2="0" Y2="30" Fill="Red"/>
+                </Grid>
+                <Border BorderThickness="2" BorderBrush="{Binding GroupColor, RelativeSource={RelativeSource AncestorType={x:Type PlanControls:Lamp}}}"/>
+            </Grid>
+    </Viewbox>
+</BaseClasses:SensorBase>

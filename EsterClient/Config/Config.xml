@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- MyApp.xml -->
+<Nini>
+  <Section Name="Common">
+    <Key Name="ServerAddress" Value="http://192.168.0.116" />
+    <Key Name="WinAuthAddress" Value="net.tcp://localhost:808/WindowsAuth"/>
+    <Key Name="LoginQuery" Value="login" />
+    <Key Name="PinContext" Value="True" />
+  </Section>
+  <Section Name="Update">
+    <Key Name="NeedUpdate" Value="False" />
+    <Key Name="Interval" Value="1" />
+    <Key Name="Version" Value="1" />
+  </Section>
+  <Section Name="BacNet">
+    <Key Name="Interval" Value="5" />
+    <Key Name="AlarmsInterval" Value="5" />
+  </Section>
+  <Section Name="Abbyy"> 
+    <Key Name="Path" Value="C:\Program Files (x86)\ABBYY\ABBYY DocumentReader API\SimpleRecognitionKernel.dll"/>
+  </Section>
+  <Section Name="AccessCardReader">
+    <Key Name="Port" Value="COM3"/>
+  </Section>
+</Nini>

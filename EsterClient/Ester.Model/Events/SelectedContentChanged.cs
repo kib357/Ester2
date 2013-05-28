@@ -1,0 +1,8 @@
+using Microsoft.Practices.Prism.Events;
+
+namespace Ester.Model.Events
+{
+    public class SelectedContentChanged : CompositePresentationEvent<string>
+    {
+    }
+}

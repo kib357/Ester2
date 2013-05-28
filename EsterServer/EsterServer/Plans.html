@@ -1,0 +1,395 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>EsterServer - Plans viewer</title>
+    <link rel="stylesheet" href="Resources/css/bootstrap.css" />
+    <link rel="stylesheet" href="Resources/css/bootstrap-responsive.css" />
+    <link rel="stylesheet" href="Resources/css/treeview.css" />
+    <script type="text/javascript" src="Resources/js/jquery-1.9.0.js"></script>
+    <script type="text/javascript" src="Resources/js/jquery-ui-1.10.0.js"></script>
+    <script type="text/javascript" src="Resources/js/bootstrap.js"></script>
+    <script type="text/javascript" src="Resources/js/raphael.js"></script>
+    <script type="text/javascript" src="Resources/js/knockout-2.2.1.js"></script>
+    <script type="text/javascript" src="Resources/js/knockout.mapping-latest.js"></script>
+    <script type="text/javascript" src="Resources/js/json2.js"></script>
+
+    <link href="Resources/css/ui.jqgrid.css" media="screen" type="text/css" rel="stylesheet" />
+    <link href="Resources/css/ui.css" media="screen" type="text/css" rel="stylesheet" />
+    <link href="Resources/css/icons.css" media="screen" type="text/css" rel="stylesheet" />
+
+<!-- ReSharper disable CssNotResolved -->
+    <style type="text/css">
+        body {
+            padding-top: 60px;
+            padding-bottom: 40px;
+        }
+
+        .sidebar-nav {
+            padding: 9px 0;
+        }
+
+        .plan-object-hover {
+            fill: #F2E8DF !important;
+        }
+
+        .plan-object-selected {
+            fill: #719D98 !important;
+            stroke: #719D98 !important;
+        }
+
+        #drop_zone {
+            border: 2px dashed #BBBBBB;
+            border-radius: 5px 5px 5px 5px;
+            color: #BBBBBB;
+            font: 18pt bold,"Vollkorn";
+            padding: 15px;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+    </style>
+<!-- ReSharper restore CssNotResolved -->
+
+    <script type="text/javascript" src="Resources/js/date.format.js"></script>
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container-fluid">
+                <button data-target=".nav-collapse" data-toggle="collapse" class="btn btn-navbar" type="button">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="./Default.html" class="brand">Ester</a>
+                <div class="nav-collapse collapse">
+                    <ul class="nav">
+                        <li class="">
+                            <a href="./Default.html">Home</a>
+                        </li>
+                        <li class="">
+                            <a href="./Documentation.html">Documentation</a>
+                        </li>
+                        <li class="">
+                            <a href="./Dictionaries.html">Dictionaries</a>
+                        </li>
+                        <li>
+                            <a href="./Bacnet.html">BACnet</a>
+                        </li>
+                        <li class="active">
+                            <a href="./Plans.html">Plans</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span3">
+                <div class="well sidebar-nav">
+                    <ul class="nav nav-list" id="plansList">
+                        <li class="nav-header">Инструменты</li>
+                        <li>
+                            <div class="btn-toolbar" data-toggle="buttons-radio">
+                                <div class="btn-group" style="margin: 2px;">
+                                    <button type="button" id="tool_selection" class="btn btn-primary active toolbar-btn"><i class="icon-arrow"></i></button>
+                                </div>
+                                <div class="btn-group" style="margin: 2px;">
+                                    <button type="button" id="tool_addTemperatureSensor" class="btn btn-inverse toolbar-btn"><i class="icon-temperature"></i></button>
+                                    <button type="button" id="tool_addLightSensor" class="btn btn-inverse toolbar-btn"><i class="icon-lightsensor"></i></button>
+                                    <button type="button" id="tool_addWaterLeakSensor" class="btn btn-inverse toolbar-btn"><i class="icon-waterleak"></i></button>
+                                </div>
+                                <div class="btn-group" style="margin: 2px;">
+                                    <button type="button" id="tool_addHeater" class="btn btn-inverse toolbar-btn"><i class="icon-heater"></i></button>
+                                    <button type="button" id="tool_addConditioner" class="btn btn-inverse toolbar-btn"><i class="icon-conditioner"></i></button>
+                                    <button type="button" id="tool_addLamp" class="btn btn-inverse toolbar-btn"><i class="icon-lamp"></i></button>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="nav-header">Планы</li>
+                        <li style="padding-bottom: 10px;">
+                            <button type="button" id="Button1" class="btn btn-mini btn-inverse"
+                                data-bind="enable: plansHistoryCanUndo" onclick="Undo();">
+                                undo
+                            </button>
+                            <button type="button" id="Button2" class="btn btn-mini btn-inverse" style="margin-left: 5px;"
+                                data-bind="enable: plansHistoryCanRedo" onclick="Redo();">
+                                redo
+                            </button>
+                        </li>
+                        <li style="padding-bottom: 10px;">
+                            <button type="button" id="savePlansButton" class="btn btn-mini btn-inverse"
+                                    data-loading-text="сохранение..." data-bind="visible: selectedPlan()">
+                                <i class="icon-save-small"></i>
+                            </button>
+                            <button type="button" id="refreshPlansButton" class="btn btn-mini btn-inverse" style="margin-left: 5px;"
+                                    data-loading-text="обновление..." data-bind="visible: selectedPlan()" onclick="RefreshPage();">
+                                <i class="icon-refresh-small"></i>
+                            </button>
+                            <button id="addPlanButton" class="btn btn-mini btn-inverse" type="button" style="margin-left: 5px;">Добавить план</button>
+                        </li>
+                        <!-- ko template: {name: 'plans_template', foreach: plans} -->
+                        <!-- /ko -->
+                        <script type="text/html" id="plans_template">                            
+                            <li class='planLink' data-bind="attr: { 'id': 'plan_' + Id() }">
+                                <a data-bind="attr: { 'id': Id, 'href': '#' + Id(), title: Name},text: Name"></a>
+                            </li>                            
+                        </script>
+                    </ul>
+                </div>
+                <div class="well sidebar-nav">
+                    <ul class="nav nav-list" id="elementList" style="margin-top: 5px;">
+                        <!--<li class="nav-header" data-bind="text: selectedPlan() ? selectedPlan().Name : ''"></li>-->
+                        <li>
+                            <input id="planNameInput" type="text" placeholder="Type something…"
+                                   data-bind="value: selectedPlan() ? selectedPlan().Name: null">
+                            <button type="button" id="deletePlanConfirmationButton" class="btn btn-danger" style="margin-left: 5px; margin-bottom: 9px;" data-loading-text="удаление..." data-bind="visible: selectedPlan()" onclick="$('#deletePlanModal').modal();">
+                                <i class="icon-trash"></i>
+                            </button>
+                        </li>
+                        <li>
+                            <div class="treeview">
+                                <!-- ko if: selectedPlan()-->
+                                <!-- ko template: { name: 'element-template', data: selectedPlan } -->
+                                <!-- /ko -->
+                                <!-- /ko -->
+
+                                <script type="text/html" id="element-template">
+                                    <!-- ko if: IsContainer-->
+                                    <!-- ko if: Children().length > 0 -->
+                                    <ul>
+                                        <!-- ko template: {name: 'childrenElements_template', foreach: Children()} -->
+                                        <!-- /ko -->
+                                        <!--<span data-bind="attr: {'data-id': Id ,'data-parentid': ParentId},text: Id"></span>-->
+                                        <div class="treeview-dropline" data-bind="attr: {'data-index': Children().length, 'data-parentId': Id}"></div>
+                                    </ul>                                    
+                                    <!-- /ko -->
+                                    <!-- /ko -->
+                                </script>
+
+                                <script type="text/html" id="childrenElements_template">
+                                    <!--<span data-bind="attr: {'data-id': Id ,'data-parentid': ParentId},text: ParentId()"></span>-->
+                                    <div class="treeview-dropline" data-bind="attr: {'data-index': $index, 'data-parentId': ParentId}"></div>
+                                    <li class='cl'>                                                                                
+                                        <div class="treeview-linkdiv">                                            
+                                            <p>
+                                                <!-- ko if: IsContainer-->
+                                                <!-- ko if: Children().length > 0 -->
+                                                <i onclick='return UnHide(this)' class="icon-chevron-right"></i>
+                                                <!-- /ko -->
+                                                <!-- /ko -->
+                                                <a class='elementLink element-drag' data-bind="css: { 'element-drop': IsContainer() }, attr: { 'id': 'element_' + Id(), 'href': '#' + Id() },text: Name()"></a>
+                                            </p>
+                                        </div>                                        
+                                        <!-- ko if: IsContainer -->
+                                        <!-- ko if: Children().length > 0 -->
+                                        <!-- ko template: { name: 'element-template', data: $data } -->
+                                        <!-- /ko -->
+                                        <!-- /ko -->                                   
+                                        <!-- /ko -->
+                                    </li>
+                                
+                                </script>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="well sidebar-nav">
+                    <ul class="nav nav-list" id="Ul1">
+                        <li class="nav-header">Импорт</li>
+                        <li>
+                            <div id="drop_zone">Перетащите файл сюда</div>
+                            <output id="importFiles"></output>
+                        </li>
+                        <li>
+                            <div class="alert alert-block alert-error fade in" data-bind="visible: importAlert()">
+                                <button class="close" type="button">×</button>
+                                <h4 class="alert-heading">Ошибка</h4>
+                                <p data-bind="text: importAlert"></p>
+                            </div>
+                        </li>
+                        <li>
+                            <button type="submit" class="btn" id="uploadSvgButton" data-loading-text="загрузка..."
+                                data-bind="visible: importSvg() && !importAlert()">
+                                Загрузить</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="span6">
+                <div id="svgcanvas">
+                </div>
+            </div>
+            <div class="span3">
+                <!--________________________Свойства элемента____________________________-->
+                <div class="well sidebar-nav" data-bind="visible: selectedElement()">
+                    <ul class="nav nav-list" id="propertiesList">
+                        <li class="nav-header">Свойства</li>
+                        <li>
+                            <label>Название</label>
+                            <input id="planObjectNameInput" type="text" placeholder="Type something…"
+                                data-bind="value: selectedElement() ? selectedElement().Name: null">
+                        </li>
+                        <li>
+                            <label>Тип</label>
+                            <div>
+                                <span class="label label-info" data-bind="text: selectedElement() ? selectedElement().Type : ''"></span>
+                                <button id="changeElementTypeConfirmationButton" class="btn btn-mini" type="button"
+                                    style="margin-left: 5px;">
+                                    Изменить</button>
+                            </div>
+                        </li>
+                        <li data-bind="foreach: properties" style="margin-top: 5px;">
+                            <label data-bind="text: TypeName"></label>
+                            <div class="input-append">
+                                <input data-bind="value: Path, attr: { 'id': 'property_' + TypeId() + '_' + Id()}" type="text" placeholder="Type address…" />
+                                <button class="btn propertyLookup" type="button" data-bind="attr: { 'data-id': Id, 'data-typeid': TypeId}">
+                                    <i class="icon-search"></i>
+                                </button>
+                            </div>
+
+                        </li>
+                        <li>
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary" id="saveElementButton"
+                                    data-loading-text="сохранение..." data-bind="enable: selectedElement()">
+                                    OK</button>
+                                <button type="button" class="btn" id="cancelElementChangesButton"
+                                    data-bind="enable: selectedElement()">
+                                    Отмена</button>
+                                <button type="submit" class="btn btn-danger" id="deleteElementConfirmationButton" style="margin-left: 20px;"
+                                    data-bind="enable: selectedElement()" onclick="$('#deleteElementModal').modal();">
+                                    Удалить</button>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--<div id="draggable" class="ui-widget-content" style="width: 200px; height: 50px;">
+            <p class="ui-widget-header">Handle</p>
+        </div>-->
+    <!--________________________Импорт____________________________-->
+    <div id="importModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="myModalLabel">Импорт графики</h3>
+        </div>
+        <div class="modal-body">
+            <div id="svgImport"></div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Закрыть</button>
+            <button class="btn btn-primary" id="importSvgButton" data-loading-text="импорт...">Импортировать</button>
+        </div>
+    </div>
+    <!--________________________Удаление элемента____________________________-->
+    <div id="deleteElementModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="H1">Удаление элемента</h3>
+        </div>
+        <div class="modal-body">
+            <p>Удалить этот элемент?</p>
+            <p data-bind="text: selectedElement() ? selectedElement().Name : ''"></p>
+        </div>
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Отмена</button>
+            <button class="btn btn-danger" id="deleteElementButton" data-loading-text="удаление...">Удалить</button>
+        </div>
+    </div>
+    <!--________________________Удаление плана_____________________________-->
+    <div id="deletePlanModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="H2">Удаление плана</h3>
+        </div>
+        <div class="modal-body">
+            <p>Удалить этот план?</p>
+            <p data-bind="text: selectedPlan() ? selectedPlan().Name : ''"></p>
+        </div>
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Отмена</button>
+            <button class="btn btn-danger" id="deletePlanButton" data-loading-text="удаление...">Удалить</button>
+        </div>
+    </div>
+    <!--________________________Изменение типа элемента____________________________-->
+    <div id="changeElementTypeModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="H3">Изменение типа элемента</h3>
+        </div>
+        <div class="modal-body">
+            <div id="Div2">
+                <h5 data-bind="text: selectedElement() ? selectedElement().Name : ''"></h5>
+                <!-- ko if: selectedElement() -->
+                <!-- ko ifnot: selectedElement().IsContainer() -->
+                <select data-bind="options: primitiveTypes, optionsText: 'name', optionsValue: 'value',
+                                 value: elementTypeId">
+                </select>
+                <!-- /ko -->
+                <!-- ko if: selectedElement().IsContainer() -->
+                <select data-bind="options: containerTypes, optionsText: 'name', optionsValue: 'value',
+                                 value: elementTypeId">
+                </select>
+                <!-- /ko -->
+                <!-- /ko -->
+                <div class="alert alert-error fade in">
+                    <h6 class="alert-heading">Изменение типа приведет к удалению всех адресов объекта!</h6>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Отмена</button>
+            <button class="btn btn-primary" id="changeElementTypeButton" data-loading-text="загрузка...">Изменить</button>
+        </div>
+    </div>
+    <!--________________________Поиск адреса___________________________-->
+    <div id="propertyLookupModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="H4">Поиск адреса</h3>
+        </div>
+        <div class="modal-body">
+            <input type="hidden" id="propertyIdHidden" />
+            <input type="hidden" id="propertyTypeIdHidden" />
+            <div class="tabbable">
+                <!-- Only required for left/right tabs -->
+                <ul class="nav nav-tabs">
+                    <li class="active lookup" id="fakeTab"><a href="#fakeTabContent" data-toggle="tab">Fake</a></li>
+                    <li class="lookup" id="bacnetTab"><a href="#bacnetTabContent" data-toggle="tab">BACnet</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="fakeTabContent" style="height: 300px;">
+                        <label class="checkbox">
+                            <input type="checkbox" data-bind="checked: fakeIsWritable">
+                            Записываемый
+                        </label>
+                        <div data-bind="visible: !fakeIsWritable()">
+                            <p>Диапазон изменения: от <span data-bind="text: fakeRangeMin() + ' до ' + fakeRangeMax()"></span></p>
+                            <div id="slider-range"></div>
+                            <p>Изменять значение каждые: <span data-bind="text: fakeInterval"></span>с.</p>
+                            <div id="slider-interval"></div>
+                        </div>
+                        <div data-bind="visible: fakeIsWritable()">
+                            <p>Значение: <span data-bind="text: fakeValue"></span></p>
+                            <div id="slider-fakevalue"></div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="bacnetTabContent">
+                        <p>Howdy, I'm in BACnet data provider</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Отмена</button>
+            <button class="btn btn-primary" id="selectAddressButton">Выбрать</button>
+        </div>
+    </div>
+    <script type="text/javascript" src="js/editorGraphic.js"></script>
+    <script type="text/javascript" src="js/plans.js"></script>
+    <script type="text/javascript" src="js/import.js"></script>
+</body>
+</html>

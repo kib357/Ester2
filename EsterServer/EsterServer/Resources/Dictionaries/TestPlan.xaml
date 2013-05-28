@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:Controls="clr-namespace:Ester.Model.PlanControls;assembly=Ester.Model">
+  <Canvas Uid="0" x:Key="TestFloor" Width="500" Height="300" Canvas.Left="0" Canvas.Top="0">
+    <Canvas Uid="Помещения" Width="500" Height="300" Canvas.Left="55" Canvas.Top="30">
+      <Controls:Room Title="100" Width="103" Height="101.667" Canvas.Left="-0.499999" Canvas.Top="-0.499939" TemperatureAddress="1709.AI4" SettedTemperatureAddress="600.AV102" SettedTemperatureBacstatAllowedAddress="600.BV102" VentilationLevelAddress="600.AV103" VentilationBacstatAllowedAddress="600.BV103" ACLevelAddress="600.AV104" ACBacstatAllowedAddress="600.BV104" Cameras="2" Owner="VAS/A81.Astoria" LightLevelAddress="600.AV105" SettedLightLevelAddress="600.AV1" SettedLightLevelBacstatAllowedAddress="600.BV106" LightEnabledAddress="600.BV108" Doors="200.DC101,200.DC201" Id="fcfbb206-e832-428a-866a-f9a4e09ae354" Description="и оиро">
+        <Rectangle Stretch="Fill" Stroke="Black" Fill="#FCFFF5" />
+      </Controls:Room>
+      <Controls:Room Title="200" Width="205.229" Height="76.8333" Canvas.Left="-0.5" Canvas.Top="100.167" TemperatureAddress="600.AV201" SettedTemperatureAddress="600.AV202" SettedTemperatureBacstatAllowedAddress="600.BV202" VentilationLevelAddress="600.AV203" VentilationBacstatAllowedAddress="600.BV203" ACLevelAddress="600.AV204" ACBacstatAllowedAddress="600.BV204" LightLevelAddress="600.AV205" SettedLightLevelAddress="600.AV206" SettedLightLevelBacstatAllowedAddress="600.BV206" LightEnabledAddress="600.BV208" Doors="200.DC102" Id="e62f6e6d-529c-4af5-8ed6-27e0f904f447" Description="">
+        <Rectangle Stretch="Fill" Stroke="Black" Fill="#FCFFF5" />
+      </Controls:Room>
+      <Controls:Room Title="300" Width="102.167" Height="177.666" Canvas.Left="203.833" Canvas.Top="-0.499573" TemperatureAddress="600.AV301" SettedTemperatureAddress="600.AV302" SettedTemperatureBacstatAllowedAddress="600.BV302" VentilationLevelAddress="600.AV303" VentilationBacstatAllowedAddress="600.BV303" ACLevelAddress="600.AV304" ACBacstatAllowedAddress="600.BV304" LightLevelAddress="600.AV305" SettedLightLevelAddress="600.AV306" SettedLightLevelBacstatAllowedAddress="600.BV306" LightEnabledAddress="600.BV308" Doors="200.DC301" Id="9544a4bc-07dc-497d-b3a9-cb3ec7d747cf" Description="">
+        <Rectangle Stretch="Fill" Stroke="Black" Fill="#FCFFF5" />
+      </Controls:Room>
+      <Controls:Room Title="400" Width="103.271" Height="101.667" Canvas.Left="101.563" Canvas.Top="-0.500061" TemperatureAddress="600.AV401" SettedTemperatureAddress="600.AV402" SettedTemperatureBacstatAllowedAddress="600.BV402" VentilationLevelAddress="600.AV403" VentilationBacstatAllowedAddress="600.BV403" ACLevelAddress="600.AV404" ACBacstatAllowedAddress="600.BV404" LightLevelAddress="600.AV405" SettedLightLevelAddress="600.AV406" SettedLightLevelBacstatAllowedAddress="600.BV406" LightEnabledAddress="600.BV408" Doors="200.DC201, 200.DC202" Id="426de894-b71a-449f-956b-99f547a41062" Description="">
+        <Rectangle Stretch="Fill" Stroke="Black" Fill="#FCFFF5" />
+      </Controls:Room>
+      <Controls:Room Title="500" Width="386.979" Height="240.369" Canvas.Left="-0.5" Canvas.Top="-0.5" TemperatureAddress="600.AV501" SettedTemperatureAddress="600.AV502" SettedTemperatureBacstatAllowedAddress="600.BV502" VentilationLevelAddress="600.AV503" VentilationBacstatAllowedAddress="600.BV503" ACLevelAddress="600.AV504" ACBacstatAllowedAddress="600.BV504" LightLevelAddress="600.AV505" SettedLightLevelAddress="600.AV506" SettedLightLevelBacstatAllowedAddress="600.BV506" LightEnabledAddress="600.BV508" IsPublic="True" Doors="200.DC302" Id="8414e914-a6b2-4d3b-89e7-0c6f8b8279d4" Description="">
+        <Path Stretch="Fill" Stroke="Black" Fill="#FCFFF5" Data="F1 M 0.000363668,176.898L 305.506,176.898L 305.506,0L 385.979,0L 385.979,239.369L 4.18285e-007,239.369L 0.000363668,176.898 Z " />
+      </Controls:Room>
+    </Canvas>
+    <Canvas Uid="Двери" Width="800" Height="600" Canvas.Left="42" Canvas.Top="30">
+      <Controls:Door Canvas.Left="30.375" Canvas.Top="98.6667" Address="200.DC101" Id="26a3866c-a467-42cf-be11-cc5d067c60aa" />
+      <Controls:Door Canvas.Left="79.625" Canvas.Top="174.417" Address="200.DC102" Id="2f76e061-90fe-43c8-8eee-1264abbaa8af" />
+      <Controls:Door Canvas.Left="99.6251" Canvas.Top="28.4168" RotationAngle="90" Address="200.DC201" Id="3c16bbbb-09b3-4259-b27c-b9c66d333df8" />
+      <Controls:Door Canvas.Left="130.375" Canvas.Top="98.4167" Address="200.DC202" Id="a995fa51-bc4b-4dbb-bd34-f490ab1dd73a" />
+      <Controls:Door Canvas.Left="202.125" Canvas.Top="28.4168" RotationAngle="90" Address="200.DC301" Id="ed841dea-0098-4b01-9790-cd4c630a1b46" />
+      <Controls:Door Canvas.Left="383.625" Canvas.Top="174.417" RotationAngle="90" Address="200.DC302" Id="5c4da50b-23b2-4cfc-8e35-ac89377eec10" />
+    </Canvas>
+  </Canvas>
+</ResourceDictionary>

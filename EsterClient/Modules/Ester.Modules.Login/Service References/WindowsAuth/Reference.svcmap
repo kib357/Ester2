@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="e7c1e49f-58e1-48ca-93a8-50cfa5a39ea6" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost/WindowsAuth/WindowsAuthService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="WindowsAuthService.disco" MetadataType="Disco" ID="13a63f28-0af0-4f50-8e0c-e6840aab1c41" SourceId="1" SourceUrl="http://localhost/WindowsAuth/WindowsAuthService.svc?disco" />
+    <MetadataFile FileName="WindowsAuthService.xsd" MetadataType="Schema" ID="a3349016-55d2-4274-9639-ce4879422973" SourceId="1" SourceUrl="http://localhost/WindowsAuth/WindowsAuthService.svc?xsd=xsd1" />
+    <MetadataFile FileName="WindowsAuthService.wsdl" MetadataType="Wsdl" ID="4289f873-b0a4-422f-aed9-7b759be6542b" SourceId="1" SourceUrl="http://localhost/WindowsAuth/WindowsAuthService.svc?wsdl" />
+    <MetadataFile FileName="WindowsAuthService1.xsd" MetadataType="Schema" ID="2bfe3661-b459-4729-8746-a0a4a1addc7a" SourceId="1" SourceUrl="http://localhost/WindowsAuth/WindowsAuthService.svc?xsd=xsd0" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

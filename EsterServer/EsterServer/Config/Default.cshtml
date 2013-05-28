@@ -1,0 +1,55 @@
+@using System.Web.Security;
+@using EsterServer.Model.Services
+@{
+    Layout = "~/Config/_SiteLayout.cshtml";
+    Page.Title = "Администрирование";
+    var loggedIn = HttpContext.Current.User.Identity.IsAuthenticated;
+    var invalidCredentials = false;
+
+    if (IsPost)
+    {
+        if (CustomAuthentication.ValidateUser(Request.Form["username"], Request.Form["password"]))
+        {
+            FormsAuthentication.RedirectFromLoginPage(Request.Form["username"], false);
+        }
+        else
+        {
+            invalidCredentials = true;
+        }
+    }    
+}
+
+<div class="row">
+    <div class="small-6 columns">
+        @{
+            if (loggedIn)
+            {
+            <text>Привет, </text> @HttpContext.Current.User.Identity.Name;
+            }            
+        }
+    </div>
+    <div class="small-5 small-offset-1 columns">
+        @{
+            if (!loggedIn)
+            {
+            <form method="POST">
+                <fieldset>
+                    <legend>Авторизация</legend>
+                    <input type="text" id="username" name="username" placeholder="Имя пользователя"
+                        @{if (invalidCredentials)
+                          { <text>value="@Request.Form["username"]"</text>}}>
+                    <input type="password" id="password" name="password" placeholder="Пароль">
+                    <input type="submit" class="small button" value="Войти" />
+                    @if (invalidCredentials)
+                    {
+                        <div data-alert class="alert-box alert">
+                            Неверное имя пользователя или пароль.
+                            @*<a href="#" class="close">&times;</a>*@
+                        </div>
+                    }
+                </fieldset>
+            </form>
+            }            
+        }
+    </div>
+</div>

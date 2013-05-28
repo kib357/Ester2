@@ -1,0 +1,12 @@
+﻿<UserControl x:Class="Ester.Model.PlanControls.PlanLink"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:PlanControls="clr-namespace:Ester.Model.PlanControls">
+    <UserControl.ContentTemplate>
+        <DataTemplate>
+            <Grid MouseDown="PlanLinkMouseDown" MouseUp="PlanLinkMouseUp">
+                <ContentPresenter Name="BuildingPartView" Content="{TemplateBinding Content}"/>                
+            </Grid>
+        </DataTemplate>
+    </UserControl.ContentTemplate>
+</UserControl>

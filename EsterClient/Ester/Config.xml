@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- MyApp.xml -->
+<Nini>
+  <Section Name="Common">
+    <Key Name="ServerAddress" Value="http://localhost/EsterServer" />
+    <Key Name="LoginQuery" Value="Login" />
+    <Key Name="PinContext" Value="True" />
+  </Section>
+  <Section Name="Update">
+    <Key Name="NeedUpdate" Value="False" />
+    <Key Name="Interval" Value="60" />
+    <Key Name="Version" Value="1" />
+  </Section>
+  <Section Name="{0:H:mm:ss:ffff}">
+    <Key Name="Interval" Value="5" />
+    <Key Name="AlarmsInterval" Value="5" />
+  </Section>
+  <Section Name="Abbyy">
+    <Key Name="Path" Value="C:\Program Files (x86)\ABBYY\ABBYY DocumentReader API\SimpleRecognitionKernel.dll"/>
+  </Section>
+  <Section Name="AccessCardReader">
+    <Key Name="Port" Value="COM3"/>
+  </Section>
+  <Section Name="PVAlarm">
+    <Key Name="0" Value="Авария на частотнике, управляющем двигателем П01 (67)" />
+    <Key Name="1" Value="Авария на частотнике, управляющем двигателем В01 (68)" />
+    <Key Name="2" Value="Авария на частотнике, управляющем насосом рекупиратора П01-В01 (69)" />
+    <Key Name="3" Value="Критический перепад давления на фильтре П01" />
+    <Key Name="4" Value="Критический перепад давления на фильтре В01" />
+    <Key Name="5" Value="Авария на моторе П01" />
+    <Key Name="6" Value="Авария на моторе В01" />
+    <Key Name="7" Value="Авария насоса рекупиратора П01-В01" />
+    <Key Name="8" Value="Авария жалюзей П01" />
+    <Key Name="9" Value="Авария жалюзей В01" />
+    <Key Name="10" Value="Температура теплоносителя (П01) ниже критической" />
+    <Key Name="11" Value="Авария электррообогрева (П01)" />
+  </Section>
+</Nini>

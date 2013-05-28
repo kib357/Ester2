@@ -1,0 +1,160 @@
+<!--<configuration>
+  <appSettings>
+    <add key="aspnet:UseTaskFriendlySynchronizationContext" value="true" />
+  </appSettings>
+  <connectionStrings>
+    <add name="Ester" connectionString="Data Source=192.168.0.15\SQLEXPRESS;Initial Catalog=Ester;Password=6*!vb9%q;User ID=ester" providerName="System.Data.SqlClient" />
+  </connectionStrings>
+  <system.web>
+<<<<<<< HEAD
+    <httpRuntime maxRequestLength="809600000"/>
+    <authentication mode="Windows" />
+	  <authentication mode="Forms">
+=======
+    <!--<httpRuntime maxRequestLength="809600000"/>-->
+    <!--<authentication mode="Windows" />-->
+    <!--<authentication mode="Forms">
+>>>>>>> 26598a7f7b2f3ab368bab805c403c06f11a5a8fa
+      <forms timeout="60" loginUrl="~/" defaultUrl="~/"/>
+    </authentication>
+    <authorization>
+      <deny users="?"/>
+    </authorization>-->
+    <compilation debug="true">
+      <assemblies>
+        <add assembly="System.Data.Entity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+      </assemblies>
+    </compilation>
+    <pages controlRenderingCompatibilityVersion="4.0" />
+    <httpRuntime maxUrlLength="4048" relaxedUrlToFileSystemMapping="true" />
+  </system.web>
+  <location path="Resources">
+    <system.web><authorization><allow users="*"/></authorization></system.web>
+  </location>
+  <location path="Info">
+    <system.web><authorization><allow users="*"/></authorization></system.web>
+  </location>
+  <location path="Login">
+    <system.web><authorization><allow users="*"/></authorization></system.web>
+  </location>
+  <location path="Data">
+    <system.web><authorization><allow users="*"/></authorization></system.web>
+  </location>
+  <location path="Plans">
+    <system.web><authorization><allow users="*"/></authorization></system.web>
+  </location>
+  <system.webServer>
+    <modules runAllManagedModulesForAllRequests="true">
+      <add name="UrlRoutingModule" type="System.Web.Routing.UrlRoutingModule, System.Web, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    </modules>
+  </system.webServer>
+  <system.serviceModel>
+    <services>
+      <service name="EsterServer.Modules.Security.Authentication">
+        <endpoint behaviorConfiguration="web" binding="webHttpBinding"
+          bindingConfiguration="" name="web" bindingNamespace="" contract="EsterServer.Modules.Security.IAuthentication" />
+        <endpoint address="mex" binding="mexHttpBinding" bindingConfiguration=""
+          name="mex" contract="IMetadataExchange" />
+        <endpoint address="" binding="netTcpBinding" bindingConfiguration=""
+          name="nettcp" contract="EsterServer.Modules.Security.IAuthentication" />
+      </service>
+    </services>
+    <behaviors>
+      <endpointBehaviors>
+        <behavior name="web">
+          <webHttp defaultBodyStyle="Wrapped" defaultOutgoingResponseFormat="Json" />
+        </behavior>
+      </endpointBehaviors>
+      <serviceBehaviors>
+<<<<<<< HEAD
+        <behavior name="">
+          <serviceMetadata httpGetEnabled="true" httpsGetEnabled="true" />
+          <serviceAuthorization serviceAuthorizationManagerType="EsterServer.APIKeyAuthorization, EsterServer" />
+          <serviceDebug />
+        </behavior>
+      </serviceBehaviors>
+    </behaviors>
+    <serviceHostingEnvironment aspNetCompatibilityEnabled="true" multipleSiteBindingsEnabled="true"/>
+=======
+        <behavior>
+          <serviceMetadata httpGetEnabled="true" httpsGetEnabled="true" />
+          <!--<serviceAuthorization serviceAuthorizationManagerType="EsterServer.APIKeyAuthorization, EsterServer" />-->
+        </behavior>        
+      </serviceBehaviors>
+    </behaviors>
+    <serviceHostingEnvironment aspNetCompatibilityEnabled="true" />   
+>>>>>>> 26598a7f7b2f3ab368bab805c403c06f11a5a8fa
+    <standardEndpoints>
+      <webHttpEndpoint>
+        <standardEndpoint name="" helpEnabled="true" automaticFormatSelectionEnabled="false" defaultOutgoingResponseFormat="Json"/>--><!--maxReceivedMessageSize="2147000000"--><!--
+	</webHttpEndpoint>
+    </standardEndpoints>
+<<<<<<< HEAD
+  </system.serviceModel>
+</configuration>-->
+
+<configuration>
+	<appSettings>
+		<add key="aspnet:UseTaskFriendlySynchronizationContext" value="true" />
+	</appSettings>
+	<connectionStrings>
+		<add name="Ester" connectionString="Data Source=192.168.0.15\SQLEXPRESS;Initial Catalog=Ester;Password=6*!vb9%q;User ID=ester" providerName="System.Data.SqlClient" />
+	</connectionStrings>
+	<system.web>
+		<compilation debug="true" targetFramework="4.5" />
+		<httpRuntime targetFramework="4.5"/>
+	</system.web>
+	<system.serviceModel>
+		<services>
+			<service behaviorConfiguration="httpBehavior" name="EsterServer.Modules.Security.Authentication">
+				<endpoint address="" behaviorConfiguration="web" binding="webHttpBinding"
+      bindingConfiguration="" name="webMixed" contract="EsterServer.Modules.Security.IAuthentication" />
+				<endpoint address="mexMixed" binding="mexHttpBinding" bindingConfiguration=""
+      name="mexMixed" contract="IMetadataExchange" />
+				<endpoint address="winMixed" binding="netTcpBinding" bindingConfiguration=""
+      name="winMixed" contract="EsterServer.Modules.Security.IAuthentication" />
+			</service>
+			<service behaviorConfiguration="httpBehavior" name="EsterServer.TestService">
+				<endpoint address="" behaviorConfiguration="web" binding="webHttpBinding"
+      bindingConfiguration="" name="webMixed" contract="EsterServer.ITestService" />
+				<endpoint address="mexMixed" binding="mexHttpBinding" bindingConfiguration=""
+      name="mexMixed" contract="IMetadataExchange" />
+				<endpoint address="winMixed" binding="netTcpBinding" bindingConfiguration=""
+      name="winMixed" contract="EsterServer.ITestService" />
+			</service>
+		</services>
+		<behaviors>
+   <endpointBehaviors>
+    <behavior name="web">
+     <webHttp defaultBodyStyle="Wrapped" defaultOutgoingResponseFormat="Json" />
+    </behavior>
+   </endpointBehaviors>
+   <serviceBehaviors>
+    <behavior name="httpBehavior">
+     <serviceMetadata httpGetEnabled="true" httpsGetEnabled="true" />
+     <serviceDebug includeExceptionDetailInFaults="false" />
+     <serviceAuthorization serviceAuthorizationManagerType="EsterServer.APIKeyAuthorization, EsterServer" />
+    </behavior>
+    <behavior name="">
+     <serviceMetadata httpGetEnabled="true" httpsGetEnabled="true" />
+     <serviceDebug includeExceptionDetailInFaults="false" />
+    </behavior>
+   </serviceBehaviors>
+  </behaviors>
+		<serviceHostingEnvironment aspNetCompatibilityEnabled="true" multipleSiteBindingsEnabled="true" />
+		<standardEndpoints>
+			<webHttpEndpoint>
+				<standardEndpoint name="" helpEnabled="true" automaticFormatSelectionEnabled="true"></standardEndpoint>
+			</webHttpEndpoint>
+		</standardEndpoints>
+	</system.serviceModel>
+	<system.webServer>
+		<modules runAllManagedModulesForAllRequests="true">
+			<add name="UrlRoutingModule" type="System.Web.Routing.UrlRoutingModule, System.Web, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+		</modules>
+	</system.webServer>
+
+=======
+  </system.serviceModel>  
+>>>>>>> 26598a7f7b2f3ab368bab805c403c06f11a5a8fa
+</configuration>

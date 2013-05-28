@@ -1,0 +1,65 @@
+﻿﻿using System;
+﻿using System.Collections.ObjectModel;
+﻿using System.Threading.Tasks;
+﻿using System.Windows;
+﻿using Ester.Model.Interfaces;
+﻿using Ester.Model.Services;
+﻿using EsterCommon.BaseClasses;
+﻿using Microsoft.Practices.Prism;
+﻿using Microsoft.Practices.Prism.Events;
+
+namespace Ester.Model.Repositories
+{
+    public class PeopleRepository : IPeopleRepository
+    {
+        public event PeopleReceivedEventHandler PeopleReceivedEvent;
+
+        private void OnPeopleReceivedEvent()
+        {
+            PeopleReceivedEventHandler handler = PeopleReceivedEvent;
+            if (handler != null) handler();
+        }
+
+        private IDataTransport _dataTransport;
+        private IEventAggregator _eventAggregator;
+        private ISessionInfo _sessionInfo;
+
+        public PeopleRepository(IDataTransport dataTransport, IEventAggregator eventAggregator, ISessionInfo sessionInfo)
+        {
+            _eventAggregator = eventAggregator;
+            _dataTransport = dataTransport;
+            _sessionInfo = sessionInfo;
+
+            People = new ObservableCollection<Person>();
+
+<<<<<<< HEAD
+            _sessionInfo.ApiKeyDistributionEvent += (key) => GetPeople();
+=======
+            sessionInfo.ApiKeyDistributionEvent += (key) => GetPeople();
+>>>>>>> 1b218f81ed091ffc235919c521d3a07097e1002c
+        }
+
+        public async Task<ObservableCollection<Person>> GetPeople()
+        {
+            const string peopleUri = "/people/";
+            const string guestUri = "/guest/";
+            try
+            {
+                var peoples = await _dataTransport.GetRequestAsync<ObservableCollection<Person>>(peopleUri, true, 30000);
+                var guests = await _dataTransport.GetRequestAsync<ObservableCollection<Person>>(guestUri, true, 30000);
+                if (peoples == null || guests == null) return null;
+                var allPeople = peoples.AddRange(guests);
+                People = StaticPeopleList = new ObservableCollection<Person>(allPeople);
+                Application.Current.Dispatcher.BeginInvoke(new Action(OnPeopleReceivedEvent));
+                return People;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Ошибка при загрузке списка сотрудников", ex);
+            }
+        }
+
+        public ObservableCollection<Person> People { get; set; }
+        public static ObservableCollection<Person> StaticPeopleList { get; set; }
+    }
+}

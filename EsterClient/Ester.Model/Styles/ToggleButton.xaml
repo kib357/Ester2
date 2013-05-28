@@ -1,0 +1,337 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                    xmlns:PresentationOptions="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
+                    xmlns:vsm="clr-namespace:System.Windows;assembly=PresentationFramework">
+
+    <!-- Global Settings-->
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="Brushes.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <!--ToggleButton Style-->
+    <Style TargetType="ToggleButton"
+           x:Key="DefaultToggleButtonStyle">
+        <Setter Property="SnapsToDevicePixels"
+                Value="true" />
+        <Setter Property="Background"
+                Value="{StaticResource TransparentBlackBrush}" />
+        <Setter Property="BorderBrush"
+                Value="{StaticResource BlackColorBrush}" />
+        <Setter Property="Foreground"
+                Value="{StaticResource TextBrush}" />
+        <Setter Property="FontWeight"
+                Value="Bold" />
+        <Setter Property="Padding"
+                Value="5,6" />
+        <Setter Property="BorderThickness"
+                Value="2" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToggleButton">
+                    <Grid>
+                        <vsm:VisualStateManager.VisualStateGroups>
+                            <vsm:VisualStateGroup x:Name="CommonStates">
+                                <vsm:VisualState x:Name="Normal" />
+                                <vsm:VisualState x:Name="MouseOver">
+                                    <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)"
+                                                                       Storyboard.TargetName="MouseOverBorder">
+                                            <EasingDoubleKeyFrame KeyTime="0"
+                                                                  Value="1" />
+                                        </DoubleAnimationUsingKeyFrames>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)"
+                                                                       Storyboard.TargetName="MouseOverInnerRectangle">
+                                            <EasingDoubleKeyFrame KeyTime="0"
+                                                                  Value="1" />
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </vsm:VisualState>
+                                <vsm:VisualState x:Name="Pressed">
+                                    <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)"
+                                                                       Storyboard.TargetName="PressedBorder">
+                                            <EasingDoubleKeyFrame KeyTime="0"
+                                                                  Value="1" />
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </vsm:VisualState>
+                                <vsm:VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="Opacity"
+                                                                       Storyboard.TargetName="DisabledVisualElement">
+                                            <SplineDoubleKeyFrame KeyTime="0"
+                                                                  Value=".55" />
+                                        </DoubleAnimationUsingKeyFrames>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)"
+                                                                       Storyboard.TargetName="contentPresenter">
+                                            <EasingDoubleKeyFrame KeyTime="0"
+                                                                  Value="0.5" />
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </vsm:VisualState>
+                            </vsm:VisualStateGroup>
+                            <vsm:VisualStateGroup x:Name="CheckStates">
+                                <vsm:VisualState x:Name="Checked">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush"
+                                                                       Storyboard.TargetName="MouseOverBorder">
+                                            <ObjectAnimationUsingKeyFrames.KeyFrames>
+                                                <DiscreteObjectKeyFrame KeyTime="0">
+                                                    <DiscreteObjectKeyFrame.Value>
+                                                        <SolidColorBrush Color="{StaticResource BlackColor}"/>
+                                                    </DiscreteObjectKeyFrame.Value>
+                                                </DiscreteObjectKeyFrame>
+                                            </ObjectAnimationUsingKeyFrames.KeyFrames>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill"
+                                                                       Storyboard.TargetName="MouseOverInnerRectangle">
+                                            <ObjectAnimationUsingKeyFrames.KeyFrames>
+                                                <DiscreteObjectKeyFrame KeyTime="0">
+                                                    <DiscreteObjectKeyFrame.Value>
+                                                        <SolidColorBrush Color="#dedede"/>
+                                                    </DiscreteObjectKeyFrame.Value>
+                                                </DiscreteObjectKeyFrame>
+                                            </ObjectAnimationUsingKeyFrames.KeyFrames>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <!--<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)"
+                                                                       Storyboard.TargetName="CheckedRectangle">
+                                            <EasingDoubleKeyFrame KeyTime="0"
+                                                                  Value="1" />
+                                        </DoubleAnimationUsingKeyFrames>-->
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)"
+                                                                       Storyboard.TargetName="CheckedInnerRectangle">
+                                            <EasingDoubleKeyFrame KeyTime="0"
+                                                                  Value="1" />
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </vsm:VisualState>
+                                <vsm:VisualState x:Name="Unchecked" />
+                            </vsm:VisualStateGroup>
+                        </vsm:VisualStateManager.VisualStateGroups>
+                        <Border x:Name="Background"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Background="{TemplateBinding Background}"/>
+                        <Rectangle x:Name="DisabledVisualElement"
+                                   Fill="#999999"
+                                   IsHitTestVisible="false"
+                                   Opacity="0"/>
+                        <Rectangle x:Name="CheckedInnerRectangle"
+                                   Fill="{StaticResource BlackColorBrush}"
+                                   Margin="2"
+                                   Opacity="0" />                        
+                        <Border x:Name="MouseOverBorder"
+                                BorderBrush="#666666"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Opacity="0" />
+                        <Rectangle x:Name="MouseOverInnerRectangle"
+                                   Fill="#666666"
+                                   Margin="2"
+                                   Opacity="0" />
+                        <Border x:Name="PressedBorder"
+                                Background="{StaticResource BlackColorBrush}"
+                                BorderBrush="{StaticResource BlackColorBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Opacity="0" />
+                        <ContentPresenter x:Name="contentPresenter"
+                                          ContentTemplate="{TemplateBinding ContentTemplate}"
+                                          Content="{TemplateBinding Content}"
+                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          Margin="{TemplateBinding Padding}"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                          RenderOptions.ClearTypeHint="Enabled" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--HandToggleButton Style-->
+    <Style TargetType="ToggleButton"
+           x:Key="HandToggleButtonStyle">
+        <Setter Property="SnapsToDevicePixels"
+                Value="true" />
+        <Setter Property="Background"
+                Value="{StaticResource TransparentBlackBrush}" />
+        <Setter Property="BorderBrush"
+                Value="#777777" />
+        <Setter Property="Foreground"
+                Value="{StaticResource TextBrush}" />
+        <Setter Property="FontWeight"
+                Value="Bold" />
+        <Setter Property="Padding"
+                Value="5,6" />
+        <Setter Property="BorderThickness"
+                Value="2" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToggleButton">
+                    <Grid Width="30" Height="30">
+                        <vsm:VisualStateManager.VisualStateGroups>
+                            <vsm:VisualStateGroup x:Name="CommonStates">
+                                <vsm:VisualState x:Name="Normal" />
+                                <vsm:VisualState x:Name="MouseOver">
+                                    <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)"
+                                                                       Storyboard.TargetName="MouseOverBorder">
+                                            <EasingDoubleKeyFrame KeyTime="0"
+                                                                  Value="1" />
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </vsm:VisualState>
+                                <vsm:VisualState x:Name="Pressed">
+                                    <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)"
+                                                                       Storyboard.TargetName="PressedBorder">
+                                            <EasingDoubleKeyFrame KeyTime="0"
+                                                                  Value="1" />
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </vsm:VisualState>
+                                <vsm:VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="Opacity"
+                                                                       Storyboard.TargetName="DisabledVisualElement">
+                                            <SplineDoubleKeyFrame KeyTime="0"
+                                                                  Value=".55" />
+                                        </DoubleAnimationUsingKeyFrames>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)"
+                                                                       Storyboard.TargetName="contentPresenter">
+                                            <EasingDoubleKeyFrame KeyTime="0"
+                                                                  Value="0.5" />
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </vsm:VisualState>
+                            </vsm:VisualStateGroup>
+                            <vsm:VisualStateGroup x:Name="CheckStates">
+                                <vsm:VisualState x:Name="Checked">
+                                </vsm:VisualState>
+                                <vsm:VisualState x:Name="Unchecked" />
+                            </vsm:VisualStateGroup>
+                        </vsm:VisualStateManager.VisualStateGroups>
+                        <Border x:Name="Background"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Background="{TemplateBinding Background}"/>
+                        <Rectangle x:Name="DisabledVisualElement"
+                                   Fill="#CCCCCC"
+                                   IsHitTestVisible="false"
+                                   Opacity="0"/>
+                        <Rectangle x:Name="CheckedInnerRectangle"
+                                   Fill="{StaticResource BlackColorBrush}"
+                                   Margin="2"
+                                   Opacity="0" />
+                        <Border x:Name="MouseOverBorder"
+                                BorderBrush="#000000"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Opacity="0" />
+                        <Border x:Name="PressedBorder"
+                                Background="{StaticResource BlackColorBrush}"
+                                BorderBrush="{StaticResource BlackColorBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Opacity="0" />
+                        <Path x:Name="Hand" Width="20" Height="22" Stretch="Fill" HorizontalAlignment="Center" VerticalAlignment="Center"
+                              StrokeThickness="2" StrokeLineJoin="Round" Stroke="#CCCCCC" Fill="#FFFFFF" 
+                              Data="F1 M 549.006,75.1668C 549.006,68.4148 555.365,49.6252 581.198,49.6252C 607.032,49.6252 615.006,66.8317 615.006,74.5002C 615.006,86.0836 614.887,183.271 614.665,237.493L 614.745,152.427C 622.902,148.96 624.485,145.832 643.006,145.833C 661.527,145.835 672.011,164.604 675.922,176.177L 676.006,262.604L 675.922,176.177C 682.86,172.127 686.235,170.002 701.985,169.752C 718.36,170.502 723.027,185.21 725.902,199.335L 725.672,286.5L 725.652,199.585C 731.626,196.627 739.339,193.585 752.277,195.46C 765.214,197.335 773.698,211.979 777.261,225.479L 777.365,321.521L 735.006,475.833L 569.198,475.875L 544.448,416.375L 459.532,278.958C 454.907,267.188 456.355,254.021 459.006,247.167C 461.657,240.313 471.532,227.313 495.006,225.833C 518.157,225.834 524.907,234.688 531.006,243.833L 548.339,269.833C 548.561,204.945 549.006,81.9189 549.006,75.1668 Z "/>
+                        <ContentPresenter x:Name="contentPresenter"
+                                          ContentTemplate="{TemplateBinding ContentTemplate}"
+                                          Content="{TemplateBinding Content}"
+                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          Margin="{TemplateBinding Padding}"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                          RenderOptions.ClearTypeHint="Enabled" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="Hand" Property="Stroke" Value="#3DB615"/>
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="False">
+                            <Setter TargetName="Hand" Property="Stroke" Value="#fd4239"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="Hand" Property="Fill" Value="#000000"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+	<Style x:Key="FlipSwitchButton" TargetType="{x:Type CheckBox}">
+		<Setter Property="Cursor" Value="Hand" />
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type CheckBox}"> 
+					<ControlTemplate.Resources>
+						<Storyboard x:Key="OnChecking">
+							<DoubleAnimation BeginTime="00:00:00" Storyboard.TargetName="Slider" Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
+								To="30" DecelerationRatio="0.5" Duration="0:0:0.5" />
+						</Storyboard>
+						<Storyboard x:Key="OnUnchecking">
+						<DoubleAnimation BeginTime="00:00:00" Storyboard.TargetName="Slider" Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
+								To="0" DecelerationRatio="0.5" Duration="0:0:0.5" />
+						</Storyboard>
+						<Storyboard x:Key="OnUnknown">
+							<DoubleAnimation BeginTime="00:00:00" Storyboard.TargetName="Slider" Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
+								To="15" DecelerationRatio="0.5" Duration="0:0:0.1" />
+						</Storyboard>
+					</ControlTemplate.Resources>
+					<Viewbox>
+						<Grid Background="Transparent"  HorizontalAlignment="Center" VerticalAlignment="Center">
+								<Border x:Name="BackgroundBorder" Background="Tomato" BorderBrush="Black" BorderThickness="1" Height="20" Width="50">
+									<Grid>
+										<Grid.ColumnDefinitions>
+											<ColumnDefinition />
+											<ColumnDefinition />
+										</Grid.ColumnDefinitions>
+										<Ellipse x:Name="Off" Width="14" Height="14" Stroke="Black" StrokeThickness="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" />
+										<Line x:Name="On" X1="0" Y1="0" X2="0" Y2="14" Stroke="Black" StrokeThickness="2" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" />
+									</Grid>
+								</Border>
+								<Border Background="Black" HorizontalAlignment="Left" x:Name="Slider" Width="20" Height="30" 
+									RenderTransformOrigin="0.5,0.5" Margin="0" Panel.ZIndex="2">
+									<Border.RenderTransform>
+										<TranslateTransform />
+									</Border.RenderTransform>
+								</Border>
+						</Grid>
+					</Viewbox>
+					<ControlTemplate.Triggers>
+						<Trigger Property="IsChecked" Value="True">
+							<Trigger.ExitActions>
+								<BeginStoryboard Storyboard="{StaticResource OnUnchecking}" x:Name="OnUnchecking_BeginStoryboard" />
+							</Trigger.ExitActions>
+							<Trigger.EnterActions>
+								<!--<StopStoryboard BeginStoryboardName="OnUnchecking_BeginStoryboard"/>
+								<StopStoryboard BeginStoryboardName="OnUnknown_BeginStoryboard"/>-->
+								<BeginStoryboard Storyboard="{StaticResource OnChecking}" x:Name="OnChecking_BeginStoryboard"/>
+							</Trigger.EnterActions>
+							<Setter TargetName="BackgroundBorder" Property="Background" Value="Lime" />
+						</Trigger>
+						<!--<Trigger Property="IsChecked" Value="False">
+							<Trigger.EnterActions>
+								<StopStoryboard BeginStoryboardName="OnChecking_BeginStoryboard"/>
+								<StopStoryboard BeginStoryboardName="OnUnknown_BeginStoryboard"/>
+								<BeginStoryboard Storyboard="{StaticResource OnUnchecking}" x:Name="OnUnchecking_BeginStoryboard"/>
+							</Trigger.EnterActions>
+							<Setter TargetName="BackgroundBorder" Property="Background" Value="Tomato" />
+						</Trigger>
+						<Trigger Property="IsChecked" Value="{x:Null}">
+							<Trigger.EnterActions>
+								<StopStoryboard BeginStoryboardName="OnChecking_BeginStoryboard"/>
+								<StopStoryboard BeginStoryboardName="OnUnchecking_BeginStoryboard"/>
+								<BeginStoryboard Storyboard="{StaticResource OnUnknown}" x:Name="OnUnknown_BeginStoryboard"/>
+							</Trigger.EnterActions>
+							<Setter TargetName="BackgroundBorder" Property="Background" Value="WhiteSmoke" />
+						</Trigger>-->
+						<Trigger Property="IsEnabled" Value="False">
+							<!-- ToDo: Add Style for Isenabled == False -->
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+</ResourceDictionary>

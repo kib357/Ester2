@@ -1,0 +1,1796 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using System.Linq;
+using System.Web;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
+using Ester.Model.Enums;
+using Ester.Model.Events;
+using Ester.Model.Extensions;
+using Ester.Model.Interfaces;
+using Ester.Model.PlanControls;
+using Ester.Model.Repositories;
+using Ester.Model.Services;
+using Ester.Modules.Building.Model;
+using Ester.Modules.Building.View;
+using EsterCommon.BaseClasses;
+using Microsoft.Practices.Prism.Commands;
+using Microsoft.Practices.Prism.Events;
+using Microsoft.Practices.Prism.Regions;
+using Microsoft.Practices.Prism.ViewModel;
+using Microsoft.Practices.Unity;
+using Microsoft.Research.DynamicDataDisplay.Charts;
+using Microsoft.Research.DynamicDataDisplay.DataSources;
+using Newtonsoft.Json;
+
+namespace Ester.Modules.Building.ViewModel
+{
+	public delegate void CurrentPlanChangedEventHandler(Canvas plan, bool? fromTop);
+
+	/// <summary>
+	/// Описывает режимы работы представления.
+	/// </summary>
+	public enum ViewModes
+	{
+		/// <summary>
+		/// Режим выбора помещения - ни одного помещения не выбрано.
+		/// </summary>
+		NoneRoomsSelected,
+		/// <summary>
+		/// Режим выбора помещений - как минимум одно выбрано.
+		/// </summary>
+		SomeRoomsSelected,
+		/// <summary>
+		/// Режим изменения списка людей, имеющих доступ в помещения, люди не выбраны.
+		/// </summary>
+		EditRoomAccessNonePeopleSelected,
+		/// <summary>
+		/// Режим изменения списка людей, имеющих доступ в помещения, люди выбраны.
+		/// </summary>
+		EditRoomAccessSomePeopleSelected,
+		/// <summary>
+		/// Режим выбора людей - никто не выбран.
+		/// </summary>
+		NonePeopleSelected,
+		/// <summary>
+		/// Режим выбора людей - как минимум один выбран.
+		/// </summary>
+		SomePeopleSelected,
+		/// <summary>
+		/// Режим изменения списка комнат, в которые человек может попасть, комнаты не выбраны.
+		/// </summary>
+		EditPeopleAccessNoneRoomsSelected,
+		/// <summary>
+		/// Режим изменения списка комнат, в которые человек может попасть, комнаты выбраны.
+		/// </summary>
+		EditPeopleAccessSomeRoomsSelected,
+		/// <summary>
+		/// Контрол и user input заблокированы.
+		/// </summary>
+		Blocked,
+		/// <summary>
+		/// Выбор помещения и просмотр информации о нем
+		/// </summary>
+		RoomViewing,
+		/// <summary>
+		/// Редактирование помещения
+		/// </summary>
+		RoomEditing
+	}
+
+	public class BuildingViewModel : NotificationObject, INavigationAware, IEsterViewModel
+	{
+		private readonly IEventAggregator _eventAggregator;
+		private readonly IRegionManager _regionManager;
+		public event CurrentPlanChangedEventHandler CurrentPlanChangedEvent;
+		private ObservableCollection<Canvas> _allPlans;
+		private Dictionary<string, List<Room>> _allRoomsInPlans;
+		private Dictionary<string, int> _planAlarms;
+		private readonly IDataTransport _dataTransport;
+		private readonly PlansRepository _plansRepository;
+		private readonly PeopleRepository _peopleRepository;
+		private readonly SchedulesRepository _schedulesesRepository;
+
+		public BuildingViewModel(IEventAggregator eventAggregator,
+								 IDataTransport dataTransport,
+								 IUnityContainer container,
+								 IRegionManager regionManager)
+		{
+			_eventAggregator = eventAggregator;
+			_dataTransport = dataTransport;
+			_regionManager = regionManager;
+
+			_eventAggregator.GetEvent<ShowPlanEvent>().Subscribe(SelectPlan);
+			_eventAggregator.GetEvent<AddRoomAlarmEvent>().Subscribe(AddRoomAlarm);
+			_eventAggregator.GetEvent<RemoveRoomAlarmEvent>().Subscribe(RemoveRoomAlarm);
+
+			_eventAggregator.GetEvent<RoomModeChangingEvent>().Subscribe(OnRoomModeChanging);
+			_eventAggregator.GetEvent<RoomAccessStatusChangedEvent>().Subscribe(OnRoomAccessStatusChanged);
+
+			_allPlans = new ObservableCollection<Canvas>();
+			_planAlarms = new Dictionary<string, int>();
+			MainPlans = new ObservableCollection<Canvas>();
+			InnerPlans = new ObservableCollection<Canvas>();
+			CurrentInnerPlans = new ObservableCollection<Canvas>();
+			PlansNavigation = new ObservableCollection<Canvas>();
+			PlansNavigation.CollectionChanged += PlansNavigationCollectionChanged;
+
+			SelectPlanCommand = new DelegateCommand<Canvas>(SelectPlan);
+
+			SelectRoomCommand = new DelegateCommand<Room>(SelectRoom);
+			DeselectRoomCommand = new DelegateCommand<Room>(DeselectRoom);
+			DeselectAllRoomsCommand = new DelegateCommand(DeselectAllRooms, CanDeselectAllRooms);
+			EditRoomAccessCommand = new DelegateCommand<string>(EditRoomAccess, CanEditRoomAccess);
+			SetRoomAccessCommand = new DelegateCommand<string>(SetRoomAccess);
+			SaveRoomAccessCommand = new DelegateCommand(SaveRoomAccess, CanSaveRoomAccess);
+			EditPeopleAccessCommand = new DelegateCommand<string>(EditPeopleAccess, CanEditPeopleAccess);
+			SavePeopleAccessCommand = new DelegateCommand(SavePeopleAccess);
+			SaveRoomsCommand = new DelegateCommand(SaveRooms);
+			EditRoomsCommand = new DelegateCommand<string>(EditRooms);
+
+			SelectedRooms = new ObservableCollection<Room>();
+			SelectedRooms.CollectionChanged += OnSelectedRoomsChanged;
+			SelectedPeople = new ObservableCollection<Person>();
+
+			SelectPersonCommand = new DelegateCommand<Person>(SelectPerson);
+			DeselectPersonCommand = new DelegateCommand<Person>(DeselectPerson);
+			DeselectAllPersonsCommand = new DelegateCommand(DeselectAllPersons);
+
+			_plansRepository = container.Resolve<PlansRepository>();
+			_peopleRepository = container.Resolve<PeopleRepository>();
+			_peopleRepository.DataUpdatedEvent += OnPeopleUpdated;
+			_schedulesesRepository = container.Resolve<SchedulesRepository>();
+
+			_viewMode = ViewModes.NonePeopleSelected;
+			CurrentView = ViewNames.PeopleAccessControlView;
+
+			Graphs = new ObservableCollection<GraphModel>();
+		}
+
+		private void OnPeopleUpdated(Repository sender)
+		{
+			People = _peopleRepository.People;
+		}
+
+		public event ViewModelConfiguredEventHandler ViewModelConfiguredEvent;
+		private void OnViewModelConfiguredEvent()
+		{
+			ViewModelConfiguredEventHandler handler = ViewModelConfiguredEvent;
+			if (handler != null) handler(this);
+		}
+
+		private bool _isReady;
+		public bool IsReady
+		{
+			get { return _isReady; }
+		}
+
+		public string Title
+		{
+			get { return "планы и схемы"; }
+		}
+
+		public void Configure()
+		{
+			//plans
+			MainPlans =
+				new ObservableCollection<Canvas>(_plansRepository.Plans.Where(p => p.Tag == null));
+			InnerPlans =
+				new ObservableCollection<Canvas>(_plansRepository.Plans.Where(p => p.Tag != null));
+			_allRoomsInPlans = _plansRepository.RoomsByPlan;
+			_planAlarms = _plansRepository.PlanAlarms;
+			_allPlans = _plansRepository.Plans;
+			Rooms = _plansRepository.Rooms;
+			CurrentMainPlan = MainPlans.LastOrDefault();
+
+			//people
+			People = _peopleRepository.People;
+
+			_isReady = true;
+			OnViewModelConfiguredEvent();
+		}
+
+		private void PlansReceived()
+		{
+			GetDoorAccesModes();
+		}
+
+		private async void GetDoorAccesModes()
+		{
+			string uri = "/doors?action=get-access-modes";
+			try
+			{
+				var result = await _dataTransport.GetRequestAsync<List<KeyValuePair<string, string>>>(uri, true, 10000);
+
+				if (result != null)
+				{
+					var dict = result.ToDictionary(keyValuePair => keyValuePair.Key, keyValuePair => keyValuePair.Value);
+					_eventAggregator.GetEvent<DoorAccessModesReceivedEvent>().Publish(dict);
+				}
+			}
+			catch (Exception ex)
+			{
+				_eventAggregator.GetEvent<ShowErrorEvent>().Publish(
+					new Exception("Ошибка при попытке получения режимов дверей. Перезапустите приложение.", ex));
+			}
+		}
+
+		private void AddRoomAlarm(Room room)
+		{
+			var planWintAlarmRoom = FindPlanWithRoom(room);
+			planWintAlarmRoom.SetValue(CanvasExt.AlarmProperty, true);
+			_planAlarms[planWintAlarmRoom.Uid]++;
+		}
+
+		private void RemoveRoomAlarm(Room room)
+		{
+			var planWintAlarmRoom = FindPlanWithRoom(room);
+			_planAlarms[planWintAlarmRoom.Uid]--;
+			if (_planAlarms[planWintAlarmRoom.Uid] == 0)
+				planWintAlarmRoom.SetValue(CanvasExt.AlarmProperty, false);
+		}
+
+		private Canvas FindPlanWithRoom(Room room)
+		{
+			string planUid = string.Empty;
+			foreach (var currentPlan in _allRoomsInPlans)
+			{
+				if (currentPlan.Value.Contains(room))
+					planUid = currentPlan.Key;
+			}
+
+			foreach (var plan in _allPlans)
+			{
+				if (plan.Uid == planUid)
+					return plan;
+			}
+			return null;
+		}
+
+		private void PlansNavigationCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+		{
+			RaisePropertyChanged("NavigationVisibility");
+		}
+
+		public DelegateCommand<Canvas> SelectPlanCommand { get; private set; }
+
+		private void SelectPlan(Canvas plan)
+		{
+			OnSelectedPlanChanged(null, plan);
+		}
+
+		private void SelectPlan(string planUid)
+		{
+			if (string.IsNullOrWhiteSpace(planUid)) return;
+			var plan = _allPlans.FirstOrDefault(s => s.Uid == planUid);
+			if (plan != null)
+				OnSelectedPlanChanged(null, plan);
+		}
+
+		private void OnSelectedPlanChanged(bool? fromTop, Canvas plan)
+		{
+			SelectedPlanLayers = new ObservableCollection<Canvas>(XAMLSearch.FindLogicalChildren<Canvas>(plan, false).Where(s => s.Tag == null));
+			CurrentInnerPlans = new ObservableCollection<Canvas>(InnerPlans.Where(s => s.Tag.ToString().ToLower() == plan.Uid.ToLower()));
+			if (CurrentPlanChangedEvent != null)
+				CurrentPlanChangedEvent(plan, fromTop);
+			SelectedPlan = plan;
+			PlansNavigation.Clear();
+			if (plan.Tag != null)
+				SearchParentPlans(plan);
+			CurrentPlanRooms = new ObservableCollection<Room>(_allRoomsInPlans[plan.Uid].ToList());//new AsyncVirtualizingCollection<Room>(new RoomProvider(_allRoomsInPlans[plan.Uid]), 100, 30 * 1000);//new VirtualizingCollection<Room>(new RoomProvider(_allRoomsInPlans[plan.Uid]), 100); 
+		}
+
+		private void SearchParentPlans(Canvas plan)
+		{
+			var parentPlan = _allPlans.FirstOrDefault(s => s.Uid == plan.Tag.ToString());
+			if (parentPlan != null)
+			{
+				PlansNavigation.Insert(0, parentPlan);
+				if (parentPlan.Tag != null)
+					SearchParentPlans(parentPlan);
+			}
+		}
+
+		private ViewModes _viewMode;
+		public ViewModes ViewMode
+		{
+			get { return _viewMode; }
+			set
+			{
+				if (_viewMode == value) return;
+				var oldMode = _viewMode;
+				_viewMode = value;
+
+				switch (_viewMode)
+				{
+					case ViewModes.NoneRoomsSelected:
+						SetAllRoomsMode(RoomMode.Normal);
+						break;
+					case ViewModes.SomePeopleSelected:
+						SetAllRoomsMode(RoomMode.AccessViewing);
+						break;
+					case ViewModes.NonePeopleSelected:
+						SetAllRoomsMode(RoomMode.Disabled);
+						break;
+					case ViewModes.RoomViewing:
+						SetAllRoomsMode(RoomMode.Normal, false);
+						break;
+					case ViewModes.Blocked:
+						IsBusy = true;
+						break;
+				}
+				if (_viewMode != ViewModes.Blocked)
+					IsBusy = false;
+
+				RaisePropertyChanged("ViewMode");
+			}
+		}
+
+		#region Fields
+
+		private ObservableCollection<Canvas> _mainPlans;
+		public ObservableCollection<Canvas> MainPlans
+		{
+			get { return _mainPlans; }
+			set
+			{
+				_mainPlans = value;
+				RaisePropertyChanged("MainPlans");
+			}
+		}
+
+		private Canvas _currentMainPlan;
+		public Canvas CurrentMainPlan
+		{
+			get { return _currentMainPlan; }
+			set
+			{
+				if (_currentMainPlan != value)
+				{
+					int newIndex = MainPlans.IndexOf(value);
+					int oldIndex = MainPlans.IndexOf(_currentMainPlan);
+					bool startUp = _currentMainPlan == null;
+					_currentMainPlan = value;
+					if (startUp)
+						OnSelectedPlanChanged(null, _currentMainPlan);
+					else
+						OnSelectedPlanChanged(newIndex < oldIndex, _currentMainPlan);
+				}
+				RaisePropertyChanged("CurrentMainPlan");
+			}
+		}
+
+		private ObservableCollection<Canvas> _innerPlans;
+		public ObservableCollection<Canvas> InnerPlans
+		{
+			get { return _innerPlans; }
+			set
+			{
+				_innerPlans = value;
+				RaisePropertyChanged("InnerPlans");
+			}
+		}
+
+		private Canvas _selectedPlan;
+		public Canvas SelectedPlan
+		{
+			get { return _selectedPlan; }
+			set
+			{
+				_selectedPlan = value;
+				RaisePropertyChanged("SelectedPlan");
+			}
+		}
+
+		private ObservableCollection<Canvas> _selectedPlanLayers = new ObservableCollection<Canvas>();
+		public ObservableCollection<Canvas> SelectedPlanLayers
+		{
+			get { return _selectedPlanLayers; }
+			set
+			{
+				_selectedPlanLayers = value;
+				RaisePropertyChanged("SelectedPlanLayers");
+				RaisePropertyChanged("LayersButtonVisibility");
+			}
+		}
+
+		public Visibility LayersButtonVisibility
+		{
+			get { return SelectedPlanLayers.Count > 0 ? Visibility.Visible : Visibility.Collapsed; }
+		}
+
+		private ObservableCollection<Canvas> _currentInnerPlans = new ObservableCollection<Canvas>();
+		public ObservableCollection<Canvas> CurrentInnerPlans
+		{
+			get { return _currentInnerPlans; }
+			set
+			{
+				_currentInnerPlans = value;
+				RaisePropertyChanged("CurrentInnerPlans");
+				RaisePropertyChanged("InnerPlansButtonVisibility");
+			}
+		}
+
+		public Visibility InnerPlansButtonVisibility
+		{
+			get { return CurrentInnerPlans.Count > 0 ? Visibility.Visible : Visibility.Collapsed; }
+		}
+
+		public Visibility NavigationVisibility
+		{
+			get { return PlansNavigation.Count > 0 ? Visibility.Visible : Visibility.Collapsed; }
+		}
+
+		private ObservableCollection<Canvas> _plansNavigation;
+		public ObservableCollection<Canvas> PlansNavigation
+		{
+			get { return _plansNavigation; }
+			set
+			{
+				_plansNavigation = value;
+				RaisePropertyChanged("PlansNavigation");
+			}
+		}
+
+		#endregion
+
+		#region Charts
+
+		public ObservableCollection<GraphModel> Graphs { get; set; }
+
+		public async void GetChartData(string adress)
+		{
+			const string historyUri = "/bacnet";
+			if (string.IsNullOrEmpty(adress))
+			{
+				return;
+			}
+			//"?apikey=bda11d91-7ade-4da1-855d-24adfe39d174"
+
+			var i = adress.IndexOf('.');
+			var deviceAdress = adress.Substring(0, i);
+			var objectAdress = adress.Substring(i + 1, adress.Length - i - 1);
+			var timeSpan = (int)(new TimeSpan(0, 0, 15, 0).TotalMinutes);
+
+			var requestParams = new Tuple<string, string, int>(deviceAdress, objectAdress, timeSpan);
+
+			string requestUrl = string.Format("{0}/{1}/{2}/history/{3}",
+				historyUri,
+				deviceAdress,
+				objectAdress,
+				timeSpan
+				);
+
+			var a = await _dataTransport.GetRequestAsync<Dictionary<DateTime, string>>(requestUrl, true, 30000);
+
+			GraphModel model = new GraphModel();
+			model.Color = Colors.Green;
+			model.EntityId = Guid.NewGuid();
+			model.Name = "t";
+			model.DateTimeAxis = new HorizontalDateTimeAxis();
+			var values = a.Values.Select(val => double.Parse(val.Replace('.', ',')));
+
+			var xEnumSrc = new EnumerableDataSource<DateTime>(a.Keys);
+			var yEnumSrc = new EnumerableDataSource<double>(values);
+
+			model.MinValue = values.Min() - 1;
+			model.MaxValue = values.Max() + 1;
+
+			//set the mappings
+			xEnumSrc.SetXMapping(x => model.DateTimeAxis.ConvertToDouble(x));
+			yEnumSrc.SetYMapping(y => y);
+
+			model.PointDataSource = new CompositeDataSource(xEnumSrc, yEnumSrc);
+			Graphs.Clear();
+			Graphs.Add(model);
+		}
+
+		#endregion
+
+		#region Rooms
+
+		#region RoomCommands
+
+		public DelegateCommand<Room> SelectRoomCommand { get; private set; }
+
+		private void SelectRoom(Room room)
+		{
+			if (!SelectedRooms.Contains(room))
+			{
+				SelectedRooms.Add(room);
+				if (room.Mode == RoomMode.AccessEditing)
+					room.AllowAccess();
+				if (room.Mode == RoomMode.Normal)
+					room.Mode = RoomMode.Selected;
+			}
+		}
+
+		public DelegateCommand<Room> DeselectRoomCommand { get; private set; }
+
+		private void DeselectRoom(Room room)
+		{
+			if (SelectedRooms.Contains(room))
+				SelectedRooms.Remove(room);
+			if (room.Mode == RoomMode.AccessEditing)
+				room.DenyAccess();
+			if (room.Mode == RoomMode.Selected)
+				room.Mode = RoomMode.Normal;
+		}
+
+		public DelegateCommand DeselectAllRoomsCommand { get; private set; }
+
+		private bool CanDeselectAllRooms()
+		{
+			return SelectedRooms.Any();
+		}
+
+		private void DeselectAllRooms()
+		{
+			for (int i = SelectedRooms.Count - 1; i >= 0; i--)
+			{
+				var room = SelectedRooms[i];
+
+				if (room.Mode == RoomMode.AccessEditing)
+					room.DenyAccess();
+				if (room.Mode == RoomMode.Selected)
+					room.Mode = RoomMode.Normal;
+
+				SelectedRooms.Remove(room);
+			}
+		}
+
+		public DelegateCommand<string> EditRoomAccessCommand { get; private set; }
+
+		private bool CanEditRoomAccess(string s)
+		{
+			return SelectedRooms.Count > 0;
+		}
+
+		private void EditRoomAccess(string action)
+		{
+			if (action.Equals("Edit", StringComparison.OrdinalIgnoreCase))
+			{
+				foreach (var room in Rooms)
+				{
+					if (SelectedRooms.Contains(room))
+					{
+						room.Mode = RoomMode.AccessViewing;
+						room.AccessStatus = RoomAccessStatus.Allowed;
+					}
+					else
+						room.Mode = RoomMode.Normal;
+				}
+
+				ViewMode = People.Count > 0 ? ViewModes.EditRoomAccessSomePeopleSelected : ViewModes.EditRoomAccessNonePeopleSelected;
+			}
+			if (action.Equals("Cancel", StringComparison.OrdinalIgnoreCase))
+			{
+				foreach (var room in Rooms)
+				{
+					room.Mode = SelectedRooms.Contains(room) ? RoomMode.Selected : RoomMode.Normal;
+				}
+				SelectedPeople = new ObservableCollection<Person>(FindPeopleWithGrantedAccess());
+				ViewMode = ViewModes.SomeRoomsSelected;
+			}
+		}
+
+		public DelegateCommand<string> SetRoomAccessCommand { get; private set; }
+
+		private void SetRoomAccess(string action)
+		{
+			bool allow = action.Equals("Allow", StringComparison.OrdinalIgnoreCase);
+			foreach (var room in SelectedRooms)
+			{
+				room.AccessStatus = allow ? RoomAccessStatus.AllowQuery : RoomAccessStatus.DenyQuery;
+			}
+		}
+
+		public DelegateCommand SaveRoomAccessCommand { get; private set; }
+
+		private bool _canSaveRoomAccess = true;
+		private bool CanSaveRoomAccess()
+		{
+			return _canSaveRoomAccess;
+		}
+
+		private async void SaveRoomAccess()
+		{
+			ViewMode = ViewModes.Blocked;
+
+			AllowPublicAccess();
+
+			_canSaveRoomAccess = false;
+			SaveRoomAccessCommand.RaiseCanExecuteChanged();
+			var doorList = new List<string>();
+			foreach (var selectedRoom in SelectedRooms)
+			{
+				doorList.AddRange(selectedRoom.DoorsList);
+			}
+
+			var allowAccessPeopleId = new List<string>();
+			foreach (var person in SelectedPeople)
+			{
+				allowAccessPeopleId.Add(person.Id.ToString());
+			}
+
+			var oldPeopleWithAccess = FindPeopleWithGrantedAccess();
+			var denyAccessPeople =
+				oldPeopleWithAccess.Where(person => !SelectedPeople.Contains(person)).ToList();
+			var denyAccessPeopleId = new List<string>();
+			foreach (var person in denyAccessPeople)
+			{
+				denyAccessPeopleId.Add(person.Id.ToString());
+			}
+
+			string denyUri = "/people/bulk-access/delete";
+			var denyData = new Tuple<List<string>, List<string>>(denyAccessPeopleId, doorList);
+			string allowUri = "/people/bulk-access";
+			var allowData = new Tuple<List<string>, List<string>>(allowAccessPeopleId, doorList);
+			try
+			{
+				if (allowAccessPeopleId.Count > 0)
+					await
+						_dataTransport.PostRequestAsync(allowData, allowUri, true);
+				if (denyAccessPeopleId.Count > 0)
+					await
+						_dataTransport.PostRequestAsync(denyData, denyUri, true);
+
+				await _peopleRepository.UpdateData();
+
+				EditRoomAccess("Cancel");
+			}
+			catch (Exception ex)
+			{
+				ViewMode = SelectedPeople.Count > 0
+							   ? ViewModes.EditRoomAccessSomePeopleSelected
+							   : ViewModes.EditRoomAccessNonePeopleSelected;
+				Application.Current.Dispatcher.BeginInvoke(
+					new Action(() => _eventAggregator.GetEvent<ShowErrorEvent>().Publish(
+						new Exception("Не удалось сохранить изменения на сервере.", ex))));
+			}
+
+			_canSaveRoomAccess = true;
+			SaveRoomAccessCommand.RaiseCanExecuteChanged();
+		}
+
+		public DelegateCommand<string> EditRoomsCommand { get; private set; }
+
+		private void EditRooms(string action)
+		{
+			if (action == "Edit")
+			{
+				SetAllRoomsMode(RoomMode.Disabled, false);
+				foreach (var selectedRoom in SelectedRooms)
+					selectedRoom.Mode = RoomMode.Editing;
+			}
+			if (action == "Cancel")
+			{
+				_regionManager.RequestNavigate(RegionNames.ContextRegion, new Uri(ViewNames.RoomView, UriKind.Relative));
+				CopySelectedRoomsIntoAggregatedRoom();
+<<<<<<< HEAD
+            }
+        }
+
+        public DelegateCommand SaveRoomsCommand { get; private set; }
+
+        private async void SaveRooms()
+        {
+            ViewMode = ViewModes.Blocked;
+            var valueList = new Dictionary<string, string>();
+            var controlledObjects = new Dictionary<string, string>();
+            var doorModeList = new Dictionary<string, string>();
+
+            foreach (var room in SelectedRooms)
+            {
+                if (SelectedRoom.AccessMode != AccessModes.Unset)
+                {
+                    foreach (var door in room.DoorsList)
+                        if (!doorModeList.ContainsKey(door))
+                        {
+                            doorModeList.Add(door, ((int) SelectedRoom.AccessMode).ToString());
+                        }
+                    room.AccessMode = SelectedRoom.AccessMode;
+                }
+
+                //Heat
+                if (SelectedRooms.All(s => s.SettedTemperatureAddress != null))
+                {
+                    if (SelectedRoom.SettedTemperature != null &&
+                        room.SettedTemperature != SelectedRoom.SettedTemperature)
+                        valueList.Add(room.SettedTemperatureAddress, SelectedRoom.SettedTemperature.ToString());
+                    if (SelectedRoom.SettedTemperatureSchedule.Id !=
+                        (room.SettedTemperatureSchedule == null ? null : room.SettedTemperatureSchedule.Id))
+                        controlledObjects.Add(room.SettedTemperatureAddress,
+                                              SelectedRoom.SettedTemperatureSchedule.Id);
+                }
+                if (SelectedRooms.All(s => s.SettedTemperatureBacstatAllowedAddress != null) &&
+                    SelectedRoom.SettedTemperatureBacstatAllowed != null &&
+                    room.SettedTemperatureBacstatAllowed != SelectedRoom.SettedTemperatureBacstatAllowed)
+                    valueList.Add(room.SettedTemperatureBacstatAllowedAddress,
+                                  SelectedRoom.SettedTemperatureBacstatAllowed.ToString());
+                //Ventilation
+                if (SelectedRooms.All(s => s.VentilationLevelAddress != null))
+                {
+                    if (SelectedRoom.VentilationLevel != null &&
+                        room.VentilationLevel != SelectedRoom.VentilationLevel)
+                        valueList.Add(room.VentilationLevelAddress, SelectedRoom.VentilationLevel.ToString());
+                    if (SelectedRoom.VentilationLevelSchedule.Id !=
+                        (room.VentilationLevelSchedule == null ? null : room.VentilationLevelSchedule.Id))
+                        controlledObjects.Add(room.VentilationLevelAddress,
+                                              SelectedRoom.VentilationLevelSchedule.Id);
+                }
+                if (SelectedRooms.All(s => s.VentilationBacstatAllowedAddress != null) &&
+                    SelectedRoom.VentilationBacstatAllowed != null &&
+                    room.VentilationBacstatAllowed != SelectedRoom.VentilationBacstatAllowed)
+                    valueList.Add(room.VentilationBacstatAllowedAddress,
+                                  SelectedRoom.VentilationBacstatAllowed.ToString());
+                //AC
+                if (SelectedRooms.All(s => s.ACLevelAddress != null))
+                {
+                    if (SelectedRoom.ACLevel != null && room.ACLevel != SelectedRoom.ACLevel)
+                        valueList.Add(room.ACLevelAddress, SelectedRoom.ACLevel.ToString());
+                    if (SelectedRoom.ACLevelSchedule != null &&
+                        SelectedRoom.ACLevelSchedule.Id !=
+                        (room.ACLevelSchedule == null ? null : room.ACLevelSchedule.Id))
+                        controlledObjects.Add(room.ACLevelAddress, SelectedRoom.ACLevelSchedule.Id);
+                }
+                if (SelectedRooms.All(s => s.ACBacstatAllowedAddress != null) &&
+                    SelectedRoom.ACBacstatAllowed != null &&
+                    room.ACBacstatAllowed != SelectedRoom.ACBacstatAllowed)
+                    valueList.Add(room.ACBacstatAllowedAddress, SelectedRoom.ACBacstatAllowed.ToString());
+                //Light
+                if (SelectedRooms.All(s => s.SettedLightLevelAddress != null))
+                {
+                    if (SelectedRoom.SettedLightLevel != null &&
+                        room.SettedLightLevel != SelectedRoom.SettedLightLevel)
+                        valueList.Add(room.SettedLightLevelAddress, SelectedRoom.SettedLightLevel.ToString());
+                    if (SelectedRoom.SettedLightLevelSchedule.Id !=
+                        (room.SettedLightLevelSchedule == null ? null : room.SettedLightLevelSchedule.Id))
+                        controlledObjects.Add(room.SettedLightLevelAddress,
+                                              SelectedRoom.SettedLightLevelSchedule.Id);
+                }
+                if (SelectedRooms.All(s => s.LightEnabledAddress != null) &&
+                    SelectedRoom.LightEnabled != null &&
+                    room.LightEnabled != SelectedRoom.LightEnabled)
+                    valueList.Add(room.LightEnabledAddress, SelectedRoom.LightEnabled.ToString());
+                if (SelectedRooms.All(s => s.SettedLightLevelBacstatAllowedAddress != null) &&
+                    SelectedRoom.SettedLightLevelBacstatAllowed != null &&
+                    room.SettedLightLevelBacstatAllowed != SelectedRoom.SettedLightLevelBacstatAllowed)
+                    valueList.Add(room.SettedLightLevelBacstatAllowedAddress,
+                                  SelectedRoom.SettedLightLevelBacstatAllowed.ToString());
+            }
+
+            const string bacnetUri = "/bacnet/setseveral";
+            const string schedulesUri = "/schedules/SetObjects";
+            const string doorModeUri = "/doors/bulk-set-door-mode";
+            const string titleUri = "/dictionaries/objects/";
+            try
+            {
+                if (valueList.Any())
+                    await _dataTransport.PostRequestAsync(valueList, bacnetUri,
+                                                        true, 30000);
+                if (controlledObjects.Any())
+                    await _dataTransport.PostRequestAsync(controlledObjects,
+                                                        schedulesUri, true,
+                                                        30000);
+                if (doorModeList.Any())
+                {
+                    await _dataTransport.PostRequestAsync(doorModeList, doorModeUri,
+                                                        true, 30000);
+                    GetDoorAccesModes();
+                }
+                if (SelectedRooms.Count == 1)
+                {
+                    if (SelectedRooms.First().Title != SelectedRoom.Title)
+                    {
+                        await
+                            _dataTransport.PostRequestAsync(
+                                new KeyValuePair<string, string>("Title", SelectedRoom.Title),
+                                titleUri + SelectedRooms.First().Id,
+                                true, 30000);
+                        SelectedRooms.First().Title = SelectedRoom.Title;
+                    }
+                    if (SelectedRooms.First().Description != SelectedRoom.Description)
+                    {
+                        await
+                            _dataTransport.PostRequestAsync(
+                                new KeyValuePair<string, string>("Description", SelectedRoom.Description),
+                                titleUri + SelectedRooms.First().Id,
+                                true, 30000);
+                        SelectedRooms.First().Description = SelectedRoom.Description;
+                    }
+                }
+
+                CopySelectedRoomsIntoAggregatedRoom();
+                EditRooms("Cancel");                
+            }
+            catch (Exception ex)
+            {
+                Application.Current.Dispatcher.BeginInvoke(
+                    new Action(() => _eventAggregator.GetEvent<ShowErrorEvent>().Publish(
+                        new Exception("Не удалось сохранить изменения для выбранных помещений.", ex))));
+                ViewMode = ViewModes.RoomEditing;
+            }
+        }
+
+	    #endregion
+
+        #region RoomEvents
+
+        private void OnRoomModeChanging(KeyValuePair<Room, RoomMode> obj)
+=======
+			}
+		}
+
+		public DelegateCommand SaveRoomsCommand { get; private set; }
+
+		private async void SaveRooms()
+		{
+			ViewMode = ViewModes.Blocked;
+			var valueList = new Dictionary<string, string>();
+			var controlledObjects = new Dictionary<string, string>();
+			var doorModeList = new Dictionary<string, string>();
+
+			foreach (var room in SelectedRooms)
+			{
+				foreach (var door in room.DoorsList)
+					if (!doorModeList.ContainsKey(door))
+						doorModeList.Add(door, ((int)SelectedRoom.AccessMode).ToString());
+				room.AccessMode = SelectedRoom.AccessMode;
+
+				//Heat
+				if (SelectedRooms.All(s => s.SettedTemperatureAddress != null))
+				{
+					if (SelectedRoom.SettedTemperature != null &&
+						room.SettedTemperature != SelectedRoom.SettedTemperature)
+						valueList.Add(room.SettedTemperatureAddress, SelectedRoom.SettedTemperature.ToString());
+					if (SelectedRoom.SettedTemperatureSchedule.Id !=
+						(room.SettedTemperatureSchedule == null ? null : room.SettedTemperatureSchedule.Id))
+						controlledObjects.Add(room.SettedTemperatureAddress,
+											  SelectedRoom.SettedTemperatureSchedule.Id);
+				}
+				if (SelectedRooms.All(s => s.SettedTemperatureBacstatAllowedAddress != null) &&
+					SelectedRoom.SettedTemperatureBacstatAllowed != null &&
+					room.SettedTemperatureBacstatAllowed != SelectedRoom.SettedTemperatureBacstatAllowed)
+					valueList.Add(room.SettedTemperatureBacstatAllowedAddress,
+								  SelectedRoom.SettedTemperatureBacstatAllowed.ToString());
+				//Ventilation
+				if (SelectedRooms.All(s => s.VentilationLevelAddress != null))
+				{
+					if (SelectedRoom.VentilationLevel != null &&
+						room.VentilationLevel != SelectedRoom.VentilationLevel)
+						valueList.Add(room.VentilationLevelAddress, SelectedRoom.VentilationLevel.ToString());
+					if (SelectedRoom.VentilationLevelSchedule.Id !=
+						(room.VentilationLevelSchedule == null ? null : room.VentilationLevelSchedule.Id))
+						controlledObjects.Add(room.VentilationLevelAddress,
+											  SelectedRoom.VentilationLevelSchedule.Id);
+				}
+				if (SelectedRooms.All(s => s.VentilationBacstatAllowedAddress != null) &&
+					SelectedRoom.VentilationBacstatAllowed != null &&
+					room.VentilationBacstatAllowed != SelectedRoom.VentilationBacstatAllowed)
+					valueList.Add(room.VentilationBacstatAllowedAddress,
+								  SelectedRoom.VentilationBacstatAllowed.ToString());
+				//AC
+				if (SelectedRooms.All(s => s.ACLevelAddress != null))
+				{
+					if (SelectedRoom.ACLevel != null && room.ACLevel != SelectedRoom.ACLevel)
+						valueList.Add(room.ACLevelAddress, SelectedRoom.ACLevel.ToString());
+					if (SelectedRoom.ACLevelSchedule != null &&
+						SelectedRoom.ACLevelSchedule.Id !=
+						(room.ACLevelSchedule == null ? null : room.ACLevelSchedule.Id))
+						controlledObjects.Add(room.ACLevelAddress, SelectedRoom.ACLevelSchedule.Id);
+				}
+				if (SelectedRooms.All(s => s.ACBacstatAllowedAddress != null) &&
+					SelectedRoom.ACBacstatAllowed != null &&
+					room.ACBacstatAllowed != SelectedRoom.ACBacstatAllowed)
+					valueList.Add(room.ACBacstatAllowedAddress, SelectedRoom.ACBacstatAllowed.ToString());
+				//Light
+				if (SelectedRooms.All(s => s.SettedLightLevelAddress != null))
+				{
+					if (SelectedRoom.SettedLightLevel != null &&
+						room.SettedLightLevel != SelectedRoom.SettedLightLevel)
+						valueList.Add(room.SettedLightLevelAddress, SelectedRoom.SettedLightLevel.ToString());
+					if (SelectedRoom.SettedLightLevelSchedule.Id !=
+						(room.SettedLightLevelSchedule == null ? null : room.SettedLightLevelSchedule.Id))
+						controlledObjects.Add(room.SettedLightLevelAddress,
+											  SelectedRoom.SettedLightLevelSchedule.Id);
+				}
+				if (SelectedRooms.All(s => s.LightEnabledAddress != null) &&
+					SelectedRoom.LightEnabled != null &&
+					room.LightEnabled != SelectedRoom.LightEnabled)
+					valueList.Add(room.LightEnabledAddress, SelectedRoom.LightEnabled.ToString());
+				if (SelectedRooms.All(s => s.SettedLightLevelBacstatAllowedAddress != null) &&
+					SelectedRoom.SettedLightLevelBacstatAllowed != null &&
+					room.SettedLightLevelBacstatAllowed != SelectedRoom.SettedLightLevelBacstatAllowed)
+					valueList.Add(room.SettedLightLevelBacstatAllowedAddress,
+								  SelectedRoom.SettedLightLevelBacstatAllowed.ToString());
+			}
+
+			const string bacnetUri = "/bacnet/setseveral";
+			const string schedulesUri = "/schedules/SetObjects";
+			const string doorModeUri = "/doors/bulk-set-door-mode";
+			const string titleUri = "/dictionaries/objects/";
+			try
+			{
+				if (valueList.Any())
+					await _dataTransport.PostRequestAsync(valueList, bacnetUri,
+														true, 30000);
+				if (controlledObjects.Any())
+					await _dataTransport.PostRequestAsync(controlledObjects,
+														schedulesUri, true,
+														30000);
+				if (doorModeList.Any())
+				{
+					await _dataTransport.PostRequestAsync(doorModeList, doorModeUri,
+														true, 30000);
+					GetDoorAccesModes();
+				}
+				if (SelectedRooms.Count == 1)
+				{
+					if (SelectedRooms.First().Title != SelectedRoom.Title)
+					{
+						await
+							_dataTransport.PostRequestAsync(
+								new KeyValuePair<string, string>("Title", SelectedRoom.Title),
+								titleUri + SelectedRooms.First().Id,
+								true, 30000);
+						SelectedRooms.First().Title = SelectedRoom.Title;
+					}
+					if (SelectedRooms.First().Description != SelectedRoom.Description)
+					{
+						await
+							_dataTransport.PostRequestAsync(
+								new KeyValuePair<string, string>("Description", SelectedRoom.Description),
+								titleUri + SelectedRooms.First().Id,
+								true, 30000);
+						SelectedRooms.First().Description = SelectedRoom.Description;
+					}
+				}
+
+				EditRooms("Cancel");
+				CopySelectedRoomsIntoAggregatedRoom();
+			}
+			catch (Exception ex)
+			{
+				Application.Current.Dispatcher.BeginInvoke(
+					new Action(() => _eventAggregator.GetEvent<ShowErrorEvent>().Publish(
+						new Exception("Не удалось сохранить изменения для выбранных помещений.", ex))));
+				ViewMode = ViewModes.RoomEditing;
+			}
+		}
+
+		#endregion
+
+		#region RoomEvents
+
+		private void OnRoomModeChanging(KeyValuePair<Room, RoomMode> obj)
+>>>>>>> dev
+		{
+			if (Rooms.IndexOf(obj.Key) < 0) return;
+			var room = Rooms[Rooms.IndexOf(obj.Key)];
+
+			if (ViewMode == ViewModes.EditPeopleAccessNoneRoomsSelected ||
+				ViewMode == ViewModes.EditPeopleAccessSomeRoomsSelected ||
+				ViewMode == ViewModes.NoneRoomsSelected ||
+				ViewMode == ViewModes.SomeRoomsSelected)
+			{
+				if (obj.Value == RoomMode.Normal && SelectedRooms.Contains(room))
+					SelectedRooms.Remove(room);
+				if (obj.Value == RoomMode.Selected && !SelectedRooms.Contains(room))
+					SelectedRooms.Add(room);
+				room.Mode = obj.Value;
+			}
+
+			if (ViewMode == ViewModes.RoomViewing)
+			{
+				room.Mode = obj.Value;
+				if (room.Mode == RoomMode.Selected && !SelectedRooms.Contains(room))
+					SelectedRooms.Add(room);
+				if (room.Mode == RoomMode.Normal && SelectedRooms.Contains(room))
+					SelectedRooms.Remove(room);
+			}
+		}
+
+		private void OnRoomAccessStatusChanged(KeyValuePair<Room, RoomAccessStatus> obj)
+		{
+			if (Rooms.IndexOf(obj.Key) < 0) return;
+			var room = Rooms[Rooms.IndexOf(obj.Key)];
+
+			if (ViewMode == ViewModes.EditPeopleAccessNoneRoomsSelected ||
+				ViewMode == ViewModes.EditPeopleAccessSomeRoomsSelected)
+			{
+				if (!SelectedRooms.Contains(room) &&
+					(obj.Value == RoomAccessStatus.AllowQuery ||
+					 obj.Value == RoomAccessStatus.Allowed ||
+					 obj.Value == RoomAccessStatus.SemiAllowed))
+					SelectedRooms.Add(room);
+				if (SelectedRooms.Contains(room) &&
+					(obj.Value == RoomAccessStatus.NotSetted ||
+					 obj.Value == RoomAccessStatus.DenyQuery))
+					SelectedRooms.Remove(room);
+			}
+
+		}
+
+		private void OnSelectedRoomsChanged(object sender, NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs)
+		{
+			DeselectAllRoomsCommand.RaiseCanExecuteChanged();
+			EditRoomAccessCommand.RaiseCanExecuteChanged();
+
+			if (ViewMode == ViewModes.NoneRoomsSelected && SelectedRooms.Count > 0)
+				ViewMode = ViewModes.SomeRoomsSelected;
+
+			if (ViewMode == ViewModes.SomeRoomsSelected && SelectedRooms.Count == 0)
+				ViewMode = ViewModes.NoneRoomsSelected;
+
+			if (ViewMode == ViewModes.EditPeopleAccessNoneRoomsSelected && SelectedRooms.Count > 0)
+				ViewMode = ViewModes.EditPeopleAccessSomeRoomsSelected;
+
+			if (ViewMode == ViewModes.EditPeopleAccessSomeRoomsSelected && SelectedRooms.Count == 0)
+				ViewMode = ViewModes.EditPeopleAccessNoneRoomsSelected;
+
+			if (ViewMode == ViewModes.SomeRoomsSelected || ViewMode == ViewModes.NoneRoomsSelected)
+				SelectedPeople = new ObservableCollection<Person>(FindPeopleWithGrantedAccess());
+
+			if (ViewMode == ViewModes.RoomViewing && SelectedRooms.Any())
+				CopySelectedRoomsIntoAggregatedRoom();
+			if (ViewMode == ViewModes.RoomViewing && !SelectedRooms.Any())
+				SelectedRoom = null;
+		}
+
+		#endregion
+
+		#region RoomFields
+
+		private ObservableCollection<Room> _rooms = new ObservableCollection<Room>();
+		public ObservableCollection<Room> Rooms
+		{
+			get { return _rooms; }
+			set
+			{
+				_rooms = value;
+				RaisePropertyChanged("Rooms");
+			}
+		}
+
+		private ObservableCollection<Room> _selectedRooms;
+		public ObservableCollection<Room> SelectedRooms
+		{
+			get { return _selectedRooms; }
+			set
+			{
+				_selectedRooms = value;
+				RaisePropertyChanged("SelectedRooms");
+			}
+		}
+
+		private Room _selectedRoom;
+		public Room SelectedRoom
+		{
+			get { return _selectedRoom; }
+			set
+			{
+				_selectedRoom = value;
+				RaisePropertyChanged("SelectedRoom");
+			}
+		}
+
+		private ObservableCollection<Room> _currentPlanRooms;
+		public ObservableCollection<Room> CurrentPlanRooms
+		{
+			get { return _currentPlanRooms; }
+			set
+			{
+				_currentPlanRooms = value;
+				RaisePropertyChanged("CurrentPlanRooms");
+			}
+		}
+
+		private string _roomsFilter;
+		public string RoomsFilter
+		{
+			get { return _roomsFilter; }
+			set
+			{
+				_roomsFilter = value;
+				ApplyRoomFilter();
+				RaisePropertyChanged("RoomsFilter");
+			}
+		}
+
+		#endregion
+
+		private void ApplyRoomFilter()
+		{
+			var filter = RoomsFilter.Split(' ');
+			CurrentPlanRooms = new ObservableCollection<Room>(_allRoomsInPlans[SelectedPlan.Uid].
+																	Where(s => s.Title.ContainsAny(filter, StringComparison.OrdinalIgnoreCase) ||
+																			   s.Description.ContainsAny(filter, StringComparison.OrdinalIgnoreCase)).
+																	OrderBy(s => s.Title));
+			Rooms = new ObservableCollection<Room>(_plansRepository.Rooms.
+																	Where(s => s.Title.ContainsAny(filter, StringComparison.OrdinalIgnoreCase) ||
+																			   s.Description.ContainsAny(filter, StringComparison.OrdinalIgnoreCase)).
+																	OrderBy(s => s.Title));
+		}
+
+<<<<<<< HEAD
+        private long _selectedRoomsChangedTime;
+        private async void CopySelectedRoomsIntoAggregatedRoom()
+        {
+            _selectedRoomsChangedTime = DateTime.Now.Ticks;
+            var thisCopyTime = _selectedRoomsChangedTime;
+            var aggreagatedRoom = new Room();            
+
+            var addresses = new List<string>();
+            foreach (var selectedRoom in SelectedRooms)
+            {
+                addresses.Add(selectedRoom.SettedTemperatureAddress);
+                addresses.Add(selectedRoom.VentilationLevelAddress);
+                addresses.Add(selectedRoom.ACLevelAddress);
+                addresses.Add(selectedRoom.SettedLightLevelAddress);
+            }
+            var uri = "/schedules/list/";
+            var data = JsonConvert.SerializeObject(addresses);
+            uri += HttpUtility.UrlEncode(data);
+            var schedules = new Dictionary<string, string>();
+            try
+            {
+                schedules = await _dataTransport.GetRequestAsync<Dictionary<string, string>>(uri, true, 30000);
+                if (thisCopyTime != _selectedRoomsChangedTime)
+                    return;
+                foreach (var selectedRoom in SelectedRooms)
+                {
+                    if (selectedRoom.SettedTemperatureAddress != null && schedules.ContainsKey(selectedRoom.SettedTemperatureAddress))
+                        selectedRoom.SettedTemperatureSchedule = HeatSchedules.FirstOrDefault(s => s.Id == schedules[selectedRoom.SettedTemperatureAddress]);
+                    if (selectedRoom.VentilationLevelAddress != null && schedules.ContainsKey(selectedRoom.VentilationLevelAddress))
+                        selectedRoom.VentilationLevelSchedule = VentilationSchedules.FirstOrDefault(s => s.Id == schedules[selectedRoom.VentilationLevelAddress]);
+                    //if (schedules.ContainsKey(selectedRoom.ACLevelAddress))
+                    //selectedRoom.ACLevelSchedule = ACSchedules.FirstOrDefault(s => s.Id == schedules[selectedRoom.ACLevelAddress]);
+                    if (selectedRoom.SettedLightLevelAddress != null && schedules.ContainsKey(selectedRoom.SettedLightLevelAddress))
+                        selectedRoom.SettedLightLevelSchedule = LightSchedules.FirstOrDefault(s => s.Id == schedules[selectedRoom.SettedLightLevelAddress]);
+                }
+            }
+            catch (Exception ex)
+            {
+                Application.Current.Dispatcher.BeginInvoke(
+                    new Action(() => _eventAggregator.GetEvent<ShowErrorEvent>().Publish(
+                        new Exception("Не удалось получить расписания для выбранных помещений.", ex))));
+            }
+
+            if (SelectedRooms.Count == 1)
+            {
+                aggreagatedRoom.Title = string.IsNullOrWhiteSpace(SelectedRooms.First().Title) ? string.Empty : SelectedRooms.First().Title;
+				aggreagatedRoom.Description = string.IsNullOrWhiteSpace(SelectedRooms.First().Description) ? string.Empty : SelectedRooms.First().Description;                
+            }            
+
+            aggreagatedRoom.Doors = SelectedRooms.Select(d => d.Doors).Aggregate((current, next) => current + ", " + next);
+
+            aggreagatedRoom.AccessMode = SelectedRooms.Select(s => s.AccessMode).Distinct().Count() == 1 ? 
+                SelectedRooms.First().AccessMode : AccessModes.Unset;
+
+            if (!SelectedRooms.Any(r => string.IsNullOrEmpty(r.TemperatureAddress)))
+            {
+                if (SelectedRooms.Select(s => s.Temperature).Distinct().Count() == 1)
+                    aggreagatedRoom.Temperature = SelectedRooms.First().Temperature;
+                aggreagatedRoom.TemperatureAddress = string.Join(",", SelectedRooms.Select(r => r.TemperatureAddress));
+            }
+
+            if (!SelectedRooms.Any(r => string.IsNullOrEmpty(r.SettedTemperatureAddress)))
+            {
+                if (SelectedRooms.Select(s => s.SettedTemperature).Distinct().Count() == 1)
+                    aggreagatedRoom.SettedTemperature = SelectedRooms.First().SettedTemperature;
+                aggreagatedRoom.SettedTemperatureAddress = string.Join(",", SelectedRooms.Select(r => r.SettedTemperatureAddress));
+                if (schedules.Any())
+                {
+                    var settedTempSchedules = schedules.Where(s => SelectedRooms.Select(r => r.SettedTemperatureAddress).Contains(s.Key)).ToList();
+                    if (settedTempSchedules.Distinct().Count() == 1)
+                    {
+                        var currentSettedTempSchedule = HeatSchedules.FirstOrDefault(sch => sch.Id == settedTempSchedules.First().Value);
+                        aggreagatedRoom.SettedTemperatureSchedule = currentSettedTempSchedule ??
+                                                                    HeatSchedules.First(s => s.Id == null);
+                    }
+                }
+                if (aggreagatedRoom.SettedTemperatureSchedule == null)
+                    aggreagatedRoom.SettedTemperatureSchedule = HeatSchedules.First(s => s.Id == null);
+            }
+
+            if (!SelectedRooms.Any(r => string.IsNullOrEmpty(r.VentilationLevelAddress)))
+            {
+                if (SelectedRooms.Select(s => s.VentilationLevel).Distinct().Count() == 1)
+                    aggreagatedRoom.VentilationLevel = SelectedRooms.First().VentilationLevel;
+                aggreagatedRoom.VentilationLevelAddress = string.Join(",", SelectedRooms.Select(r => r.VentilationLevelAddress));
+                if (schedules.Any())
+                {
+                    var ventLevelSchedules = schedules.Where(s => SelectedRooms.Select(r => r.VentilationLevelAddress).Contains(s.Key)).ToList();
+                    if (ventLevelSchedules.Distinct().Count() == 1)
+                    {
+                        var currentVentLevelSchedule = VentilationSchedules.FirstOrDefault(sch => sch.Id == ventLevelSchedules.First().Value);
+                        aggreagatedRoom.VentilationLevelSchedule = currentVentLevelSchedule ??
+                                                                   VentilationSchedules.First(s => s.Id == null);
+                    }
+                }
+                if (aggreagatedRoom.VentilationLevelSchedule == null)
+                    aggreagatedRoom.VentilationLevelSchedule = VentilationSchedules.First(s => s.Id == null);
+            }
+
+            if (!SelectedRooms.Any(r => string.IsNullOrEmpty(r.ACLevelAddress)))
+            {
+                if (SelectedRooms.Select(s => s.ACLevel).Distinct().Count() == 1)
+                    aggreagatedRoom.ACLevel = SelectedRooms.First().ACLevel;
+                aggreagatedRoom.ACLevelAddress = string.Join(",", SelectedRooms.Select(r => r.ACLevelAddress));
+            }
+
+            if (!SelectedRooms.Any(r => string.IsNullOrEmpty(r.LightEnabledAddress)))
+            {
+                if (SelectedRooms.Select(s => s.LightEnabled).Distinct().Count() == 1)
+                    aggreagatedRoom.LightEnabled = SelectedRooms.First().LightEnabled;
+                aggreagatedRoom.LightEnabledAddress = string.Join(",", SelectedRooms.Select(r => r.LightEnabledAddress));
+            }
+
+            if (!SelectedRooms.Any(r => string.IsNullOrEmpty(r.LightLevelAddress)))
+            {
+                if (SelectedRooms.Select(s => s.LightLevel).Distinct().Count() == 1)
+                    aggreagatedRoom.LightLevel = SelectedRooms.First().LightLevel;
+                aggreagatedRoom.LightLevelAddress = string.Join(",", SelectedRooms.Select(r => r.LightLevelAddress));
+            }
+
+            if (!SelectedRooms.Any(r => string.IsNullOrEmpty(r.SettedLightLevelAddress)))
+            {
+                if (SelectedRooms.Select(s => s.SettedLightLevel).Distinct().Count() == 1)
+                    aggreagatedRoom.SettedLightLevel = SelectedRooms.First().SettedLightLevel;
+                aggreagatedRoom.SettedLightLevelAddress = string.Join(",", SelectedRooms.Select(r => r.SettedLightLevelAddress));
+                if (schedules.Any())
+                {
+                    var lightLevelSchedules = schedules.Where(s => SelectedRooms.Select(r => r.SettedLightLevelAddress).Contains(s.Key)).ToList();
+                    if (lightLevelSchedules.Distinct().Count() == 1)
+                    {
+                        var currentSettedLightLevelSchedule = LightSchedules.FirstOrDefault(sch => sch.Id == lightLevelSchedules.First().Value);
+                        aggreagatedRoom.SettedLightLevelSchedule = currentSettedLightLevelSchedule ??
+                                                                   LightSchedules.First(s => s.Id == null);
+                    }
+                }
+                if (aggreagatedRoom.SettedLightLevelSchedule == null)
+                    aggreagatedRoom.SettedLightLevelSchedule = LightSchedules.First(s => s.Id == null);
+            }
+
+            SelectedRoom = aggreagatedRoom;
+        }
+
+        private List<Person> FindPeopleWithGrantedAccess()
+        {
+            var doorList = new List<string>();
+            foreach (var selectedRoom in SelectedRooms)
+            {
+                doorList.AddRange(selectedRoom.DoorsList);
+            }
+            return People.Where(p => p.DoorList.ContainsAll(doorList)).ToList();
+        }
+
+        public void SetAllRoomsMode(RoomMode mode, bool includeSelected = true)
+        {
+            foreach (var room in Rooms)
+            {
+                if (includeSelected || !SelectedRooms.Contains(room))
+                    room.Mode = mode;
+            }
+        }
+=======
+		private long _selectedRoomsChangedTime;
+		private async void CopySelectedRoomsIntoAggregatedRoom()
+		{
+			_selectedRoomsChangedTime = DateTime.Now.Ticks;
+			var thisCopyTime = _selectedRoomsChangedTime;
+			var aggreagatedRoom = new Room();
+
+			var addresses = new List<string>();
+			foreach (var selectedRoom in SelectedRooms)
+			{
+				addresses.Add(selectedRoom.SettedTemperatureAddress);
+				addresses.Add(selectedRoom.VentilationLevelAddress);
+				addresses.Add(selectedRoom.ACLevelAddress);
+				addresses.Add(selectedRoom.SettedLightLevelAddress);
+			}
+			var uri = "/schedules/list/";
+			var data = JsonConvert.SerializeObject(addresses);
+			uri += HttpUtility.UrlEncode(data);
+			var schedules = new Dictionary<string, string>();
+			try
+			{
+				schedules = await _dataTransport.GetRequestAsync<Dictionary<string, string>>(uri, true, 30000);
+				if (thisCopyTime != _selectedRoomsChangedTime)
+					return;
+				foreach (var selectedRoom in SelectedRooms)
+				{
+					if (selectedRoom.SettedTemperatureAddress != null && schedules.ContainsKey(selectedRoom.SettedTemperatureAddress))
+						selectedRoom.SettedTemperatureSchedule = HeatSchedules.FirstOrDefault(s => s.Id == schedules[selectedRoom.SettedTemperatureAddress]);
+					if (selectedRoom.VentilationLevelAddress != null && schedules.ContainsKey(selectedRoom.VentilationLevelAddress))
+						selectedRoom.VentilationLevelSchedule = VentilationSchedules.FirstOrDefault(s => s.Id == schedules[selectedRoom.VentilationLevelAddress]);
+					//if (schedules.ContainsKey(selectedRoom.ACLevelAddress))
+					//selectedRoom.ACLevelSchedule = ACSchedules.FirstOrDefault(s => s.Id == schedules[selectedRoom.ACLevelAddress]);
+					if (selectedRoom.SettedLightLevelAddress != null && schedules.ContainsKey(selectedRoom.SettedLightLevelAddress))
+						selectedRoom.SettedLightLevelSchedule = LightSchedules.FirstOrDefault(s => s.Id == schedules[selectedRoom.SettedLightLevelAddress]);
+				}
+			}
+			catch (Exception ex)
+			{
+				Application.Current.Dispatcher.BeginInvoke(
+					new Action(() => _eventAggregator.GetEvent<ShowErrorEvent>().Publish(
+						new Exception("Не удалось получить расписания для выбранных помещений.", ex))));
+			}
+
+			if (SelectedRooms.Count == 1)
+			{
+				aggreagatedRoom.Title = string.IsNullOrWhiteSpace(SelectedRooms.First().Title) ? string.Empty : SelectedRooms.First().Title;
+				aggreagatedRoom.Description = string.IsNullOrWhiteSpace(SelectedRooms.First().Description) ? string.Empty : SelectedRooms.First().Description;
+
+				/* Этот код тут временно, позжее наверное переедет */
+
+				if (!string.IsNullOrEmpty(SelectedRooms[0].TemperatureAddress))
+				{
+					GetChartData(SelectedRooms[0].TemperatureAddress);
+				}
+				/* Конец Временного Кода */
+
+			}
+
+			aggreagatedRoom.AccessMode = SelectedRooms.Select(s => s.AccessMode).Distinct().Count() == 1 ?
+				SelectedRooms.First().AccessMode : AccessModes.Unset;
+
+			if (!SelectedRooms.Any(r => string.IsNullOrEmpty(r.TemperatureAddress)))
+			{
+				if (SelectedRooms.Select(s => s.Temperature).Distinct().Count() == 1)
+					aggreagatedRoom.Temperature = SelectedRooms.First().Temperature;
+				aggreagatedRoom.TemperatureAddress = string.Join(",", SelectedRooms.Select(r => r.TemperatureAddress));
+			}
+
+			if (!SelectedRooms.Any(r => string.IsNullOrEmpty(r.SettedTemperatureAddress)))
+			{
+				if (SelectedRooms.Select(s => s.SettedTemperature).Distinct().Count() == 1)
+					aggreagatedRoom.SettedTemperature = SelectedRooms.First().SettedTemperature;
+				aggreagatedRoom.SettedTemperatureAddress = string.Join(",", SelectedRooms.Select(r => r.SettedTemperatureAddress));
+				if (schedules.Any())
+				{
+					var settedTempSchedules = schedules.Where(s => SelectedRooms.Select(r => r.SettedTemperatureAddress).Contains(s.Key)).ToList();
+					if (settedTempSchedules.Distinct().Count() == 1)
+					{
+						var currentSettedTempSchedule = HeatSchedules.FirstOrDefault(sch => sch.Id == settedTempSchedules.First().Value);
+						aggreagatedRoom.SettedTemperatureSchedule = currentSettedTempSchedule ??
+																	HeatSchedules.First(s => s.Id == null);
+					}
+				}
+				if (aggreagatedRoom.SettedTemperatureSchedule == null)
+					aggreagatedRoom.SettedTemperatureSchedule = HeatSchedules.First(s => s.Id == null);
+			}
+
+			if (!SelectedRooms.Any(r => string.IsNullOrEmpty(r.VentilationLevelAddress)))
+			{
+				if (SelectedRooms.Select(s => s.VentilationLevel).Distinct().Count() == 1)
+					aggreagatedRoom.VentilationLevel = SelectedRooms.First().VentilationLevel;
+				aggreagatedRoom.VentilationLevelAddress = string.Join(",", SelectedRooms.Select(r => r.VentilationLevelAddress));
+				if (schedules.Any())
+				{
+					var ventLevelSchedules = schedules.Where(s => SelectedRooms.Select(r => r.VentilationLevelAddress).Contains(s.Key)).ToList();
+					if (ventLevelSchedules.Distinct().Count() == 1)
+					{
+						var currentVentLevelSchedule = VentilationSchedules.FirstOrDefault(sch => sch.Id == ventLevelSchedules.First().Value);
+						aggreagatedRoom.VentilationLevelSchedule = currentVentLevelSchedule ??
+																   VentilationSchedules.First(s => s.Id == null);
+					}
+				}
+				if (aggreagatedRoom.VentilationLevelSchedule == null)
+					aggreagatedRoom.VentilationLevelSchedule = VentilationSchedules.First(s => s.Id == null);
+			}
+
+			if (!SelectedRooms.Any(r => string.IsNullOrEmpty(r.ACLevelAddress)))
+			{
+				if (SelectedRooms.Select(s => s.ACLevel).Distinct().Count() == 1)
+					aggreagatedRoom.ACLevel = SelectedRooms.First().ACLevel;
+				aggreagatedRoom.ACLevelAddress = string.Join(",", SelectedRooms.Select(r => r.ACLevelAddress));
+			}
+
+			if (!SelectedRooms.Any(r => string.IsNullOrEmpty(r.LightEnabledAddress)))
+			{
+				if (SelectedRooms.Select(s => s.LightEnabled).Distinct().Count() == 1)
+					aggreagatedRoom.LightEnabled = SelectedRooms.First().LightEnabled;
+				aggreagatedRoom.LightEnabledAddress = string.Join(",", SelectedRooms.Select(r => r.LightEnabledAddress));
+			}
+
+			if (!SelectedRooms.Any(r => string.IsNullOrEmpty(r.LightLevelAddress)))
+			{
+				if (SelectedRooms.Select(s => s.LightLevel).Distinct().Count() == 1)
+					aggreagatedRoom.LightLevel = SelectedRooms.First().LightLevel;
+				aggreagatedRoom.LightLevelAddress = string.Join(",", SelectedRooms.Select(r => r.LightLevelAddress));
+			}
+
+			if (!SelectedRooms.Any(r => string.IsNullOrEmpty(r.SettedLightLevelAddress)))
+			{
+				if (SelectedRooms.Select(s => s.SettedLightLevel).Distinct().Count() == 1)
+					aggreagatedRoom.SettedLightLevel = SelectedRooms.First().SettedLightLevel;
+				aggreagatedRoom.SettedLightLevelAddress = string.Join(",", SelectedRooms.Select(r => r.SettedLightLevelAddress));
+				if (schedules.Any())
+				{
+					var lightLevelSchedules = schedules.Where(s => SelectedRooms.Select(r => r.SettedLightLevelAddress).Contains(s.Key)).ToList();
+					if (lightLevelSchedules.Distinct().Count() == 1)
+					{
+						var currentSettedLightLevelSchedule = LightSchedules.FirstOrDefault(sch => sch.Id == lightLevelSchedules.First().Value);
+						aggreagatedRoom.SettedLightLevelSchedule = currentSettedLightLevelSchedule ??
+																   LightSchedules.First(s => s.Id == null);
+					}
+				}
+				if (aggreagatedRoom.SettedLightLevelSchedule == null)
+					aggreagatedRoom.SettedLightLevelSchedule = LightSchedules.First(s => s.Id == null);
+			}
+
+			SelectedRoom = aggreagatedRoom;
+		}
+
+		private List<Person> FindPeopleWithGrantedAccess()
+		{
+			var doorList = new List<string>();
+			foreach (var selectedRoom in SelectedRooms)
+			{
+				doorList.AddRange(selectedRoom.DoorsList);
+			}
+			return People.Where(p => p.DoorList.ContainsAll(doorList)).ToList();
+		}
+
+		public void SetAllRoomsMode(RoomMode mode, bool includeSelected = true)
+		{
+			foreach (var room in Rooms)
+			{
+				if (includeSelected || !SelectedRooms.Contains(room))
+					room.Mode = mode;
+			}
+		}
+>>>>>>> dev
+
+		#endregion
+
+		#region People
+
+		public DelegateCommand<Person> SelectPersonCommand { get; private set; }
+
+		private void SelectPerson(Person person)
+		{
+			if (!SelectedPeople.Contains(person))
+				SelectedPeople.Add(person);
+		}
+
+		public DelegateCommand<Person> DeselectPersonCommand { get; private set; }
+
+		private void DeselectPerson(Person person)
+		{
+			if (SelectedPeople.Contains(person))
+				SelectedPeople.Remove(person);
+		}
+
+		public DelegateCommand DeselectAllPersonsCommand { get; private set; }
+
+		private void DeselectAllPersons()
+		{
+			for (int i = SelectedPeople.Count - 1; i >= 0; i--)
+				SelectedPeople.RemoveAt(i);
+		}
+
+		public DelegateCommand<string> EditPeopleAccessCommand { get; private set; }
+
+		private bool CanEditPeopleAccess(string s)
+		{
+			return SelectedPeople.Count > 0;
+		}
+
+		private void EditPeopleAccess(string action)
+		{
+			if (action.Equals("Edit", StringComparison.OrdinalIgnoreCase))
+			{
+				foreach (var room in Rooms)
+				{
+					room.Mode = RoomMode.AccessEditing;
+					room.CheckAccessStatus(SelectedPeople.ToList());
+				}
+
+				ViewMode = SelectedRooms.Count > 0 ? ViewModes.EditPeopleAccessSomeRoomsSelected : ViewModes.EditPeopleAccessNoneRoomsSelected;
+			}
+			if (action.Equals("Cancel", StringComparison.OrdinalIgnoreCase))
+			{
+				foreach (var room in Rooms)
+				{
+					room.Mode = RoomMode.AccessViewing;
+					room.CheckAccessStatus(SelectedPeople.ToList());
+				}
+
+				ViewMode = ViewModes.SomePeopleSelected;
+			}
+		}
+
+		private ObservableCollection<Person> _people = new ObservableCollection<Person>();
+		public ObservableCollection<Person> People
+		{
+			get { return _people; }
+			set
+			{
+				_people = value;
+				SelectedPeople = new ObservableCollection<Person>(People.Where(p => SelectedPeople.Any(pp => pp.Id == p.Id)));
+				RaisePropertyChanged("People");
+			}
+		}
+
+		private ObservableCollection<Person> _selectedPeople;
+		public ObservableCollection<Person> SelectedPeople
+		{
+			get { return _selectedPeople; }
+			set
+			{
+				_selectedPeople = value;
+				SelectedPeople.CollectionChanged += OnSelectedPeopleChanged;
+				RaisePropertyChanged("SelectedPeople");
+			}
+		}
+
+		private void OnSelectedPeopleChanged(object sender, NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs)
+		{
+			EditPeopleAccessCommand.RaiseCanExecuteChanged();
+
+			if (ViewMode == ViewModes.EditRoomAccessSomePeopleSelected && SelectedPeople.Count == 0)
+				ViewMode = ViewModes.EditRoomAccessNonePeopleSelected;
+
+			if (ViewMode == ViewModes.EditRoomAccessNonePeopleSelected && SelectedPeople.Count > 0)
+				ViewMode = ViewModes.EditRoomAccessSomePeopleSelected;
+
+			if (ViewMode == ViewModes.SomePeopleSelected && SelectedPeople.Count == 0)
+				ViewMode = ViewModes.NonePeopleSelected;
+
+			if (ViewMode == ViewModes.NonePeopleSelected && SelectedPeople.Count > 0)
+				ViewMode = ViewModes.SomePeopleSelected;
+
+			if (ViewMode == ViewModes.SomePeopleSelected || ViewMode == ViewModes.NonePeopleSelected)
+			{
+				SelectedRooms.Clear();
+				foreach (var room in Rooms.Where(r => r.Mode == RoomMode.AccessViewing))
+					if (room.CheckAccessStatus(SelectedPeople.ToList()))
+						SelectedRooms.Add(room);
+			}
+		}
+
+
+		private void AllowPublicAccess()
+		{
+			//******************
+			//автоматическое добавление общедоступных помещений на выбранных этажах
+
+			List<int?> selectedFloors =
+				(from r in Rooms
+				 where r.FloorNumber != null &&
+					 r.AccessStatus == RoomAccessStatus.AllowQuery
+				 select r.FloorNumber).Distinct().ToList();
+
+			List<int?> allFloors =
+				(from r in Rooms where r.FloorNumber != null select r.FloorNumber).Distinct().ToList();
+
+			List<int?> unselectedFloors = allFloors.Except(selectedFloors).ToList();
+
+
+			foreach (var room in Rooms)
+			{
+				if (selectedFloors.Contains(room.FloorNumber) && room.IsPublic
+					&& room.AccessStatus != RoomAccessStatus.AllowQuery)
+				{
+					room.AccessStatus = RoomAccessStatus.AllowQuery;
+				}
+
+				if (unselectedFloors.Contains(room.FloorNumber) && room.IsPublic
+					&& room.AccessStatus != RoomAccessStatus.NotSetted)
+				{
+					room.AccessStatus = RoomAccessStatus.DenyQuery;
+				}
+			}
+
+			//******************
+		}
+
+
+		public DelegateCommand SavePeopleAccessCommand { get; private set; }
+
+		private async void SavePeopleAccess()
+		{
+			ViewMode = ViewModes.Blocked;
+
+			AllowPublicAccess();
+
+			var allowAccessDoorId = new List<string>();
+			foreach (var room in Rooms.Where(r => r.AccessStatus == RoomAccessStatus.AllowQuery))
+			{
+				allowAccessDoorId.AddRange(room.DoorsList);
+			}
+
+			var denyAccessDoorId = new List<string>();
+			foreach (var room in Rooms.Where(r => r.AccessStatus == RoomAccessStatus.DenyQuery))
+			{
+				denyAccessDoorId.AddRange(room.DoorsList);
+			}
+
+			var peopleId = new List<string>();
+			foreach (var person in SelectedPeople)
+			{
+				peopleId.Add(person.Id.ToString());
+			}
+
+			var allowData = new Tuple<List<string>, List<string>>(peopleId, allowAccessDoorId);
+			var denyData = new Tuple<List<string>, List<string>>(peopleId, denyAccessDoorId);
+
+			ObservableCollection<Person> people = new ObservableCollection<Person>();
+			ObservableCollection<Person> guests = new ObservableCollection<Person>();
+
+			try
+			{
+				const string allowUri = "/people/bulk-access";
+				const string denyUri = "/people/bulk-access/delete";
+
+				if (allowAccessDoorId.Count > 0)
+					await _dataTransport.PostRequestAsync<Tuple<List<string>, List<string>>>(allowData, allowUri, true);
+
+				if (denyAccessDoorId.Count > 0)
+					await _dataTransport.PostRequestAsync<Tuple<List<string>, List<string>>>(denyData, denyUri, true);
+
+				await _peopleRepository.UpdateData();
+				EditPeopleAccess("Cancel");
+			}
+			catch (Exception ex)
+			{
+				ViewMode = SelectedRooms.Count > 0
+							   ? ViewModes.EditPeopleAccessSomeRoomsSelected
+							   : ViewModes.EditPeopleAccessNoneRoomsSelected;
+				Application.Current.Dispatcher.BeginInvoke(
+					new Action(() => _eventAggregator.GetEvent<ShowErrorEvent>().Publish(
+						new Exception("Не удалось сохранить изменения на сервере.", ex))));
+			}
+		}
+
+
+		private bool _isBusy;
+		public bool IsBusy
+		{
+			get { return _isBusy; }
+			set
+			{
+				_isBusy = value;
+				RaisePropertyChanged("IsBusy");
+			}
+		}
+
+		private string _peoplFilter;
+		public string PeopleFilter
+		{
+			get { return _peoplFilter; }
+			set
+			{
+				_peoplFilter = value;
+				ApplyPeopleFilter();
+				RaisePropertyChanged("PeopleFilter");
+			}
+		}
+
+		private void ApplyPeopleFilter()
+		{
+			var filter = PeopleFilter.Split(' ');
+			People = new ObservableCollection<Person>(_peopleRepository.People
+																	.Where(s => (s.FirstName != null && s.FirstName.ContainsAny(filter, StringComparison.OrdinalIgnoreCase)) ||
+																			   (s.LastName != null && s.LastName.ContainsAny(filter, StringComparison.OrdinalIgnoreCase)) ||
+																			   (s.MiddleName != null && s.MiddleName.ContainsAny(filter, StringComparison.OrdinalIgnoreCase)) ||
+																			   (s.AccessCard != null && s.AccessCard.ContainsAny(filter, StringComparison.OrdinalIgnoreCase)))
+																	.OrderBy(s => s.LastName));
+		}
+
+		#endregion
+
+		#region ShcedulesCollections
+
+		private ObservableCollection<ScheduleClass> _SKUDSchedules = new ObservableCollection<ScheduleClass> { new ScheduleClass(true) };
+		public ObservableCollection<ScheduleClass> SKUDSchedules
+		{
+			get { return _SKUDSchedules; }
+			set
+			{
+				_SKUDSchedules = value;
+				RaisePropertyChanged("SKUDSchedules");
+			}
+		}
+
+		private ObservableCollection<ScheduleClass> _ventilationSchedules = new ObservableCollection<ScheduleClass> { new ScheduleClass(true) };
+		public ObservableCollection<ScheduleClass> VentilationSchedules
+		{
+			get { return _ventilationSchedules; }
+			set
+			{
+				_ventilationSchedules = value;
+				RaisePropertyChanged("VentilationSchedules");
+			}
+		}
+
+		private ObservableCollection<ScheduleClass> _lightSchedules = new ObservableCollection<ScheduleClass> { new ScheduleClass(true) };
+		public ObservableCollection<ScheduleClass> LightSchedules
+		{
+			get { return _lightSchedules; }
+			set
+			{
+				_lightSchedules = value;
+				RaisePropertyChanged("LightSchedules");
+			}
+		}
+
+		private ObservableCollection<ScheduleClass> _heatSchedules = new ObservableCollection<ScheduleClass> { new ScheduleClass(true) };
+		public ObservableCollection<ScheduleClass> HeatSchedules
+		{
+			get { return _heatSchedules; }
+			set
+			{
+				_heatSchedules = value;
+				RaisePropertyChanged("HeatSchedules");
+			}
+		}
+
+		private void SchedulesesReceived()
+		{
+			SKUDSchedules = _schedulesesRepository.SKUDSchedules;
+			VentilationSchedules = _schedulesesRepository.VentilationSchedules;
+			LightSchedules = _schedulesesRepository.LightSchedules;
+			HeatSchedules = _schedulesesRepository.HeatSchedules;
+		}
+
+		#endregion
+
+		#region Navigation
+
+		public bool IsNavigationTarget(NavigationContext navigationContext)
+		{
+			return true;
+		}
+
+		public void OnNavigatedFrom(NavigationContext navigationContext)
+		{
+			if (navigationContext.Uri.OriginalString == ViewNames.SmallEventsView)
+				CurrentView = navigationContext.Uri.OriginalString;
+		}
+
+		public string CurrentView = ViewNames.PeopleAccessControlView;
+
+
+		public void OnNavigatedTo(NavigationContext navigationContext)
+		{
+			if (navigationContext.Uri.OriginalString == ViewNames.BuildingView)
+				_regionManager.RequestNavigate(RegionNames.ContextRegion, new Uri(CurrentView, UriKind.Relative));
+			else
+			{
+				if (navigationContext.Uri.OriginalString != ViewNames.RoomEditorView &&
+					(navigationContext.Uri.OriginalString == ViewNames.RoomView && ViewMode != ViewModes.Blocked) &&
+					(navigationContext.Uri.OriginalString == ViewNames.RoomView && ViewMode != ViewModes.RoomEditing))
+					SelectedRooms.Clear();
+				SelectedPeople.Clear();
+				switch (navigationContext.Uri.OriginalString)
+				{
+					case ViewNames.PeopleAccessControlView:
+						ViewMode = ViewModes.NonePeopleSelected;
+						break;
+					case ViewNames.RoomAccessControlView:
+						ViewMode = ViewModes.NoneRoomsSelected;
+						break;
+					case ViewNames.RoomView:
+						ViewMode = ViewModes.RoomViewing;
+						break;
+					case ViewNames.RoomEditorView:
+						ViewMode = ViewModes.RoomEditing;
+						break;
+					case ViewNames.SmallEventsView:
+						break;
+				}
+
+				CurrentView = navigationContext.Uri.OriginalString;
+			}
+		}
+
+		#endregion
+	}
+}

@@ -1,0 +1,67 @@
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using EsterCommon.Enums;
+using Microsoft.Practices.Prism.ViewModel;
+
+namespace EsterCommon.BaseClasses
+{
+    public class ScheduleClass:NotificationObject
+    {
+        public override string ToString()
+        {
+            return Name ?? base.ToString();
+        }
+
+        public ScheduleClass(string id, string name, ScheduleTypes type, Dictionary<int, ObservableCollection<ValueTimeRange>> items)
+        {
+            Id = id;
+            Name = name;
+            Type = type;
+            Days = items;
+        }
+
+        public ScheduleClass()
+        {
+        }
+
+        public ScheduleClass(bool initEmpty)
+        {
+<<<<<<< HEAD
+            Id = "SCH0";
+            Name = "Не используется";
+=======
+            Name = "<Расписание не выбрано>";
+>>>>>>> 0653b9938fa725d517b24610a47dc46354b414db
+        }
+
+        private string _id;
+        public string Id
+        {
+            get { return _id; }
+            set { _id = value; RaisePropertyChanged("Id"); }
+        }
+
+        private string _name;
+        public string Name
+        {
+            get { return _name; }
+            set { _name = value; RaisePropertyChanged("Name"); }
+        }
+
+        private ScheduleTypes _type;
+        public ScheduleTypes Type
+        {
+            get { return _type; }
+            set { _type = value; RaisePropertyChanged("Type"); }
+        }
+
+        private Dictionary<int, ObservableCollection<ValueTimeRange>> _days;
+        public Dictionary<int, ObservableCollection<ValueTimeRange>> Days
+        {
+            get { return _days; }
+            set { _days = value; RaisePropertyChanged("Days"); }
+        }
+
+        public List<string> ControlledObjects { get; set; }
+    }
+}

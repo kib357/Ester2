@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- MyApp.xml -->
+<Nini>
+  <Section Name="Events">
+    <Key Name="ErrorFileUrl" Value="Resources\AlarmDictionary\AlarmList.xml" />
+  </Section>
+  <Section Name="Update">
+    <Key Name="FolderHash" Value="F9-02-36-0B-89-36-51-39-10-C8-06-C6-20-F0-19-BF" />
+    <Key Name="VersionOnServer" Value="-50" />
+    <Key Name="UpdateFileUrl" Value="/Resources/Updates.zip" />
+  </Section>
+  <Section Name="BacNet">
+    <Key Name="PollInterval" Value="5000" />
+    <Key Name="DeviceID" Value="357" />
+    <Key Name="Ip" Value="192.168.0.122" />
+    <Key Name="Mask" Value="255.255.255.0" />
+    <Key Name="WhoIsWait" Value="5" />
+<Key Name="SchedulesMainController" Value="600" />
+<Key Name="SyncSchedules" Value="True" />
+    <Key Name="ErrorFileUrl" Value="Resources\AlarmDictionary\AlarmList.xml" />
+  </Section>
+</Nini>

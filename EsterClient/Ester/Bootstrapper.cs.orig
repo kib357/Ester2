@@ -1,0 +1,81 @@
+﻿using System;
+using System.Net;
+using System.Threading.Tasks;
+using System.Windows;
+using Ester.Model.Interfaces;
+using Ester.Model.Services;
+using Ester.ViewModel;
+using Microsoft.Practices.Prism.Modularity;
+using Microsoft.Practices.Prism.UnityExtensions;
+using Microsoft.Practices.Unity;
+
+namespace Ester
+{
+    class Bootstrapper : UnityBootstrapper
+    {
+        private Splash _splashScreen;
+
+        protected override DependencyObject CreateShell()
+        {
+            return Container.Resolve<Shell>();
+        }
+
+        protected override async void InitializeShell()
+        {
+            base.InitializeShell();
+
+            var shellViewModel = Container.Resolve<ShellViewModel>();           
+            App.Current.MainWindow = (Window)Shell;
+            App.Current.MainWindow.Loaded += MainWindowLoaded;
+            App.Current.MainWindow.DataContext = shellViewModel;
+            await Task.Delay(150);
+            App.Current.MainWindow.Show();
+
+            ServicePointManager.FindServicePoint(new Uri(ServerInfo.CommonServerAddress)).ConnectionLimit = 100;
+
+            CommonInstances.ShellDispatcher = Shell.Dispatcher;
+        }
+
+        private void MainWindowLoaded(object sender, RoutedEventArgs e)
+        {
+            _splashScreen.Close();
+        }
+
+        protected override void ConfigureContainer()
+        {
+            base.ConfigureContainer();
+
+            Container.RegisterType<IDataTransport, DataTransport>(new ContainerControlledLifetimeManager());
+            Container.RegisterInstance(new AbbyyScaner(), new ContainerControlledLifetimeManager());
+
+            CommonInstances.UnityContainer = Container;
+
+        }
+
+
+        protected override void ConfigureModuleCatalog()
+        {
+            _splashScreen = new Splash();
+            _splashScreen.Show();
+
+            base.ConfigureModuleCatalog();
+
+            var moduleCatalog = (ModuleCatalog)ModuleCatalog;
+
+            moduleCatalog.AddModule(typeof(Modules.Login.LoginModule));
+            moduleCatalog.AddModule(typeof(Modules.Context.ContextModule));
+            moduleCatalog.AddModule(typeof(Modules.Building.BuildingModule));
+            moduleCatalog.AddModule(typeof(Modules.People.PeopleModule));
+            moduleCatalog.AddModule(typeof(Modules.LogViewer.LogViewerModule));
+            moduleCatalog.AddModule(typeof(Modules.Alarms.AlarmsModule));
+            moduleCatalog.AddModule(typeof(Modules.InternalErrors.InternalErrorsModule));
+<<<<<<< HEAD
+            //moduleCatalog.AddModule(typeof(Modules.Users.UsersModule));
+            moduleCatalog.AddModule(typeof(Modules.Updater.UpdaterModule));
+=======
+            moduleCatalog.AddModule(typeof(Modules.Schedule.ScheduleModule));
+            //moduleCatalog.AddModule(typeof(Modules.Users.UsersModule));
+>>>>>>> 3ffb0ce5525e792074550630c64a7ee9c2c00980
+        }
+    }
+}

@@ -1,0 +1,128 @@
+@{
+    var loggedIn = HttpContext.Current.User.Identity.IsAuthenticated;
+    if (Request.Params["signout"] == "true")
+    {                
+        FormsAuthentication.SignOut();
+        Response.Redirect("~/");
+    }
+}
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@Page.Title - Ester</title>
+    <link href="~/Resources/css/normalize.css" rel="stylesheet" type="text/css" />
+    <link href="~/Resources/css/foundation.css" rel="stylesheet" type="text/css" />
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <script src="~/Resources/js/jquery-1.9.0.js"></script>
+    <script src="~/Resources/js/knockout-2.2.1.js"></script>
+    <script src="~/Resources/js/foundation/foundation.js"></script>
+    <script src="~/Resources/js/foundation/vendor/custom.modernizr.js"></script>
+</head>
+<body>
+    <div>
+        <nav class="top-bar">
+            <ul class="title-area">
+                <li class="name">
+                    <h1><a href="~/">Ester</a></h1>
+                </li>
+                <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
+                <!--<li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>-->
+            </ul>
+            <section class="top-bar-section">
+                <!-- Left Nav Section -->
+                <ul class="left">
+                    <li class="divider"></li>
+                    <li @{if (Page.Title == "Планы")
+                          { <text>class="active"</text>}}><a href="~/Plans">Планы</a></li>
+                    <li class="divider"></li>
+                    <li @{if (Page.Title == "Сети")
+                          { <text>class="active"</text>}}><a href="~/Networks">Сети</a></li>
+                    <li class="divider"></li>
+                    <li @{if (Page.Title == "Шлюз")
+                          { <text>class="active"</text>}}><a href="~/Gateway">Шлюз</a></li>
+                    <li class="divider"></li>
+                    <li @{if (Page.Title == "История")
+                          { <text>class="active"</text>}}><a href="~/History">История</a></li>
+                    <li class="divider"></li>
+                    <li @{if (Page.Title == "Безопасность")
+                          { <text>class="active"</text>}}><a href="~/Security">Безопасность</a></li>
+                    <li class="divider"></li>
+                    <li @{if (Page.Title == "Документация")
+                          { <text>class="active"</text>}}><a href="~/About">Документация</a></li>
+                    <li class="divider"></li>
+                </ul>
+                <!-- Right Nav Section -->
+                <ul class="right">
+                    @*<li class="has-form">
+                        <form>
+                            <div class="row collapse">
+                                <div class="small-8 columns">
+                                    <input type="text">
+                                </div>
+                                <div class="small-4 columns">
+                                    <a href="#" class="alert button">Search</a>
+                                </div>
+                            </div>
+                        </form>
+                    </li>*@
+                    <li class="divider show-for-small"></li>
+                    <li class="has-form">
+                        @{
+                            if (loggedIn)
+                            {
+                                <a class="button" href="~/?signout=true">Выход</a>
+                            }
+                        }
+                    </li>
+                </ul>
+            </section>
+        </nav>
+    </div>
+    <header>
+    </header>
+    @RenderSection("featured", required: false)
+    <section>
+        @RenderBody()
+    </section>
+    <footer class="row">
+        @*<p>&copy; @DateTime.Now.Year - My ASP.NET Web Page</p>*@
+    </footer>
+    @RenderSection("Scripts", required: false)
+    <script>
+        document.write('<script src=' +
+        ('__proto__' in {} ? 'Resources/js/foundation/vendor/zepto' : 'Resources/js/foundtation/vendor/jquery') +
+        '.js><\/script>')
+    </script>
+
+    <script src="~/Resources/js/foundation/foundation.alerts.js"></script>
+
+    <script src="~/Resources/js/foundation/foundation.clearing.js"></script>
+
+    <script src="~/Resources/js/foundation/foundation.cookie.js"></script>
+
+    <script src="~/Resources/js/foundation/foundation.dropdown.js"></script>
+
+    <script src="~/Resources/js/foundation/foundation.forms.js"></script>
+
+    <script src="~/Resources/js/foundation/foundation.joyride.js"></script>
+
+    <script src="~/Resources/js/foundation/foundation.js"></script>
+
+    <script src="~/Resources/js/foundation/foundation.magellan.js"></script>
+
+    <script src="~/Resources/js/foundation/foundation.orbit.js"></script>
+
+    <script src="~/Resources/js/foundation/foundation.placeholder.js"></script>
+
+    <script src="~/Resources/js/foundation/foundation.reveal.js"></script>
+
+    <script src="~/Resources/js/foundation/foundation.section.js"></script>
+
+    <script src="~/Resources/js/foundation/foundation.tooltips.js"></script>
+
+    <script src="~/Resources/js/foundation/foundation.topbar.js"></script>
+
+</body>
+</html>

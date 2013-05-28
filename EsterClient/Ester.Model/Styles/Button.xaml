@@ -1,0 +1,1538 @@
+	<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:local="clr-namespace:Ester"
+					>
+
+    <!-- Global Settings-->
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="Brushes.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+	<Style x:Key="ClearButton" TargetType="Button">
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type Button}">
+					<Viewbox>
+						<Grid Name="HeaderCloseButtonGrid" Width="25" Height="25" VerticalAlignment="Center" HorizontalAlignment="Center" Background="Transparent">
+							<Path Name="HeaderCloseButtonPath" Stroke="DarkGray" Width="12" Height="12" Stretch="Fill" StrokeThickness="3" Data="F1 M0,0 L1,1 M0,1 L1,0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+							<ContentPresenter />
+						</Grid>
+					</Viewbox>
+					<ControlTemplate.Triggers>
+						<Trigger Property="IsMouseOver" Value="True">
+							<Setter TargetName="HeaderCloseButtonGrid" Property="Background" Value="LightGray"/>
+						</Trigger>
+						<Trigger Property="IsPressed" Value="True">
+							<Setter TargetName="HeaderCloseButtonPath" Property="Stroke" Value="Black"/>
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+	
+	<Style x:Key="RefreshButton" TargetType="Button">
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type Button}">
+					<Grid Name="RefreshButtonGrid" Width="25" Height="25" VerticalAlignment="Center" HorizontalAlignment="Center" Background="Transparent">
+						<Path Name="RefreshButtonPath" Fill="DarkGray" Width="12" Height="12" Stretch="Fill"
+							Data="F1 M 14.6707,24.8508C 11.4814,24.9201 9.86401,23.9427 9.86401,23.9427L 11.232,18.9681C 11.232,18.9681 11.3214,18.5934 10.9827,18.748C 10.648,18.9016 0.074707,23.7495
+								0.074707,23.7495C 0.074707,23.7495 -0.130615,23.8361 0,24.0253C 0.113342,24.2015 5.79071,32.7641 6.77466,34.2414C 6.8667,34.3828 6.94403,34.3708 6.992,34.2187C 7.24664,33.4108
+								8.07202,30.7988 8.4173,29.5975C 19.9653,31.6628 23.996,22.4267 24.7187,20.4442C 24.808,20.2108 24.7427,20.1747 24.5574,20.3494C 23.46,21.3441 19.3747,24.7534 14.6707,24.8508 Z M
+								10.814,9.41058C 14.0486,9.3454 15.6913,10.3307 15.6913,10.3307L 14.2794,15.4573C 14.2794,15.4573 14.1887,15.784 14.5286,15.6107C 16.342,14.7039 25.2407,10.7133 25.5407,10.5613C
+								25.7661,10.4533 25.6514,10.1906 25.6514,10.1906L 18.9007,-6.10352e-005C 18.9007,-6.10352e-005 18.6754,-0.270691 18.5593,0.0505981C 18.2646,0.993347 17.4887,3.44269 17.1541,4.59991C
+								5.64203,2.53851 1.49664,11.56 0.662048,13.7746C 0.548645,14.0799 0.636719,14.1066 0.908691,13.868C 2.1767,12.7372 6.20197,9.50922 10.814,9.41058 Z " />
+						<ContentPresenter />
+					</Grid>
+					<ControlTemplate.Triggers>
+						<Trigger Property="IsMouseOver" Value="True">
+							<Setter TargetName="RefreshButtonGrid" Property="Background" Value="LightGray"/>
+						</Trigger>
+						<Trigger Property="IsPressed" Value="True">
+							<Setter TargetName="RefreshButtonPath" Property="Fill" Value="Black"/>
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<Style x:Key="ListButton" TargetType="ToggleButton">
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type ToggleButton}">
+					<Grid Name="ListButtonGrid" Width="25" Height="25" VerticalAlignment="Center" HorizontalAlignment="Center" Background="Transparent">
+						<Path Name="ListButtonPath" Fill="DarkGray" Width="12" Height="12" Stretch="Fill" StrokeThickness="0"
+							Data="F1 M 44.2878,22.437L 11.8172,22.437C 11.0398,22.437 10.4052,22.7849 10.4052,23.2095L 10.4052,27.8421C 10.4052,28.2681 11.0398,28.616 11.8172,28.616L 44.2878,28.616C
+							45.0638,28.616 45.6998,28.2681 45.6998,27.8421L 45.6998,23.2095C 45.6998,22.7849 45.0638,22.437 44.2878,22.437 Z M 0.780121,28.6158L 5.4053,28.6158C 5.82895,28.6158 6.17545,28.2678
+							6.17545,27.8419L 6.17545,23.2092C 6.17545,22.7847 5.82895,22.4368 5.4053,22.4368L 0.780121,22.4368C 0.356445,22.4368 0.00924683,22.7847 0.00924683,23.2092L 0.00924683,27.8419C
+							0.00924683,28.2678 0.356445,28.6158 0.780121,28.6158 Z M 44.2987,11.2064L 11.828,11.2064C 11.0507,11.2064 10.416,11.5543 10.416,11.9788L 10.416,16.6115C 10.416,17.0375
+							11.0507,17.3854 11.828,17.3854L 44.2987,17.3854C 45.0747,17.3854 45.7107,17.0375 45.7107,16.6115L 45.7107,11.9788C 45.7107,11.5543 45.0747,11.2064 44.2987,11.2064 Z M
+							0.770844,17.4004L 5.39603,17.4004C 5.8197,17.4004 6.16617,17.0524 6.16617,16.6265L 6.16617,11.9938C 6.16617,11.5693 5.8197,11.2214 5.39603,11.2214L 0.770844,11.2214C 0.347198,11.2214
+							0,11.5693 0,11.9938L 0,16.6265C 0,17.0524 0.347198,17.4004 0.770844,17.4004 Z M 44.257,0.000244141L 11.7863,0.000244141C 11.009,0.000244141 10.3744,0.348206 10.3744,0.772705L
+							10.3744,5.40533C 10.3744,5.8313 11.009,6.17926 11.7863,6.17926L 44.257,6.17926C 45.033,6.17926 45.669,5.8313 45.669,5.40533L 45.669,0.772705C 45.669,0.348206 45.033,0.000244141
+							44.257,0.000244141 Z M 0.786011,6.17902L 5.41116,6.17902C 5.83484,6.17902 6.18137,5.83112 6.18137,5.40509L 6.18137,0.772461C 6.18137,0.347961 5.83484,0 5.41116,0L 0.786011,0C
+							0.362335,0 0.0151367,0.347961 0.0151367,0.772461L 0.0151367,5.40509C 0.0151367,5.83112 0.362335,6.17902 0.786011,6.17902 Z " 
+						/>
+						<ContentPresenter />
+					</Grid>
+					<ControlTemplate.Triggers>
+						<Trigger Property="IsMouseOver" Value="True">
+							<Setter TargetName="ListButtonGrid" Property="Background" Value="LightGray"/>
+						</Trigger>
+						<Trigger Property="IsPressed" Value="True">
+							<Setter TargetName="ListButtonPath" Property="Fill" Value="Black"/>
+						</Trigger>
+						<Trigger Property="IsChecked" Value="True">
+							<Setter TargetName="ListButtonPath" Property="Fill" Value="Black"/>
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<Style x:Key="KeyButton" TargetType="ToggleButton">
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="ToggleButton">
+					<Grid Name="KeyButtonGrid" Background="Transparent" Width="40" Height="40" VerticalAlignment="Center" HorizontalAlignment="Center">
+						<Border Width="24" Height="24">
+							<Path Name="KeyButtonPath" Stretch="Fill" Fill="White" Data="F1 M 7.08398,10.552C 5.16797,10.552 3.61469,8.9987 3.61469,7.08134C 3.61469,5.16801 5.16797,3.61466 7.08398,3.61466C 9,3.61466
+								10.5533,5.16801 10.5533,7.08134C 10.5533,8.9987 9,10.552 7.08398,10.552 Z M 10.4174,-2.28882e-005C 4.66528,-2.28882e-005 0,4.6627 0,10.416C 0,16.1693 4.66528,20.8334
+								10.4174,20.8334C 16.1694,20.8334 20.8347,16.1693 20.8347,10.416C 20.8347,4.6627 16.1694,-2.28882e-005 10.4174,-2.28882e-005 Z M 33.8281,27.216L 21.8588,15.2467C
+								21.4948,16.1094 21.0255,16.912 20.4855,17.6627L 30.9135,28.0907C 31.3681,28.5467 31.3681,29.2893 30.9121,29.744C 30.4575,30.1987 29.7148,30.1987 29.2601,29.744L
+								18.9428,19.4267C 17.6615,20.6386 16.1241,21.58 14.4175,22.1627L 14.4175,24.0173C 14.4175,24.604 14.8961,25.0827 15.4841,25.0827L 18.4175,25.0827L 18.4175,28.0173C
+								18.4175,28.604 18.8961,29.0827 19.4841,29.0827L 22.4175,29.0827L 22.4175,32.0173C 22.4175,32.604 22.8961,33.0827 23.4841,33.0827L 26.4721,33.0827L 27.2175,33.828C
+								27.6721,34.284 32.2388,34.524 33.3828,33.3827C 34.5255,32.24 34.2841,27.672 33.8281,27.216 Z "
+							/>
+						</Border>
+						<ContentPresenter />
+					</Grid>
+					 <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="KeyButtonGrid" Property="Background" Value="LightGray"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="KeyButtonPath" Property="Fill" Value="Black"/>
+                        </Trigger>
+						<Trigger Property="IsChecked" Value="True">
+							<Setter TargetName="KeyButtonPath" Property="Fill" Value="Black"/>
+						</Trigger>
+                    </ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<Style x:Key="AlertButton" TargetType="ToggleButton">
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="ToggleButton">
+					<Grid Name="AlertButtonGrid" Background="Transparent" Width="40" Height="40" VerticalAlignment="Center" HorizontalAlignment="Center">
+						<Border Width="24" Height="24">
+							<Path Name="AlertButtonPath" Stretch="Fill" Fill="White" Data="F1 M 18.5455,25.6437C 18.0388,26.1371 17.4363,26.3837 16.7389,26.3837C 16.0402,26.3837 15.4376,26.1371
+								14.9309,25.6437C 14.4255,25.1517 14.1749,24.5558 14.1749,23.8544C 14.1749,23.1583 14.4255,22.5558 14.9309,22.0504C 15.4376,21.545 16.0402,21.2917 16.7389,21.2917C
+								17.4363,21.2917 18.0388,21.545 18.5455,22.0504C 19.0509,22.5558 19.3015,23.1583 19.3015,23.8544C 19.3015,24.5558 19.0509,25.1517 18.5455,25.6437 Z M 14.8976,8.71704C
+								15.3789,8.19568 15.9908,7.93567 16.7389,7.93567C 17.4856,7.93567 18.0977,8.19299 18.5789,8.70642C 19.0588,9.22107 19.2976,9.86365 19.2976,10.6371C 19.2976,11.3024
+								18.2976,16.1957 17.9644,19.7557L 15.5563,19.7557C 15.2629,16.1957 14.1788,11.3024 14.1788,10.6371C 14.1788,9.87573 14.4176,9.23438 14.8976,8.71704 Z M 33.1228,25.3451L
+								19.7175,2.12903C 18.0776,-0.709595 15.3989,-0.709595 13.7589,2.12903L 0.353638,25.3451C -1.28503,28.1864 0.0562744,30.505 3.33228,30.505L 30.1442,30.505C 33.4202,30.505
+								34.7603,28.1864 33.1228,25.3451 Z "
+							/>
+						</Border>
+						<ContentPresenter />
+					</Grid>
+					<ControlTemplate.Triggers>
+						<Trigger Property="IsMouseOver" Value="True">
+							<Setter TargetName="AlertButtonGrid" Property="Background" Value="LightGray"/>
+						</Trigger>
+						<Trigger Property="IsPressed" Value="True">
+							<Setter TargetName="AlertButtonPath" Property="Fill" Value="Black"/>
+						</Trigger>
+						<Trigger Property="IsChecked" Value="True">
+							<Setter TargetName="AlertButtonPath" Property="Fill" Value="Black"/>
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<Style x:Key="WrenchButton" TargetType="ToggleButton">
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="ToggleButton">
+					<Grid Name="WrenchButtonGrid" Background="Transparent" Width="40" Height="40" VerticalAlignment="Center" HorizontalAlignment="Center">
+						<Border Width="24" Height="24">
+							<Path Name="WrenchButtonPath" Stretch="Fill" Fill="White" Data="F1 M 29.0586,12.0959C 28.6267,12.5266 27.1787,12.4788 27.1787,12.4788C 27.1787,12.4788 23.3372,12.0466 22.7825,11.4946C 22.2307,10.9399
+								21.8479,6.92798 21.8479,6.92798C 21.8479,6.92798 21.7441,5.80664 22.2959,5.25195C 22.8494,4.69995 26.9548,0.595947 26.9548,0.595947C 26.9548,0.595947 27.4841,0.00268555
+								26.72,0C 24.2559,-0.00952148 19.2493,0.0466309 16.824,2.47339L 16.324,2.9707C 13.1628,6.1521 13.2493,11.1133 16.3562,14.2361L 20.1184,17.9988C 23.2278,21.1199
+								28.1748,21.208 31.3479,18.0305L 31.8455,17.532C 34.196,15.1826 34.2666,10.2185 34.2773,7.71069C 34.2839,6.91064 33.6985,7.42651 33.6985,7.42651C 33.6985,7.42651
+								29.4893,11.6638 29.0586,12.0959 Z M 5.17847,31.4841C 3.86108,31.4841 2.79297,30.4163 2.79297,29.0989C 2.79297,27.7815 3.86108,26.7134 5.17847,26.7134C 6.49585,26.7134
+								7.56372,27.7815 7.56372,29.0989C 7.56372,30.4163 6.49585,31.4841 5.17847,31.4841 Z M 21.1396,14.5601L 19.7783,13.2C 18.6504,12.0696 16.821,12.0696 15.6943,13.2L
+								1.40234,26.1294C 0.274414,27.2576 -1.20972,30.3254 1.40234,32.9375C 4.0144,35.5496 7.08105,34.0642 8.2063,32.9375C 8.2063,32.9375 17.4875,22.7827 18.2822,21.8948C
+								19.0771,21.0054 18.6611,20.0747 18.6611,20.0747C 18.6611,20.0747 17.0276,17.7935 16.1477,16.4294C 15.6677,15.6841 15.8945,15.5908 16.5745,16.0254C 18.449,17.2241
+								20.637,18.5989 21.0168,18.78L 21.1396,18.6428C 22.2664,17.5161 22.2664,15.6868 21.1396,14.5601 Z "
+							/>
+						</Border>
+						<ContentPresenter />
+					</Grid>
+				 <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="WrenchButtonGrid" Property="Background" Value="LightGray"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="WrenchButtonPath" Property="Fill" Value="Black"/>
+                        </Trigger>
+						<Trigger Property="IsChecked" Value="True">
+							<Setter TargetName="WrenchButtonPath" Property="Fill" Value="Black"/>
+						</Trigger>
+                    </ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<Style x:Key="PlayButton" TargetType="Button">
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="Button">
+					<Grid Name="PlayButtonGrid" Background="Transparent" Width="40" Height="40" VerticalAlignment="Center" HorizontalAlignment="Center">
+						<Border Width="24" Height="24">
+							<Path Name="PlayButtonPath" Stretch="Fill" Fill="White" Data="F1 M 29.3375,17.7247L 11.2455,31.5126L 11.2455,4.06201L 29.3375,17.7247 Z "
+							/>
+						</Border>
+						<ContentPresenter />
+					</Grid>
+					<ControlTemplate.Triggers>
+						<Trigger Property="IsMouseOver" Value="True">
+							<Setter TargetName="PlayButtonGrid" Property="Background" Value="LightGray"/>
+						</Trigger>
+						<Trigger Property="IsPressed" Value="True">
+							<Setter TargetName="PlayButtonPath" Property="Fill" Value="Black"/>
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<Style x:Key="PauseButton" TargetType="Button">
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="Button">
+					<Grid Name="PauseButtonGrid" Background="Transparent" Width="40" Height="40" VerticalAlignment="Center" HorizontalAlignment="Center">
+						<Border Width="24" Height="24">
+							<Path Name="PauseButtonPath" Stretch="Fill" Fill="White" StrokeThickness="0" Data="M0,0 V24 H8 V0 H0 Z M16,0 V24 H24 V0 H16 Z" />
+						</Border>
+						<ContentPresenter />
+					</Grid>
+					<ControlTemplate.Triggers>
+						<Trigger Property="IsMouseOver" Value="True">
+							<Setter TargetName="PauseButtonGrid" Property="Background" Value="LightGray"/>
+						</Trigger>
+						<Trigger Property="IsPressed" Value="True">
+							<Setter TargetName="PauseButtonPath" Property="Fill" Value="Black"/>
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<Style x:Key="StopButton" TargetType="Button">
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="Button">
+					<Grid Name="StopButtonGrid" Background="Transparent" Width="40" Height="40" VerticalAlignment="Center" HorizontalAlignment="Center">
+						<Border Width="24" Height="24">
+							<Path Name="StopButtonPath" Stretch="Fill" Fill="White" StrokeThickness="0" Data="F1 M0,0 V24 H24 V0 H0 Z"/>
+						</Border>
+						<ContentPresenter />
+					</Grid>
+					<ControlTemplate.Triggers>
+						<Trigger Property="IsMouseOver" Value="True">
+							<Setter TargetName="StopButtonGrid" Property="Background" Value="LightGray"/>
+						</Trigger>
+						<Trigger Property="IsPressed" Value="True">
+							<Setter TargetName="StopButtonPath" Property="Fill" Value="Black"/>
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<Style x:Key="RewindButton" TargetType="Button">
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="Button">
+					<Grid Name="RewindButtonGrid" Background="Transparent" Width="40" Height="40" VerticalAlignment="Center" HorizontalAlignment="Center">
+						<Grid.RenderTransform>
+							<RotateTransform Angle="180" CenterX="20" CenterY="20"/>
+						</Grid.RenderTransform>
+						<Viewbox Width="24" Height="24" VerticalAlignment="Center" HorizontalAlignment="Left">
+							<Canvas Width="24" Height="24">
+								<Path Name="rwPath1" Width="11.5681" Height="17.5467" Canvas.Left="20.3914" Canvas.Top="4.42938" Stretch="Fill" Fill="White" Data="F1 M 31.9595,13.1561L 20.3914,21.9761L 20.3914,4.42938L 31.9595,13.1561 Z "/>
+								<Path Name="rwPath2" Width="11.5681" Height="17.5467" Canvas.Left="6.01379" Canvas.Top="4.42938" Stretch="Fill" Fill="White" Data="F1 M 17.5818,13.1561L 6.01379,21.9761L 6.01379,4.42938L 17.5818,13.1561 Z "/>
+								<Rectangle Name="rwPath3" Width="3.77869" Height="16.0667" Canvas.Left="34.3677" Canvas.Top="5.16656" Stretch="Fill" Fill="White" />
+							</Canvas>
+						</Viewbox>
+						<ContentPresenter />
+					</Grid>
+					<ControlTemplate.Triggers>
+						<Trigger Property="IsMouseOver" Value="True">
+							<Setter TargetName="RewindButtonGrid" Property="Background" Value="LightGray" />
+						</Trigger>
+						<Trigger Property="IsPressed" Value="True">
+							<Setter TargetName="rwPath1" Property="Fill" Value="Black"/>
+							<Setter TargetName="rwPath2" Property="Fill" Value="Black"/>
+							<Setter TargetName="rwPath3" Property="Fill" Value="Black"/>
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<Style x:Key="ForwardButton" TargetType="Button">
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="Button">
+					<Grid Name="ForwardButtonGrid" Background="Transparent" Width="40" Height="40" VerticalAlignment="Center" HorizontalAlignment="Center">
+						<Viewbox Width="24" Height="24" VerticalAlignment="Center" HorizontalAlignment="Left">
+							<Canvas Width="24" Height="24">
+								<Path Name="fbPath1" Width="11.5681" Height="17.5467" Canvas.Left="20.3914" Canvas.Top="4.42938" Stretch="Fill" Fill="White" Data="F1 M 31.9595,13.1561L 20.3914,21.9761L 20.3914,4.42938L 31.9595,13.1561 Z "/>
+								<Path Name="fbPath2" Width="11.5681" Height="17.5467" Canvas.Left="6.01379" Canvas.Top="4.42938" Stretch="Fill" Fill="White" Data="F1 M 17.5818,13.1561L 6.01379,21.9761L 6.01379,4.42938L 17.5818,13.1561 Z "/>
+								<Rectangle Name="fbPath3" Width="3.77869" Height="16.0667" Canvas.Left="34.3677" Canvas.Top="5.16656" Stretch="Fill" Fill="White" />
+							</Canvas>
+						</Viewbox>
+						<ContentPresenter />
+					</Grid>
+					<ControlTemplate.Triggers>
+						<Trigger Property="IsMouseOver" Value="True">
+							<Setter TargetName="ForwardButtonGrid" Property="Background" Value="LightGray" />
+						</Trigger>
+						<Trigger Property="IsPressed" Value="True">
+							<Setter TargetName="fbPath1" Property="Fill" Value="Black"/>
+							<Setter TargetName="fbPath2" Property="Fill" Value="Black"/>
+							<Setter TargetName="fbPath3" Property="Fill" Value="Black"/>
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+    
+	<Style x:Key="TransparentButton" TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid>
+                        <ContentPresenter/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+	<Style x:Key="ExpandCollapseButton" TargetType="Button">
+		<Setter Property="IsTabStop" Value="False" />
+		<Setter Property="KeyboardNavigation.DirectionalNavigation" Value="None" />
+		<Setter Property="KeyboardNavigation.AcceptsReturn" Value="False" />
+		<Setter Property="KeyboardNavigation.TabNavigation" Value="None" />
+		<Setter Property="RenderTransform">
+			<Setter.Value>
+				<RotateTransform Angle="0" CenterX="20" CenterY="20" />
+			</Setter.Value>
+		</Setter>
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="Button">
+					<Grid Name="ECButtonGrid" Background="Transparent" Width="40" Height="40" VerticalAlignment="Center" HorizontalAlignment="Center">
+						<Border Name="ECButtonBorder" Width="24" Height="24" CornerRadius="12">
+							<Path Name="ECPath" Stretch="Fill" Fill="White" Data="F1 M 0,9.33331L 0,5.33331L 12.3441,5.33331L 7.01074,6.10352e-005L 10.8228,6.10352e-005L 18.1561,7.33331L 18.1556,7.33331L
+								10.8223,14.6667L 7.01025,14.6667L 12.3436,9.33331L 0,9.33331 Z "
+							/>
+						</Border>
+						<ContentPresenter />
+					</Grid>
+					<ControlTemplate.Triggers>
+						<Trigger Property="IsMouseOver" Value="True">
+							<Setter TargetName="ECButtonGrid" Property="Background" Value="LightGray"/>
+						</Trigger>
+						<Trigger Property="IsPressed" Value="True">
+							<Setter TargetName="ECPath" Property="Fill" Value="Black"/>
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+
+	<Style x:Key="RoundPlusButton" TargetType="Button">
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="Button">
+					<Grid Name="RoundPlusButtonGrid" Background="Transparent" Width="40" Height="40" VerticalAlignment="Center" HorizontalAlignment="Center">
+						<Border Width="24" Height="24">
+							<Path Name="RoundPlusButtonPath" Stretch="Fill" Fill="White" StrokeThickness="0" Data="F1 M 27.9999,19.778L 22.6665,19.778L 22.6665,25.1112L 18.6665,25.1112L 18.6665,19.778L 13.3331,19.778L 13.3331,15.778L 18.6665,15.778L 18.6665,10.4446L 22.6665,10.4446L 22.6665,15.778L 27.9999,15.778M 20.6665,4.02722C 13.0732,4.02722 6.91589,10.1847 6.91589,17.778C 6.91589,25.3712 13.0732,31.5286 20.6665,31.5286C 28.2598,31.5286 34.4171,25.3712 34.4171,17.778C 34.4171,10.1847 28.2598,4.02722 20.6665,4.02722 Z" />
+						</Border>
+						<ContentPresenter />
+					</Grid>
+					<ControlTemplate.Triggers>
+						<Trigger Property="IsMouseOver" Value="True">
+							<Setter TargetName="RoundPlusButtonGrid" Property="Background" Value="LightGray"/>
+						</Trigger>
+						<Trigger Property="IsPressed" Value="True">
+							<Setter TargetName="RoundPlusButtonPath" Property="Fill" Value="Black"/>
+						</Trigger>
+						<Trigger Property="IsEnabled" Value="False">
+							<Setter TargetName="RoundPlusButtonPath" Property="Fill" Value="Gray"/>
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+	<Style x:Key="RoundMinusButton" TargetType="Button">
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="Button">
+					<Grid Name="RoundMinusButtonGrid" Background="Transparent" Width="40" Height="40" VerticalAlignment="Center" HorizontalAlignment="Center">
+						<Border Width="24" Height="24">
+							<Path Name="RoundMinusButtonPath" Stretch="Fill" Fill="White" StrokeThickness="0" Data="F1 M 24.3331,19.778L 9.6665,19.778L 9.6665,15.778L 24.3331,15.778M 16.9999,4.02722C 9.40662,4.02722 3.25049,10.1847 3.25049,17.778C 3.25049,25.3712 9.40662,31.5272 16.9999,31.5272C 24.5931,31.5272 30.7505,25.3712 30.7505,17.778C 30.7505,10.1847 24.5931,4.02722 16.9999,4.02722 Z " />
+						</Border>
+						<ContentPresenter />
+					</Grid>
+					<ControlTemplate.Triggers>
+						<Trigger Property="IsMouseOver" Value="True">
+							<Setter TargetName="RoundMinusButtonGrid" Property="Background" Value="LightGray"/>
+						</Trigger>
+						<Trigger Property="IsPressed" Value="True">
+							<Setter TargetName="RoundMinusButtonPath" Property="Fill" Value="Black"/>	
+						</Trigger>
+						<Trigger Property="IsEnabled" Value="False">
+							<Setter TargetName="RoundMinusButtonPath" Property="Fill" Value="Gray"/>
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+	
+
+    <Style x:Key="GroupRoundButton" TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Viewbox Name="RoundButtonBox" Width="{TemplateBinding Width}">
+                        <Grid Width="40" Height="40">
+                            <Border Name="RoundButtonBorder" BorderBrush="#777777" BorderThickness="2" 
+                                CornerRadius="20" Width="40" Height="40" Background="Transparent">
+                                <Viewbox Name="LinesBox" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <Grid>
+                                        <Canvas 
+                                           x:Name="appbar_group" Width="48" Height="48" 
+                                            Clip="F1 M 0,0L 48,0L 48,48L 0,48L 0,0" 
+                                            UseLayoutRounding="False">
+                                            <Path Width="32" Height="26" Canvas.Left="8" Canvas.Top="11" Stretch="Fill" Fill="#FF000000" 
+                                                  Data="F1 M 24,17C 26.9167,17 28.1667,18.6667 27.746,22.1649C 28.1218,22.3805 28.375,
+                                                  22.7857 28.375,23.25C 28.375,23.8182 27.9959,24.2978 27.4769,24.4498C 27.2601,25.2226 26.9233,
+                                                  25.9068 26.5,26.4541L 26.5,29.0833C 27.8889,29.3611 29,29.5 30.6667,30.3333C 32.3333,
+                                                  31.1667 32.8889,31.9306 34,33.0417L 34,37L 14,37L 14,33.0417C 15.1111,31.9306 15.6667,
+                                                  31.1667 17.3333,30.3333C 19,29.5 20.1111,29.3611 21.5,29.0833L 21.5,26.4541C 21.0767,
+                                                  25.9068 20.7399,25.2226 20.5231,24.4498C 20.0041,24.2978 19.625,23.8182 19.625,23.25C 19.625,
+                                                  22.7857 19.8782,22.3805 20.254,22.1649C 19.8333,18.6667 21.0833,17 24,17 Z M 16.3333,
+                                                  29.5833C 14.9517,30.2742 15.0836,30.1673 14.2796,31L 8,31L 8,27.0417C 9.11111,25.9306 9.66667,
+                                                  25.1667 11.3333,24.3333C 13,23.5 14.1111,23.3611 15.5,23.0833L 15.5,20.4541C 15.0767,19.9068 14.7399,
+                                                  19.2227 14.5231,18.4498C 14.0041,18.2978 13.625,17.8182 13.625,17.25C 13.625,16.7857 13.8782,
+                                                  16.3805 14.254,16.1649C 13.8333,12.6667 15.0833,11 18,11C 20.7357,11 22.0051,13.2163 21.805,
+                                                  16.2849C 20,17 19,18 19.004,20.9149C 18.6282,21.1305 18.375,21.5357 18.375,22C 18.375,22.5682 18.5041,
+                                                  23.2978 19.0231,23.4498C 19.2399,24.2227 19.5767,24.9068 20,25.4541L 20,28.3333C 18.6111,28.6111 18,
+                                                  28.75 16.3333,29.5833 Z M 31.6667,29.5833C 30,28.75 29.3889,28.6111 28,28.3333L 28,25.4541C 28.4233,
+                                                  24.9068 28.7601,24.2226 28.9769,23.4498C 29.4959,23.2978 29.625,22.5682 29.625,22C 29.625,
+                                                  21.5357 29.3718,21.1305 28.996,20.9149C 29,18 28,17 26.195,16.2849C 25.9949,13.2163 27.2643,
+                                                  11 30,11C 32.9167,11 34.1667,12.6667 33.746,16.1649C 34.1218,16.3805 34.375,16.7857 34.375,
+                                                  17.25C 34.375,17.8182 33.9959,18.2978 33.4769,18.4498C 33.2601,19.2226 32.9233,19.9068 32.5,
+                                                  20.4541L 32.5,23.0833C 33.8889,23.3611 35,23.5 36.6667,24.3333C 38.3333,25.1667 38.8889,
+                                                  25.9306 40,27.0417L 40,31L 33.7204,31C 32.9164,30.1673 33.0483,30.2742 31.6667,29.5833 Z "/>
+                                        </Canvas>
+                                        <ContentPresenter/>
+                                    </Grid>
+                                </Viewbox>
+                            </Border>
+                        </Grid>
+                    </Viewbox>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="Tag" Value="Selected">
+                            <Setter TargetName="RoundButtonBorder" Property="BorderBrush" Value="#000000"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="RoundButtonBorder" Property="BorderBrush" Value="{StaticResource BlackColorBrush}"/>
+                            <!--<Setter TargetName="Arrow" Property="Fill" Value="{StaticResource BlackColorBrush}"/>-->
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="RoundButtonBorder" Property="Width" Value="38"/>
+                            <Setter TargetName="RoundButtonBorder" Property="Height" Value="38"/>
+                            <Setter TargetName="RoundButtonBorder" Property="CornerRadius" Value="19"/>
+                            <Setter TargetName="LinesBox" Property="Width" Value="17"/>
+                            <Setter TargetName="LinesBox" Property="Height" Value="17"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <Style x:Key="UndoButton" TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Viewbox Name="RoundButtonBox" Width="{TemplateBinding Width}" >
+                        <Grid Width="40" Height="40">
+                            <Border Name="RoundButtonBorder" BorderBrush="#777777" BorderThickness="2"  RenderTransformOrigin="0.5,0.5"
+                                CornerRadius="20" Width="40" Height="40" Background="Transparent">
+                                <Viewbox Name="LinesBox" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <Grid>
+                                        <Canvas x:Name="appbar_redo" Width="48.0067" Height="48.0067" Clip="F1 M 0,0L 48.0067,0L 48.0067,48.0067L 0,48.0067L 0,0" UseLayoutRounding="False">
+                                            <Path Width="22.0015" Height="20.7793" Canvas.Left="13.0018" Canvas.Top="13.0019" Stretch="Fill" Fill="#FF000000" Data="F1 M 32.0034,13.0019L 35.0033,16.002L 35.0034,24.0019L 27.0033,24.002L 24.0034,21.0019L 29.5944,21.0014C 28.2209,19.4668 26.2249,18.501 24.0033,18.501C 19.8606,18.501 16.5022,21.8593 16.5022,26.002C 16.5022,28.0734 17.3418,29.9486 18.6992,31.3061L 16.2241,33.7812C 14.2332,31.7903 13.0018,29.0399 13.0018,26.0019C 13.0018,19.926 17.9274,15.0004 24.0033,15.0004C 27.1557,15.0004 29.9984,16.3263 32.0042,18.4508L 32.0034,13.0019 Z "/>
+                                        </Canvas>
+                                    </Grid>
+                                </Viewbox>
+                                <Border.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform ScaleX="-1"/>
+                                    </TransformGroup>
+                                </Border.RenderTransform>
+                            </Border>
+                        </Grid>
+                    </Viewbox>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="Tag" Value="Selected">
+                            <Setter TargetName="RoundButtonBorder" Property="BorderBrush" Value="#000000"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="RoundButtonBorder" Property="BorderBrush" Value="{StaticResource BlackColorBrush}"/>
+                            <!--<Setter TargetName="Arrow" Property="Fill" Value="{StaticResource BlackColorBrush}"/>-->
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="RoundButtonBorder" Property="Width" Value="38"/>
+                            <Setter TargetName="RoundButtonBorder" Property="Height" Value="38"/>
+                            <Setter TargetName="RoundButtonBorder" Property="CornerRadius" Value="19"/>
+                            <Setter TargetName="LinesBox" Property="Width" Value="17"/>
+                            <Setter TargetName="LinesBox" Property="Height" Value="17"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <Style x:Key="VectorRectangleButton" TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Viewbox Name="RoundButtonBox" Width="{TemplateBinding Width}">
+                        <Grid Width="40" Height="40">
+                            <Border Name="RoundButtonBorder" BorderBrush="#777777" BorderThickness="2" 
+                                CornerRadius="20" Width="40" Height="40" Background="Transparent">
+                                <Viewbox Name="LinesBox" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <Grid>
+                                        <Canvas x:Name="appbar_vector_rectangle" Width="48" Height="48" Clip="F1 M 0,0L 48,0L 48,48L 0,48L 0,0" UseLayoutRounding="False">
+                                            <Path Width="28" Height="20" Canvas.Left="9.99999" Canvas.Top="14" Stretch="Fill" Fill="#FF000000" Data="F1 M 16,18L 16,20L 14,20L 14,28L 16,28L 16,30L 32,30L 32,28L 34,28L 34,20L 32,20L 32,18L 16,18 Z M 38,28L 38,34L 32,34L 32,32L 16,32L 16,34L 9.99999,34L 9.99999,28L 12,28L 12,20L 10,20L 10,14L 16,14L 16,16L 32,16L 32,14L 38,14L 38,20L 36,20L 36,28L 38,28 Z M 12,16L 12,18L 14,18L 14,16L 12,16 Z M 34,16L 34,18L 36,18L 36,16L 34,16 Z M 12,30L 12,32L 14,32L 14,30L 12,30 Z M 34,30L 34,32L 36,32L 36,30L 34,30 Z "/>
+                                        </Canvas>
+                                    </Grid>
+                                </Viewbox>
+                            </Border>
+                        </Grid>
+                    </Viewbox>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="Tag" Value="Selected">
+                            <Setter TargetName="RoundButtonBorder" Property="BorderBrush" Value="#000000"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="RoundButtonBorder" Property="BorderBrush" Value="{StaticResource BlackColorBrush}"/>
+                            <!--<Setter TargetName="Arrow" Property="Fill" Value="{StaticResource BlackColorBrush}"/>-->
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="RoundButtonBorder" Property="Width" Value="38"/>
+                            <Setter TargetName="RoundButtonBorder" Property="Height" Value="38"/>
+                            <Setter TargetName="RoundButtonBorder" Property="CornerRadius" Value="19"/>
+                            <Setter TargetName="LinesBox" Property="Width" Value="17"/>
+                            <Setter TargetName="LinesBox" Property="Height" Value="17"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <Style x:Key="RedoButton" TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Viewbox Name="RoundButtonBox" Width="{TemplateBinding Width}">
+                        <Grid Width="40" Height="40">
+                            <Border Name="RoundButtonBorder" BorderBrush="#777777" BorderThickness="2" 
+                                CornerRadius="20" Width="40" Height="40" Background="Transparent">
+                                <Viewbox Name="LinesBox" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <Grid>
+                                        <Canvas x:Name="appbar_redo" Width="48.0067" Height="48.0067" Clip="F1 M 0,0L 48.0067,0L 48.0067,48.0067L 0,48.0067L 0,0" UseLayoutRounding="False">
+                                            <Path Width="22.0015" Height="20.7793" Canvas.Left="13.0018" Canvas.Top="13.0019" Stretch="Fill" Fill="#FF000000" Data="F1 M 32.0034,13.0019L 35.0033,16.002L 35.0034,24.0019L 27.0033,24.002L 24.0034,21.0019L 29.5944,21.0014C 28.2209,19.4668 26.2249,18.501 24.0033,18.501C 19.8606,18.501 16.5022,21.8593 16.5022,26.002C 16.5022,28.0734 17.3418,29.9486 18.6992,31.3061L 16.2241,33.7812C 14.2332,31.7903 13.0018,29.0399 13.0018,26.0019C 13.0018,19.926 17.9274,15.0004 24.0033,15.0004C 27.1557,15.0004 29.9984,16.3263 32.0042,18.4508L 32.0034,13.0019 Z "/>
+                                        </Canvas>
+                                    </Grid>
+                                </Viewbox>
+                            </Border>
+                        </Grid>
+                    </Viewbox>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="Tag" Value="Selected">
+                            <Setter TargetName="RoundButtonBorder" Property="BorderBrush" Value="#000000"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="RoundButtonBorder" Property="BorderBrush" Value="{StaticResource BlackColorBrush}"/>
+                            <!--<Setter TargetName="Arrow" Property="Fill" Value="{StaticResource BlackColorBrush}"/>-->
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="RoundButtonBorder" Property="Width" Value="38"/>
+                            <Setter TargetName="RoundButtonBorder" Property="Height" Value="38"/>
+                            <Setter TargetName="RoundButtonBorder" Property="CornerRadius" Value="19"/>
+                            <Setter TargetName="LinesBox" Property="Width" Value="17"/>
+                            <Setter TargetName="LinesBox" Property="Height" Value="17"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+  
+    <Style x:Key="AddPersonRoundButton" TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Viewbox Name="RoundButtonBox" Width="{TemplateBinding Width}">
+                        <Grid Width="40" Height="40">
+                            <Border Name="RoundButtonBorder" BorderBrush="#777777" BorderThickness="2" 
+                                CornerRadius="20" Width="40" Height="40" Background="Transparent">
+                                    <Grid Width="20" Height="20">
+										<Path  Name="AddPeoplePath" Stretch="Fill" Fill="#FF000000" Data="F1 M 17,24L 20,24L 20,29L 25,29L 25,32L 20,32L 20,37L 17,37L 17,32L 12,32L 12,29L 17,29L 17,24 Z M 24,12C 27.5,12 29,14 28.4952,18.1979C 28.9462,18.4566 29.25,18.9428 29.25,19.5C 29.25,20.1818 28.7951,20.7574 28.1723,20.9397C 27.9121,21.8672 27.508,22.6882 27,23.3449L 27,26.5C 28.6667,26.8333 30,27 32,28C 34,29 34.6667,29.9167 36,31.25L 36,36L 21,36L 21,33L 26,33L 26,28L 21,28L 21,23.3449L 21,23L 20.7528,23C 20.3602,22.4091 20.0442,21.7113 19.8277,20.9397C 19.2049,20.7574 18.75,20.1818 18.75,19.5C 18.75,18.9428 19.0538,18.4566 19.5048,18.1979C 19,14 20.5,12 24,12 Z M 12,36L 12,33L 16,33L 16,36L 12,36 Z "/>
+                                        <ContentPresenter/>
+                                    </Grid>
+                            </Border>
+                        </Grid>
+                    </Viewbox>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="Tag" Value="Selected">
+                            <Setter TargetName="RoundButtonBorder" Property="BorderBrush" Value="#000000"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="RoundButtonBorder" Property="BorderBrush" Value="{StaticResource BlackColorBrush}"/>
+                            <!--<Setter TargetName="Arrow" Property="Fill" Value="{StaticResource BlackColorBrush}"/>-->
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="RoundButtonBorder" Property="Background" Value="Black" />
+							<Setter TargetName="AddPeoplePath" Property="Fill" Value="White" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <Style x:Key="MinusPersonRoundButton" TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Viewbox Name="RoundButtonBox" Width="{TemplateBinding Width}">
+                        <Grid Width="40" Height="40">
+                            <Border Name="RoundButtonBorder" BorderBrush="#777777" BorderThickness="2" 
+                                CornerRadius="20" Width="40" Height="40" Background="Transparent">
+                                <Viewbox Name="LinesBox" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <Grid>
+                                        <Canvas xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Name="appbar_user_minus" Width="48" Height="48" Clip="F1 M 0,0L 48,0L 48,48L 0,48L 0,0" UseLayoutRounding="False">
+                                            <Path Width="24" Height="24" Canvas.Left="12" Canvas.Top="12" Stretch="Fill" Fill="#FF000000" Data="F1 M 12,29L 25,29L 25,32L 12,32L 12,29 Z M 24,12C 27.5,12 29,14 28.4952,18.1979C 28.9462,18.4566 29.25,18.9428 29.25,19.5C 29.25,20.1818 28.7951,20.7574 28.1723,20.9397C 27.9121,21.8672 27.508,22.6882 27,23.3449L 27,26.5C 28.6667,26.8333 30,27 32,28C 34,29 34.6667,29.9167 36,31.25L 36,36L 12,36L 12,33L 26,33L 26,28L 16,28C 18,27 19.3333,26.8333 21,26.5L 21,23.3449C 20.492,22.6882 20.0879,21.8672 19.8277,20.9397C 19.2049,20.7574 18.75,20.1818 18.75,19.5C 18.75,18.9428 19.0538,18.4566 19.5048,18.1979C 19,14 20.5,12 24,12 Z "/>
+                                        </Canvas>
+                                        <ContentPresenter/>
+                                    </Grid>
+                                </Viewbox>
+                            </Border>
+                        </Grid>
+                    </Viewbox>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="Tag" Value="Selected">
+                            <Setter TargetName="RoundButtonBorder" Property="BorderBrush" Value="#000000"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="RoundButtonBorder" Property="BorderBrush" Value="{StaticResource BlackColorBrush}"/>
+                            <!--<Setter TargetName="Arrow" Property="Fill" Value="{StaticResource BlackColorBrush}"/>-->
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="RoundButtonBorder" Property="Width" Value="38"/>
+                            <Setter TargetName="RoundButtonBorder" Property="Height" Value="38"/>
+                            <Setter TargetName="RoundButtonBorder" Property="CornerRadius" Value="19"/>
+                            <Setter TargetName="LinesBox" Property="Width" Value="17"/>
+                            <Setter TargetName="LinesBox" Property="Height" Value="17"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="RoundButton" TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Viewbox Name="RoundButtonBox" Width="{TemplateBinding Width}">
+                        <Grid Width="40" Height="40">
+                            <Border Name="RoundButtonBorder" BorderBrush="{StaticResource BlackColorBrush}" BorderThickness="3" 
+                                CornerRadius="20" Width="40" Height="40" Background="Transparent">
+                                <ContentPresenter/>
+                            </Border>
+                        </Grid>
+                    </Viewbox>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="RoundButtonBorder" Property="BorderBrush" Value="#777777"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="RoundButtonBorder" Property="Width" Value="38"/>
+                            <Setter TargetName="RoundButtonBorder" Property="Height" Value="38"/>
+                            <Setter TargetName="RoundButtonBorder" Property="CornerRadius" Value="19"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+	<Style x:Key="FilterRoundButton" TargetType="Button">
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="Button">
+					<Grid Width="40" Height="40" VerticalAlignment="Center" HorizontalAlignment="Center" >
+						<Border Name="FilterRoundButtonBorder" BorderBrush="#777777" BorderThickness="2" 
+                            CornerRadius="20" Width="40" Height="40" Background="Transparent">
+							<Path Stretch="Fill" Fill="Black" Name="FilterPath" Width="20" Height="20" StrokeThickness="1"
+										Data="F1 M 22.6667,32.8229C 22.6667,34.2949 21.4722,35.0123 20,34.4229L 14.6667,32.2896C 13.1948,31.7003 12,30.0283 12,28.5562L 12,18.6669L 22.6667,16.0002L
+											22.6667,32.8229 Z M 22.6667,16L 12,16L 0,2.66669C 0,1.19464 1.19482,0 2.66675,0L 32,0C 33.4722,0 34.6667,1.19464 34.6667,2.66669L 22.6667,16 Z "
+									/>
+						</Border>
+						<ContentPresenter/>
+					</Grid>
+					<ControlTemplate.Triggers>
+						<Trigger Property="IsMouseOver" Value="True">
+							<Setter TargetName="FilterRoundButtonBorder" Property="BorderBrush" Value="Black"/>
+						</Trigger>
+						<Trigger Property="IsPressed" Value="True">
+							<Setter TargetName="FilterRoundButtonBorder" Property="Background" Value="Black" />
+							<Setter TargetName="FilterPath" Property="Fill" Value="White" />
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+
+		</Setter>
+	</Style>
+
+	<Style x:Key="EditRoundButton" TargetType="Button">
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="Button">
+					<Grid Width="40" Height="40" VerticalAlignment="Center" HorizontalAlignment="Center" >
+                        <Border Name="EditRoundButtonBorder" BorderBrush="#777777" BorderThickness="2" 
+                            CornerRadius="20" Width="40" Height="40" Background="Transparent">
+									<Path Stretch="Fill" Fill="Black" Name="PencilPath" Width="20" Height="20" StrokeThickness="1"
+										Data="F1 M 62.1053,356.987L 192.347,487.225L 461.701,217.872L 331.463,87.628M 419.089,0L 360.651,58.4386L 490.895,188.679L 549.332,130.239M
+											163.153,516.417L 0,546.529L 32.9133,386.177L 32.9147,386.176L 163.153,516.417 Z "
+									/>
+                        </Border>
+						<ContentPresenter/>
+					</Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="EditRoundButtonBorder" Property="BorderBrush" Value="Black"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="EditRoundButtonBorder" Property="Background" Value="Black" />
+							<Setter TargetName="PencilPath" Property="Fill" Value="White" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+			
+		</Setter>
+	</Style>
+
+    <Style x:Key="SaveRoundButton" TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+					<Grid Width="40" Height="40" VerticalAlignment="Center" HorizontalAlignment="Center" >
+                        <Border Name="SaveRoundButtonBorder" BorderBrush="#777777" BorderThickness="2" 
+                            CornerRadius="20" Width="40" Height="40" Background="Transparent">
+							<Viewbox Name="DiskBox"  Width="20" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Grid>
+									<Canvas Width="26" Height="26">
+										<Path Name="DiskPath" Stretch="Fill" Fill="#FF000000" 
+											Data="F1 M 0,3.17213L 0,24.8948C 0,24.9961 0.0186768,25.0948 0.0266418,25.1975L 0.0266418,2.87479C 0.0186768,2.97211 0,3.07081 0,3.17213 Z M 22.7421,9.516C
+											22.7421,9.96668 22.3754,10.3307 21.9248,10.3307L 6.13281,10.3307C 5.68213,10.3307 5.31546,9.96668 5.31546,9.516L 5.31546,3.00001C 5.31546,2.54667
+											5.68213,2.18 6.13281,2.18L 21.9248,2.18C 22.3754,2.18 22.7421,2.54667 22.7421,3.00001M 26.4901,7.62939e-006L 25.2288,7.62939e-006L 2.82477,7.62939e-006L
+											1.6221,7.62939e-006C 0.744781,7.62939e-006 0.0288086,0.713326 0.0288086,1.59199L 0.0288086,2.87333L 0.0288086,25.1946L 0.0288086,26.4653C 0.0288086,27.3427
+											0.744781,28.056 1.6221,28.056L 2.69278,28.056L 7.82343,28.056L 7.82343,20.0333C 7.82343,19.5787 8.19012,19.212 8.63812,19.212L 19.4168,19.212C 19.8648,19.212
+											20.2341,19.5787 20.2341,20.0333L 20.2341,28.056L 25.3648,28.056L 26.4901,28.056C 27.3648,28.056 28.0781,27.3427 28.0781,26.4653L 28.0781,1.59199C 28.0781,0.713326
+											27.3648,7.62939e-006 26.4901,7.62939e-006 Z M 13.8358,24.3376L 11.0465,24.3376C 10.5959,24.3376 10.2292,24.7043 10.2292,25.1523L 10.2399,28.0456L 14.6505,27.9963L
+											14.6505,25.1523C 14.6505,24.7043 14.2838,24.3376 13.8358,24.3376 Z"
+										/>
+									</Canvas>
+                                    <ContentPresenter />
+                                </Grid>
+                            </Viewbox>
+                        </Border>
+					</Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="SaveRoundButtonBorder" Property="BorderBrush" Value="#FF000000" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="SaveRoundButtonBorder" Property="Background" Value="#FF000000" />
+							<Setter TargetName="DiskPath" Property="Fill" Value="White" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="CloseRoundButton" TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Viewbox Name="RoundButtonBox" Width="{TemplateBinding Width}">
+                        <Grid Width="40" Height="40">
+                            <Border Name="RoundButtonBorder" BorderBrush="#777777" BorderThickness="2" 
+                                CornerRadius="20" Width="40" Height="40" Background="Transparent">
+                                <Viewbox Name="LinesBox" Width="18" Height="18" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <Grid>
+                                        <Path Name="CloseButtonPath" Stroke="Black" Width="20" Height="20" Stretch="Fill" StrokeThickness="3" Data="F1 M0,0 L1,1 M0,1 L1,0" />
+                                        <ContentPresenter/>
+                                    </Grid>
+                                </Viewbox>
+                            </Border>
+                        </Grid>
+                    </Viewbox>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="RoundButtonBorder" Property="BorderBrush" Value="{StaticResource BlackColorBrush}"/>
+						</Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="CloseButtonPath" Property="Stroke" Value="White"/>
+							<Setter TargetName="RoundButtonBorder" Property="Background" Value="Black"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+	<Style x:Key="DeleteRoundButton" TargetType="Button">
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type Button}">
+					<Viewbox Name="DeleteRoundButtonBox" Width="{TemplateBinding Width}">
+						<Grid Width="40" Height="40">
+							<Border Name="DeleteRoundBorder" BorderBrush="#777777" BorderThickness="2" 
+                                CornerRadius="20" Width="40" Height="40" Background="Transparent">
+								<Viewbox Name="LinesBox" Width="18" Height="18" HorizontalAlignment="Center" VerticalAlignment="Center">
+									<Grid>
+										<Path Name="DeleteButtonPath" Fill="Black" Width="20" Height="20" Stretch="Fill" StrokeThickness="0" 
+											Data="F1 M 30.862,10.1377L 30.8594,10.1377L 11.0594,10.1204C 10.1847,10.1204 9.4767,9.4137 9.47935,8.53906C 9.47935,7.66571 10.1874,6.95636 11.0621,6.95636L
+											30.862,6.97369C 31.7354,6.97369 32.446,7.6817 32.446,8.55505C 32.4447,9.43103 31.7327,10.1377 30.862,10.1377 Z M 23.1432,5.87332L 23.1379,5.87332L
+											18.7819,5.8573C 18.1979,5.85464 17.7259,5.38129 17.7286,4.7973C 17.7312,4.21463 18.1432,3.75198 18.7886,3.7453L 23.1459,3.76129C 23.7272,3.76263 24.2006,4.2373
+											24.1979,4.82132C 24.1952,5.40131 23.7259,5.87332 23.1432,5.87332 Z M 27.211,30.3882C 27.1896,30.9656 26.715,31.4189 26.0963,31.4175C 25.5043,31.3936 25.0416,30.8936
+											25.0643,30.3042L 25.6603,15.2589C 25.6816,14.6669 26.1736,14.2016 26.7776,14.2269C 27.367,14.2522 27.8296,14.7509 27.8043,15.3416M 22.0083,30.3469C 22.0083,30.9296
+											21.535,31.4016 20.951,31.4016C 20.367,31.4002 19.8963,30.9269 19.8963,30.3442L 19.915,15.2989C 19.915,14.7176 20.3856,14.2443 20.9697,14.2443L 20.9723,14.2443C
+											21.555,14.2455 22.027,14.7189 22.027,15.3016M 15.7683,31.4189C 15.1923,31.4189 14.7163,30.9656 14.695,30.3856L 14.135,15.3389C 14.115,14.7482 14.575,14.2496
+											15.1696,14.2269C 15.7403,14.2176 16.2603,14.6669 16.2843,15.2616L 16.8417,30.3056C 16.8643,30.8962 16.4017,31.3962 15.807,31.4175 Z M 30.8616,11.6403L
+											11.2256,11.6403L 11.351,13.8469C 11.351,13.9082 11.3376,13.9683 11.343,14.0309L 12.2003,31.3962C 12.2656,32.7096 13.395,33.7869 14.7136,33.7869L 27.3723,33.7869C
+											28.6896,33.7869 29.8203,32.7096 29.887,31.3962L 30.7443,14.0309C 30.747,13.9683 30.7363,13.9096 30.7336,13.8482L 30.8616,11.6403 Z" />
+										<ContentPresenter/>
+									</Grid>
+								</Viewbox>
+							</Border>
+						</Grid>
+					</Viewbox>
+					<ControlTemplate.Triggers>
+						<Trigger Property="IsMouseOver" Value="True">
+							<Setter TargetName="DeleteRoundBorder" Property="BorderBrush" Value="{StaticResource BlackColorBrush}"/>
+						</Trigger>
+						<Trigger Property="IsPressed" Value="True">
+							<Setter TargetName="DeleteButtonPath" Property="Fill" Value="White"/>
+							<Setter TargetName="DeleteRoundBorder" Property="Background" Value="Black"/>
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+    <Style x:Key="OkRoundButton" TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Viewbox Name="RoundButtonBox" Width="{TemplateBinding Width}">
+                        <Grid Width="40" Height="40">
+                            <Border Name="RoundButtonBorder" BorderBrush="#777777" BorderThickness="2" 
+                                CornerRadius="20" Width="40" Height="40" Background="Transparent">
+                                <Viewbox Name="LinesBox" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <Grid>
+                                        <Canvas x:Name="appbar_check" Width="48" Height="48" Clip="F1 M 0,0L 48,0L 48,48L 0,48L 0,0" UseLayoutRounding="False">
+                                            <Path Width="23.9999" Height="19.9999" Canvas.Left="12.0001" Canvas.Top="14.0001" Stretch="Fill" Fill="#FF000000" Data="F1 M 15,21L 22,28L 32.9999,14.0001L 35.9999,17.0001L 22,34L 12.0001,24L 15,21 Z "/>
+                                        </Canvas>
+
+                                        <ContentPresenter/>
+                                    </Grid>
+                                </Viewbox>
+                            </Border>
+                        </Grid>
+                    </Viewbox>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="RoundButtonBorder" Property="BorderBrush" Value="{StaticResource BlackColorBrush}"/>
+
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="RoundButtonBorder" Property="Width" Value="38"/>
+                            <Setter TargetName="RoundButtonBorder" Property="Height" Value="38"/>
+                            <Setter TargetName="RoundButtonBorder" Property="CornerRadius" Value="19"/>
+                            <Setter TargetName="LinesBox" Property="Width" Value="17"/>
+                            <Setter TargetName="LinesBox" Property="Height" Value="17"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="UpRoundButton" TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Viewbox Name="RoundButtonBox" Width="{TemplateBinding Width}">
+                        <Grid Width="40" Height="40">
+                            <Border Name="RoundButtonBorder" BorderBrush="#777777" BorderThickness="2" 
+                                CornerRadius="20" Width="40" Height="40" Background="Transparent">
+                                <Viewbox Name="LinesBox" Width="18" Height="18" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <Grid>
+                                        <Path Name="Arrow" Width="140" Height="80" Margin="0,0,0,20" Stretch="Fill" Fill="#000000" Data="F1 M 0,80L 70,0L 140,80" VerticalAlignment="Center"/>
+                                        <ContentPresenter/>
+                                    </Grid>
+                                </Viewbox>
+                            </Border>
+                        </Grid>
+                    </Viewbox>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="RoundButtonBorder" Property="BorderBrush" Value="{StaticResource BlackColorBrush}"/>
+                            <Setter TargetName="Arrow" Property="Fill" Value="{StaticResource BlackColorBrush}"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="RoundButtonBorder" Property="Width" Value="38"/>
+                            <Setter TargetName="RoundButtonBorder" Property="Height" Value="38"/>
+                            <Setter TargetName="RoundButtonBorder" Property="CornerRadius" Value="19"/>
+                            <Setter TargetName="LinesBox" Property="Width" Value="17"/>
+                            <Setter TargetName="LinesBox" Property="Height" Value="17"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="DownRoundButton" TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Viewbox Name="RoundButtonBox" Width="{TemplateBinding Width}">
+                        <Grid Width="40" Height="40">
+                            <Border Name="RoundButtonBorder" BorderBrush="#777777" BorderThickness="2" 
+                                CornerRadius="20" Width="40" Height="40" Background="Transparent">
+                                <Viewbox Name="LinesBox" Width="18" Height="18" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <Grid>
+                                        <Path Name="Arrow" Width="140" Height="80" Margin="0,20,0,0" Stretch="Fill" Fill="#000000" Data="F1 M 0,0L 70,80L 140,0" VerticalAlignment="Center"/>
+                                        <ContentPresenter/>
+                                    </Grid>
+                                </Viewbox>
+                            </Border>
+                        </Grid>
+                    </Viewbox>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="RoundButtonBorder" Property="BorderBrush" Value="{StaticResource BlackColorBrush}"/>
+                            <Setter TargetName="Arrow" Property="Fill" Value="{StaticResource BlackColorBrush}"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="RoundButtonBorder" Property="Width" Value="38"/>
+                            <Setter TargetName="RoundButtonBorder" Property="Height" Value="38"/>
+                            <Setter TargetName="RoundButtonBorder" Property="CornerRadius" Value="19"/>
+                            <Setter TargetName="LinesBox" Property="Width" Value="17"/>
+                            <Setter TargetName="LinesBox" Property="Height" Value="17"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="PeopleRoundButton" TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Viewbox Name="RoundButtonBox" Width="{TemplateBinding Width}">
+                        <Grid Width="40" Height="40">
+                            <Border Name="RoundButtonBorder" BorderBrush="#777777" BorderThickness="2" 
+                                CornerRadius="20" Width="40" Height="40" Background="Transparent">
+                                <Viewbox Name="LinesBox" Width="18" Height="18" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <Grid>
+                                        <Canvas Width="282" Height="214">
+                                            <Path Width="105.42" Height="116.902" Canvas.Left="55.1649" Canvas.Top="-0.157595" Stretch="Fill" Fill="#FF000000" Data="F1 M 160.37,54.04C 162.979,86.2346 141.591,114.237 112.599,116.587C 83.6071,118.937 57.9897,94.7427 55.3804,62.548C 52.7711,30.3533 74.1591,2.34933 103.151,0C 132.143,-2.34933 157.76,21.8453 160.37,54.04 Z "/>
+                                            <Path Width="72.178" Height="78.08" Canvas.Left="170.119" Canvas.Top="20.8961" Stretch="Fill" Fill="#FF000000" Data="F1 M 170.672,54.1754C 167.215,75.4981 180.323,95.3622 199.95,98.5435C 219.575,101.725 238.287,87.0194 241.744,65.6981C 245.2,44.3755 232.092,24.5101 212.467,21.3288C 192.84,18.1475 174.13,32.8528 170.672,54.1754 Z "/>
+                                            <Path Width="194.417" Height="91.3623" Canvas.Left="0" Canvas.Top="121.713" Stretch="Fill" Fill="#FF000000" Data="F1 M 0,213.075C 0,213.075 2.65334,176.881 8.208,163.158C 9.72533,159.525 23.5413,121.491 53.208,121.714C 66.32,121.603 86.8747,133.491 86.8747,133.491C 86.8747,133.491 102.208,140.937 105.875,142.158C 109.541,143.381 112.875,144.158 117.541,144.158C 122.208,144.159 130.257,142.273 132.875,140.158C 135.492,138.045 150.208,126.158 150.208,126.158C 150.208,126.158 151.652,124.713 153.875,124.491C 156.097,124.271 158.541,127.158 158.541,127.158C 158.541,127.158 188.32,170.158 189.208,171.491C 194.32,178.159 194.417,213.075 194.417,213.075L 0,213.075 Z "/>
+                                            <Path Width="121" Height="63.3333" Canvas.Left="160.875" Canvas.Top="102.826" Stretch="Fill" Fill="#FF000000" Data="F1 M 160.875,118.577C 160.875,118.577 168.804,108.382 170.119,107.493C 171.434,106.602 172.708,105.549 174.264,105.549C 175.819,105.549 177.208,106.826 177.208,106.826C 177.208,106.826 188.431,115.663 190.875,116.745C 193.319,117.826 197.764,118.105 199.875,118.159C 201.986,118.214 207.931,117.83 210.875,116.745C 213.819,115.659 232.598,105.493 234.208,104.826C 235.819,104.159 240.542,102.826 244.208,102.826C 247.875,102.826 253.34,104.845 256.208,106.493C 259.279,108.671 266.542,111.937 276.208,135.214C 278.652,141.102 281.875,166.159 281.875,166.159L 193.834,165.701L 160.875,118.577 Z "/>
+                                        </Canvas>
+                                        <ContentPresenter/>
+                                    </Grid>
+                                </Viewbox>
+                            </Border>
+                        </Grid>
+                    </Viewbox>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="Tag" Value="Selected">
+                            <Setter TargetName="RoundButtonBorder" Property="BorderBrush" Value="#000000"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="RoundButtonBorder" Property="BorderBrush" Value="{StaticResource BlackColorBrush}"/>
+                            <!--<Setter TargetName="Arrow" Property="Fill" Value="{StaticResource BlackColorBrush}"/>-->
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="RoundButtonBorder" Property="Width" Value="38"/>
+                            <Setter TargetName="RoundButtonBorder" Property="Height" Value="38"/>
+                            <Setter TargetName="RoundButtonBorder" Property="CornerRadius" Value="19"/>
+                            <Setter TargetName="LinesBox" Property="Width" Value="17"/>
+                            <Setter TargetName="LinesBox" Property="Height" Value="17"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="RoomRoundButton" TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Viewbox Name="RoundButtonBox" Width="{TemplateBinding Width}">
+                        <Grid Width="40" Height="40">
+                            <Border Name="RoundButtonBorder" BorderBrush="#777777" BorderThickness="2" 
+                                CornerRadius="20" Width="40" Height="40" Background="Transparent">
+                                <Viewbox Name="LinesBox" Width="18" Height="18" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <Grid>
+                                        <Path Width="234.044" Height="175.333" Stretch="Fill" Fill="#FF000000" Data="F1 M 0,3.05176e-005L 0,175.333L 100.711,175.333L 100.711,130L 144.585,130L 144.585,119.333L 90.044,119.333L 90.044,164.667L 10.6667,164.667L 10.6667,10.6667L 223.377,10.6667L 223.377,119.333L 192.467,119.333L 192.467,130L 234.044,130L 234.044,3.05176e-005L 0,3.05176e-005 Z "/>
+                                        <ContentPresenter/>
+                                    </Grid>
+                                </Viewbox>
+                            </Border>
+                        </Grid>
+                    </Viewbox>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="Tag" Value="Selected">
+                            <Setter TargetName="RoundButtonBorder" Property="BorderBrush" Value="#000000"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="RoundButtonBorder" Property="BorderBrush" Value="{StaticResource BlackColorBrush}"/>
+                            <!--<Setter TargetName="Arrow" Property="Fill" Value="{StaticResource BlackColorBrush}"/>-->
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="RoundButtonBorder" Property="Width" Value="38"/>
+                            <Setter TargetName="RoundButtonBorder" Property="Height" Value="38"/>
+                            <Setter TargetName="RoundButtonBorder" Property="CornerRadius" Value="19"/>
+                            <Setter TargetName="LinesBox" Property="Width" Value="17"/>
+                            <Setter TargetName="LinesBox" Property="Height" Value="17"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="ArrowButton" TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Viewbox Name="ButtonBox" Width="{TemplateBinding Width}">
+                        <Grid Name="Border" Width="60" Height="60" Background="Transparent">
+                            <Viewbox Name="InnerBox" Width="30" Height="30" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Polygon Name="Triangle" Fill="#DDDDDD"
+                                Points="50,0 350,150 50,300 50,0"/>
+                            </Viewbox>
+                            <ContentPresenter/>
+                        </Grid>
+                    </Viewbox>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Triangle" Property="Fill" Value="{StaticResource WhiteColorBrush}"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="InnerBox" Property="Width" Value="28"/>
+                            <Setter TargetName="InnerBox" Property="Height" Value="28"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="CloseButton" TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Viewbox Name="ButtonBox" Width="{TemplateBinding Width}">
+                        <Grid Width="40" Height="40">
+                            <Border Name="ButtonBorder" Width="40" Height="40" Background="Transparent">
+                                <Viewbox Name="LinesBox" Width="28" Height="28" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <Grid>
+                                        <Line Name="Line1" X1="1" X2="17" Y1="1" Y2="17" Stroke="#AAAAAA" StrokeThickness="3"/>
+                                        <Line Name="Line2" X1="1" X2="17" Y1="17" Y2="1" Stroke="#AAAAAA" StrokeThickness="3"/>
+                                        <ContentPresenter/>
+                                    </Grid>
+                                </Viewbox>
+                            </Border>
+                        </Grid>
+                    </Viewbox>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Line1" Property="Stroke" Value="{StaticResource BlackColorBrush}"/>
+                            <Setter TargetName="Line2" Property="Stroke" Value="{StaticResource BlackColorBrush}"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="LinesBox" Property="Width" Value="26"/>
+                            <Setter TargetName="LinesBox" Property="Height" Value="24"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <Style x:Key="CloseTextButton" TargetType="Button">
+        <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <DockPanel Name="MainPanel" Background="Transparent">
+                            <Viewbox Name="ButtonBox" Width="14" Height="14" DockPanel.Dock="Right" Visibility="Hidden" Margin="0,0,5,0">
+                                    <Border Name="ButtonBorder" Width="40" Height="40" Grid.Column="1" Background="Transparent">
+                                        <Viewbox Name="LinesBox" Width="28" Height="28" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                            <Grid>
+                                                <Line Name="Line1" X1="1" X2="17" Y1="1" Y2="17" Stroke="#AAAAAA" StrokeThickness="3"/>
+                                                <Line Name="Line2" X1="1" X2="17" Y1="17" Y2="1" Stroke="#AAAAAA" StrokeThickness="3"/>
+                                            </Grid>
+                                        </Viewbox>
+                                    </Border>
+                            </Viewbox>
+                            <ContentPresenter Margin="5,3" VerticalAlignment="Center"/>
+                        </DockPanel>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Line1" Property="Stroke" Value="{StaticResource BlackColorBrush}"/>
+                                <Setter TargetName="Line2" Property="Stroke" Value="{StaticResource BlackColorBrush}"/>
+                                <Setter TargetName="MainPanel" Property="Background" Value="#CCCCCC"/>
+                                <Setter TargetName="ButtonBox" Property="Visibility" Value="Visible"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="LinesBox" Property="Width" Value="26"/>
+                                <Setter TargetName="LinesBox" Property="Height" Value="24"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+    </Style>
+    
+    <Style x:Key="ConfirmButton" TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Viewbox Width="{TemplateBinding Width}" Height="{TemplateBinding Height}">
+                        <Grid Width="40" Height="40" >
+                            <Border x:Name="ButtonBorder" Width="40" Height="40" Background="#FAFAFA">
+                                <Viewbox x:Name="LinesBox" Width="28" Height="28" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <Grid>
+                                        <Line x:Name="Line1" X1="6" X2="15" Y1="16" Y2="24" Stroke="#CCCCCC" StrokeThickness="3" />
+                                        <Line x:Name="Line2" X1="14" X2="27" Y1="24" Y2="4" Stroke="#CCCCCC" StrokeThickness="3" />
+                                        <ContentPresenter />
+                                    </Grid>
+                                </Viewbox>
+                            </Border>
+                        </Grid>
+                    </Viewbox>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Line1" Property="Stroke" Value="{StaticResource BlackColorBrush}"/>
+                            <Setter TargetName="Line2" Property="Stroke" Value="{StaticResource BlackColorBrush}"/>
+                            <Setter TargetName="ButtonBorder" Property="Background" Value="#EEEEEE" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="LinesBox" Property="Width" Value="26"/>
+                            <Setter TargetName="LinesBox" Property="Height" Value="26"/>
+                            <Setter TargetName="Line1" Property="Stroke" Value="Green"/>
+                            <Setter TargetName="Line2" Property="Stroke" Value="Green"/>
+                            <Setter TargetName="ButtonBorder" Property="Background" Value="#F5F5F5" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="AddButton" TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Viewbox Name="ButtonBox" Width="{TemplateBinding Width}">
+                        <Grid Width="40" Height="40">
+                            <Border Name="ButtonBorder" Width="40" Height="40" Background="Transparent">
+                                <Viewbox Name="LinesBox" Width="28" Height="28" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <Grid>
+                                        <Line Name="Line1" X1="1" X2="27" Y1="14" Y2="14" Stroke="#AAAAAA" StrokeThickness="3"/>
+                                        <Line Name="Line2" X1="14" X2="14" Y1="27" Y2="1" Stroke="#AAAAAA" StrokeThickness="3"/>
+                                        <ContentPresenter/>
+                                    </Grid>
+                                </Viewbox>
+                            </Border>
+                        </Grid>
+                    </Viewbox>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Line1" Property="Stroke" Value="{StaticResource BlackColorBrush}"/>
+                            <Setter TargetName="Line2" Property="Stroke" Value="{StaticResource BlackColorBrush}"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="LinesBox" Property="Width" Value="26"/>
+                            <Setter TargetName="LinesBox" Property="Height" Value="24"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="PlusButton" TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                      <Viewbox Name="ButtonBox" Width="{TemplateBinding Width}">
+                        <Grid Width="40" Height="40">
+                            <Border Name="ButtonBorder" Width="40" Height="40" Background="Transparent">
+                                <Viewbox Name="LinesBox" Width="28" Height="28" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <Grid>
+										<Line Name="Line1" X1="1" X2="27" Y1="14" Y2="14" Stroke="#AAAAAA" StrokeThickness="2"/>
+										<Line Name="Line2" X1="14" X2="14" Y1="27" Y2="1" Stroke="#AAAAAA" StrokeThickness="2"/>
+                                        <ContentPresenter/>
+                                    </Grid>
+                                </Viewbox>
+                            </Border>
+                        </Grid>
+                    </Viewbox>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                           <Setter TargetName="Line1" Property="Stroke" Value="#FF000000" />
+						   <Setter TargetName="Line2" Property="Stroke" Value="#FF000000" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+							<Setter TargetName="LinesBox" Property="Width" Value="25"/>
+                            <Setter TargetName="LinesBox" Property="Height" Value="23"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="MinusButton" TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Viewbox Name="ButtonBox" Width="{TemplateBinding Width}">
+                        <Grid Width="40" Height="40">
+                            <Border Name="ButtonBorder" Width="40" Height="40" Background="Transparent">
+                                <Viewbox Name="LinesBox" Width="28" Height="28" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <Grid>
+                                        <Line Name="Line1" X1="1" X2="27" Y1="14" Y2="14" Stroke="#AAAAAA" StrokeThickness="2"/>
+                                        <ContentPresenter/>
+                                    </Grid>
+                                </Viewbox>
+                            </Border>
+                        </Grid>
+                    </Viewbox>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Line1" Property="Stroke" Value="{StaticResource BlackColorBrush}"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="LinesBox" Property="Width" Value="25" />
+                            <Setter TargetName="LinesBox" Property="Height" Value="23" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="ShowAllButton" TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Viewbox Name="ButtonBox" Width="{TemplateBinding Width}">
+                        <Grid Width="40" Height="40">
+                            <Border Name="ButtonBorder" Width="40" Height="40" Background="Transparent">
+                                <Viewbox Name="LinesBox" Width="28" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <Grid>
+                                        <Line Name="Line1" X1="1" X2="7" Y1="1" Y2="1" Stroke="#BBBBBB" StrokeThickness="2"/>
+                                        <Line Name="Line2" X1="1" X2="1" Y1="1" Y2="7" Stroke="#BBBBBB" StrokeThickness="2"/>
+
+                                        <Line Name="Line3" X1="21" X2="27" Y1="1" Y2="1" Stroke="#BBBBBB" StrokeThickness="2"/>
+                                        <Line Name="Line4" X1="27" X2="27" Y1="1" Y2="7" Stroke="#BBBBBB" StrokeThickness="2"/>
+
+                                        <Line Name="Line5" X1="1" X2="7" Y1="19" Y2="19" Stroke="#BBBBBB" StrokeThickness="2"/>
+                                        <Line Name="Line6" X1="1" X2="1" Y1="13" Y2="19" Stroke="#BBBBBB" StrokeThickness="2"/>
+
+                                        <Line Name="Line7" X1="21" X2="27" Y1="19" Y2="19" Stroke="#BBBBBB" StrokeThickness="2"/>
+                                        <Line Name="Line8" X1="27" X2="27" Y1="13" Y2="19" Stroke="#BBBBBB" StrokeThickness="2"/>                                        
+                                        <ContentPresenter/>
+                                    </Grid>
+                                </Viewbox>
+                            </Border>
+                        </Grid>
+                    </Viewbox>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Line1" Property="Stroke" Value="{StaticResource BlackColorBrush}"/>
+                            <Setter TargetName="Line2" Property="Stroke" Value="{StaticResource BlackColorBrush}"/>
+                            <Setter TargetName="Line3" Property="Stroke" Value="{StaticResource BlackColorBrush}"/>
+                            <Setter TargetName="Line4" Property="Stroke" Value="{StaticResource BlackColorBrush}"/>
+                            <Setter TargetName="Line5" Property="Stroke" Value="{StaticResource BlackColorBrush}"/>
+                            <Setter TargetName="Line6" Property="Stroke" Value="{StaticResource BlackColorBrush}"/>
+                            <Setter TargetName="Line7" Property="Stroke" Value="{StaticResource BlackColorBrush}"/>
+                            <Setter TargetName="Line8" Property="Stroke" Value="{StaticResource BlackColorBrush}"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="LinesBox" Property="Width" Value="25"/>
+                            <Setter TargetName="LinesBox" Property="Height" Value="23"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <Style x:Key="TemplatesButton" TargetType="Button">
+        <Setter Property="Background" Value="#BBBBBB"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Viewbox Name="ButtonBox" Width="{TemplateBinding Width}">
+                        <Grid Width="40" Height="40">
+                            <Border Name="ButtonBorder" Width="40" Height="40" Background="Transparent">
+                                <Viewbox Name="LinesBox" Width="32" Height="32" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <Grid>
+                                        <Line Name="Line1" X1="1" X2="27" Y1="4" Y2="4" Stroke="{TemplateBinding Background}" StrokeThickness="2"/>
+                                        <Line Name="Line2" X1="1" X2="27" Y1="10" Y2="10" Stroke="{TemplateBinding Background}" StrokeThickness="2"/>
+                                        <Line Name="Line3" X1="1" X2="27" Y1="16" Y2="16" Stroke="{TemplateBinding Background}" StrokeThickness="2"/>
+                                        <ContentPresenter/>
+                                    </Grid>
+                                </Viewbox>
+                            </Border>
+                        </Grid>
+                    </Viewbox>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Line1" Property="Stroke" Value="{StaticResource BlackColorBrush}"/>
+                            <Setter TargetName="Line2" Property="Stroke" Value="{StaticResource BlackColorBrush}"/>
+                            <Setter TargetName="Line3" Property="Stroke" Value="{StaticResource BlackColorBrush}"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="LinesBox" Property="Width" Value="30"/>
+                            <Setter TargetName="LinesBox" Property="Height" Value="28"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="LayersButton" TargetType="ToggleButton">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ToggleButton}">
+                    <Grid Width="40" Height="40" Background="Transparent" Name="LayersGrid">
+                            <Viewbox Name="LinesBox" Width="20" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Grid>
+                                    <Line Name="Line1" X1="1" X2="15" Y1="6" Y2="1" Stroke="Gray" />
+                                    <Line Name="Line2" X1="15" X2="27" Y1="1" Y2="6" Stroke="Gray" />
+                                    <Line Name="Line3" X1="1" X2="15" Y1="6" Y2="11" Stroke="Gray" />
+                                    <Line Name="Line4" X1="15" X2="27" Y1="11" Y2="6" Stroke="Gray" />
+
+                                    <Line Name="Line5" X1="1" X2="15" Y1="12" Y2="17" Stroke="Gray" />
+                                    <Line Name="Line6" X1="15" X2="27" Y1="17" Y2="12" Stroke="Gray"/>
+
+                                    <Line Name="Line7" X1="1" X2="15" Y1="18" Y2="23" Stroke="Gray" />
+                                    <Line Name="Line8" X1="15" X2="27" Y1="23" Y2="18" Stroke="Gray"/>
+                                    <ContentPresenter/>
+                                </Grid>
+                            </Viewbox>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                           <Setter TargetName="LayersGrid" Property="Background" Value="LightGray" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+							<Setter TargetName="Line1" Property="Stroke" Value="{StaticResource BlackColorBrush}"/>
+							<Setter TargetName="Line2" Property="Stroke" Value="{StaticResource BlackColorBrush}"/>
+							<Setter TargetName="Line3" Property="Stroke" Value="{StaticResource BlackColorBrush}"/>
+							<Setter TargetName="Line4" Property="Stroke" Value="{StaticResource BlackColorBrush}"/>
+							<Setter TargetName="Line5" Property="Stroke" Value="{StaticResource BlackColorBrush}"/>
+							<Setter TargetName="Line6" Property="Stroke" Value="{StaticResource BlackColorBrush}"/>
+							<Setter TargetName="Line7" Property="Stroke" Value="{StaticResource BlackColorBrush}"/>
+							<Setter TargetName="Line8" Property="Stroke" Value="{StaticResource BlackColorBrush}"/>
+                        </Trigger>
+						<Trigger Property="IsChecked" Value="True">
+							<Setter TargetName="Line1" Property="Stroke" Value="{StaticResource BlackColorBrush}"/>
+							<Setter TargetName="Line2" Property="Stroke" Value="{StaticResource BlackColorBrush}"/>
+							<Setter TargetName="Line3" Property="Stroke" Value="{StaticResource BlackColorBrush}"/>
+							<Setter TargetName="Line4" Property="Stroke" Value="{StaticResource BlackColorBrush}"/>
+							<Setter TargetName="Line5" Property="Stroke" Value="{StaticResource BlackColorBrush}"/>
+							<Setter TargetName="Line6" Property="Stroke" Value="{StaticResource BlackColorBrush}"/>
+							<Setter TargetName="Line7" Property="Stroke" Value="{StaticResource BlackColorBrush}"/>
+							<Setter TargetName="Line8" Property="Stroke" Value="{StaticResource BlackColorBrush}"/>
+						</Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="InnerPlansButton" TargetType="ToggleButton">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ToggleButton}">
+                    <Grid Width="40" Height="40" Background="Transparent" Name="InnerPlansGrid">
+                        <Viewbox Name="LinesBox" Width="20" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Canvas Width="50" Height="50">
+                                <Rectangle Name="Rect1" Fill="Gray" Width="16" Height="16" Canvas.Left="3" Canvas.Top="17"/>
+                                <Rectangle Name="Rect2" Fill="Gray" Width="16" Height="16" Canvas.Left="30" Canvas.Top="6"/>
+                                <Rectangle Name="Rect3" Fill="Gray" Width="16" Height="16" Canvas.Left="30" Canvas.Top="28"/>
+                                <Line Name="Line1" X1="18" X2="31" Y1="24" Y2="14" Stroke="Gray" StrokeThickness="2"/>
+                                <Line Name="Line2" X1="18" X2="31" Y1="26" Y2="36" Stroke="Gray" StrokeThickness="2"/>
+                                <ContentPresenter/>
+                            </Canvas>
+                        </Viewbox>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                           <Setter TargetName="InnerPlansGrid" Property="Background" Value="LightGray" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+							<Setter TargetName="Rect1" Property="Fill" Value="{StaticResource BlackColorBrush}"/>
+							<Setter TargetName="Rect2" Property="Fill" Value="{StaticResource BlackColorBrush}"/>
+							<Setter TargetName="Rect3" Property="Fill" Value="{StaticResource BlackColorBrush}"/>
+							<Setter TargetName="Line1" Property="Stroke" Value="{StaticResource BlackColorBrush}"/>
+							<Setter TargetName="Line2" Property="Stroke" Value="{StaticResource BlackColorBrush}"/>
+                        </Trigger>
+						<Trigger Property="IsChecked" Value="True">
+							<Setter TargetName="Rect1" Property="Fill" Value="{StaticResource BlackColorBrush}"/>
+							<Setter TargetName="Rect2" Property="Fill" Value="{StaticResource BlackColorBrush}"/>
+							<Setter TargetName="Rect3" Property="Fill" Value="{StaticResource BlackColorBrush}"/>
+							<Setter TargetName="Line1" Property="Stroke" Value="{StaticResource BlackColorBrush}"/>
+							<Setter TargetName="Line2" Property="Stroke" Value="{StaticResource BlackColorBrush}"/>
+						</Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="FilterButton" TargetType="Button" >
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Viewbox x:Name="FilterBox" Width="{TemplateBinding Width}" Height="{TemplateBinding Height}">
+                        <Grid Width="40" Height="40">
+                            <Border Width="28" Height="28" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Grid>
+                                    <Line x:Name="Line" X1="15" X2="15" Y1="27" Y2="16" Stroke="#CCCCCC" StrokeThickness="3" />
+                                    <Polygon x:Name="Poly" Points="14,16,1,1,27,1,16,16" Stroke="#CCCCCC" StrokeThickness="2" Fill="#CCCCCC" />
+                                    <ContentPresenter />
+                                </Grid>
+                            </Border>
+                        </Grid>
+                    </Viewbox>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Line" Property="Stroke" Value="{StaticResource BlackColorBrush}" />
+                            <Setter TargetName="Poly" Property="Stroke" Value="{StaticResource BlackColorBrush}" />
+                            <Setter TargetName="Poly" Property="Fill" Value="{StaticResource BlackColorBrush}" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="FilterBox" Property="Width" Value="39" />
+                            <Setter TargetName="FilterBox" Property="Height" Value="39" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="SortButton" TargetType="Button" >
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Viewbox x:Name="SortBox" Width="{TemplateBinding Width}" Height="{TemplateBinding Height}">
+                        <Grid Width="40" Height="40">
+                            <Border Name="ButtonBorder" Width="40" Height="40" Background="Transparent">
+                                <Viewbox Width="28" Height="28" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <Grid>
+                                        <Line x:Name="Line1" X1="8" X2="8" Y1="1" Y2="27" Stroke="#CCCCCC" StrokeThickness="2" />
+                                        <Line x:Name="Line2" X1="4" X2="8" Y1="8" Y2="1" Stroke="#CCCCCC" StrokeThickness="2" />
+                                        <Line x:Name="Line3" X1="8" X2="12" Y1="1" Y2="8" Stroke="#CCCCCC" StrokeThickness="2" />
+                                        <Line x:Name="Line4" X1="20" X2="20" Y1="1" Y2="27" Stroke="#CCCCCC" StrokeThickness="2" />
+                                        <Line x:Name="Line5" X1="16" X2="20" Y1="19" Y2="27" Stroke="#CCCCCC" StrokeThickness="2" />
+                                        <Line x:Name="Line6" X1="20" X2="24" Y1="27" Y2="19" Stroke="#CCCCCC" StrokeThickness="2" />
+                                    </Grid>
+                                </Viewbox>
+                            </Border>
+                        </Grid>
+                    </Viewbox>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Line1" Property="Stroke" Value="Black" />
+                            <Setter TargetName="Line2" Property="Stroke" Value="Black" />
+                            <Setter TargetName="Line3" Property="Stroke" Value="Black" />
+                            <Setter TargetName="Line4" Property="Stroke" Value="Black" />
+                            <Setter TargetName="Line5" Property="Stroke" Value="Black" />
+                            <Setter TargetName="Line6" Property="Stroke" Value="Black" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="SortBox" Property="Width" Value="39" />
+                            <Setter TargetName="SortBox" Property="Height" Value="39" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>

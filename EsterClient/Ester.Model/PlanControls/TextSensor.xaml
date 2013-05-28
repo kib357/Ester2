@@ -1,0 +1,21 @@
+﻿<BaseClasses:SensorBase x:Class="Ester.Model.PlanControls.TextSensor"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:BaseClasses="clr-namespace:Ester.Model.BaseClasses"
+             xmlns:Controls="clr-namespace:Ester.Model.PlanControls">
+        <Label Background="White" Style="{Binding Path=SensorStyle, RelativeSource={RelativeSource AncestorType={x:Type Controls:TextSensor}}}"
+               FontSize="14" FontWeight="Bold" Name="ValueLabel" 
+               HorizontalAlignment="Stretch" VerticalAlignment="Center">
+            <Label.Resources>
+                <Storyboard x:Key="ShowAlarm">
+                    <ColorAnimation AutoReverse="True" Duration="0:0:0.5" From="Black" RepeatBehavior="Forever" Storyboard.TargetName="ValueLabel" Storyboard.TargetProperty="(Label.Foreground).(SolidColorBrush.Color)"
+                                             To="Red" />
+                </Storyboard>
+            </Label.Resources>
+            <Label.ToolTip>
+                <ToolTip  DataContext="{Binding Path=PlacementTarget.Parent, RelativeSource={x:Static RelativeSource.Self}}" Padding="6,3,6,3">
+                    <TextBlock Text="{Binding Path=Address}" FontSize="14" FontWeight="Light" />
+                </ToolTip>
+            </Label.ToolTip>
+        </Label>
+</BaseClasses:SensorBase>
